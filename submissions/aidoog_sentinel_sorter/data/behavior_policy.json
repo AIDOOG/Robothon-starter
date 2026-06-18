@@ -99,8 +99,8 @@
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
+    "mean_vision_confidence": 0.9852,
+    "mean_policy_confidence": 0.9501,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
@@ -112,6 +112,8 @@
       "216-degree cap rotation",
       "9x load hold"
     ],
+    "active_task_window_s": 48.0,
+    "verified_finish_window_s": 12.0,
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,

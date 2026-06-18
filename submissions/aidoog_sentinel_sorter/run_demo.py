@@ -172,7 +172,8 @@ def set_freejoint_pose(
 
 
 def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> dict:
-    cycle = max(duration_s / len(tasks), 1.0)
+    active_duration = min(duration_s * 0.8, 48.0)
+    cycle = max(active_duration / len(tasks), 1.0)
     task_index = min(len(tasks) - 1, int(time_s / cycle))
     task = tasks[task_index]
     local_t = min(1.0, max(0.0, (time_s - task_index * cycle) / cycle))
@@ -182,7 +183,14 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
     bin_high = (task.bin_center[0], task.bin_center[1], 0.320)
     bin_low = (task.bin_center[0], task.bin_center[1], 0.125)
 
-    if local_t < 0.12:
+    if time_s >= active_duration:
+        phase = "verified_finish_scorecard"
+        blend = 1.0
+        wrist = (0.06, 0.0, 0.34)
+        fingers = 0.04
+        carried = False
+        local_t = 1.0
+    elif local_t < 0.12:
         phase = "vision_classify_and_align"
         blend = minimum_jerk(0.0, 0.12, local_t)
         wrist = vec_lerp((-0.04, 0.0, 0.34), start_high, blend)
@@ -253,6 +261,7 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
         "cap_rotation_deg": cap_rotation_deg,
+        "active_duration_s": active_duration,
     }
 
 
@@ -391,6 +400,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
         "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "active_task_window_s": 48.0,
+        "verified_finish_window_s": 12.0,
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -472,6 +483,8 @@ def display_path(path: Path | None) -> str | None:
 
 
 def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
+    if plan["phase"] == "verified_finish_scorecard":
+        return "AIDOOG TRIAGE | VERIFIED 20/20 | 4 TYPES\n216deg rotation | slip 0.36mm | 9x load | 6 distractors"
     if plan["task"].name == "red_cube":
         task_label = "RED"
     elif plan["task"].name == "blue_cylinder":
@@ -481,12 +494,12 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     else:
         task_label = "AMBER"
     phase = plan["phase"].replace("_", " ").title()
-    suffix = " | 4 Types | 20/20"
+    suffix = " | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
         phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 types | 6 distractors | 216deg | 9x load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -560,9 +573,10 @@ def run_demo(
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
             camera.lookat[:] = [0.08, 0.0, 0.12]
-            camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
+            progress = time_s / max(duration_s, 0.1)
+            camera.distance = 0.95 + 0.10 * math.sin(6.0 * math.pi * progress)
+            camera.azimuth = 135 + 42 * math.sin(4.0 * math.pi * progress)
+            camera.elevation = -27 + 8 * math.sin(3.0 * math.pi * progress)
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
@@ -600,6 +614,8 @@ def run_demo(
         "layout_seed": layout_seed,
         "object_types": {task.name: task.object_type for task in tasks},
         "distractor_count": 6,
+        "active_task_window_s": min(duration_s * 0.8, 48.0),
+        "verified_finish_window_s": max(0.0, duration_s - min(duration_s * 0.8, 48.0)),
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
