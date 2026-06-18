@@ -49,6 +49,7 @@
     <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>
 
     <geom name="red_bin_floor" type="box" pos="0.42 -0.23 0.012" size="0.12 0.10 0.006" material="green_goal"/>
+    <geom name="amber_slot_floor" type="box" pos="0.42 0.00 0.012" size="0.10 0.07 0.006" rgba="1.00 0.62 0.12 0.78"/>
     <geom name="blue_bin_floor" type="box" pos="0.42 0.23 0.012" size="0.12 0.10 0.006" material="green_goal"/>
     <geom name="red_bin_back" class="bin" pos="0.42 -0.34 0.052" size="0.13 0.01 0.045"/>
     <geom name="red_bin_front" class="bin" pos="0.42 -0.12 0.052" size="0.13 0.01 0.045"/>
@@ -71,8 +72,10 @@
       <site name="blue_cylinder_center" pos="0 0 0" size="0.006" rgba="0.35 0.65 1 1"/>
     </body>
 
-    <body name="inspection_marker" pos="-0.06 0 0.035">
-      <geom name="inspection_marker_geom" type="cylinder" size="0.025 0.006" material="amber" mass="0.03"/>
+    <body name="amber_capsule" pos="-0.12 0 0.052">
+      <freejoint name="amber_capsule_freejoint"/>
+      <geom name="amber_capsule_geom" type="capsule" size="0.026 0.034" material="amber" mass="0.08"/>
+      <site name="amber_capsule_center" pos="0 0 0" size="0.006" rgba="1 0.72 0.25 1"/>
     </body>
 
     <body name="cartesian_wrist" pos="0 0 0.19">
@@ -167,5 +170,6 @@
     <gyro name="wrist_gyro" site="wrist_imu"/>
     <framepos name="red_cube_pos" objtype="body" objname="red_cube"/>
     <framepos name="blue_cylinder_pos" objtype="body" objname="blue_cylinder"/>
+    <framepos name="amber_capsule_pos" objtype="body" objname="amber_capsule"/>
   </sensor>
 </mujoco>

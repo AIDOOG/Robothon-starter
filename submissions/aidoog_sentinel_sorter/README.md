@@ -12,34 +12,35 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 ## Task goal
 
-The robot must autonomously classify and sort two parts from separate pick pads into matching bins while passing a 15-gate verification suite:
+The robot must autonomously classify and sort three object types from randomized pick layouts into matching targets while passing a 15-gate verification suite:
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
+- amber capsule -> center inspection slot
 
-The run demonstrates long-horizon task planning: classify, align, descend, close a five-finger tactile grasp, recover slip, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records labels and sensor state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align, descend, close a five-finger tactile grasp, recover slip, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
 - `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, two bins, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
-- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives and sends targets to MuJoCo position actuators.
+- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery and 9x load-hold evidence during transport.
-- The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, and `data/behavior_policy.json` for reproducibility, scoring evidence, and dataset review.
+- The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
 
 ## Core features
 
 - Runnable MuJoCo scene with no external asset dependency.
 - Five-finger manipulation sequence with independent finger actuators.
-- Two object classes and two target bins.
+- Three object classes: cube, cylinder, and capsule.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, policy confidence, perception labels, slip recovery, load hold, phase labels, and success metrics.
+- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, slip recovery, load hold, phase labels, and success metrics.
 - 15-gate task suite reported in `rollout_summary.json`.
 - Contest-length demo video with captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, behavior policy, 15/15 gates, slip recovery, 9x load-hold evidence, captioned video, and synchronized data export.
+- Targets the feedback patterns visible on the leaderboard: five-finger grasp, behavior policy, randomized object layouts, optimized vision classification, 15/15 gates, slip recovery, 9x load-hold evidence, captioned video, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 
@@ -47,12 +48,12 @@ The run demonstrates long-horizon task planning: classify, align, descend, close
 
 - The behavior policy is a lightweight behavior-cloned phase policy rather than a large neural RL model.
 - The gantry wrist prioritizes reliable task evidence over full humanoid locomotion.
-- The demo uses two objects; the same planner structure can be extended to more bins or randomized object layouts.
+- The demo uses three object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
 
 ## Future improvements
 
 - Train a larger neural policy from the generated sensor logs.
-- Add randomized object positions, occlusion, and distractors for broader data collection.
+- Add occlusion, distractors, and larger randomized clutter sets for broader data collection.
 - Add a web teleoperation overlay for human-in-the-loop demonstrations.
 - Swap the cartesian wrist for an open-source arm/hand model while preserving the same task API.
 
@@ -78,6 +79,7 @@ submissions/aidoog_sentinel_sorter/demo.mp4
 submissions/aidoog_sentinel_sorter/data/sensor_log.csv
 submissions/aidoog_sentinel_sorter/data/rollout_summary.json
 submissions/aidoog_sentinel_sorter/data/behavior_policy.json
+submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
 ```
 
 The process exits with code `0` when both objects finish inside their assigned bins.

@@ -4,6 +4,8 @@
   "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
   "inputs": [
     "perception_label",
+    "vision_confidence",
+    "layout_seed",
     "wrist_pose",
     "five_finger_touch_sum",
     "object_frame_position",
@@ -84,10 +86,18 @@
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
     "perception_labels": [
+      "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "red_part_to_lower_bin"
     ],
-    "mean_policy_confidence": 0.8943,
+    "object_types": [
+      "capsule",
+      "cube",
+      "cylinder"
+    ],
+    "randomized_layout_seed": 7,
+    "mean_vision_confidence": 0.9579,
+    "mean_policy_confidence": 0.894,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,

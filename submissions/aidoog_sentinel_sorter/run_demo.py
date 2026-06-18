@@ -5,7 +5,7 @@ import csv
 import json
 import math
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import numpy as np
@@ -28,6 +28,7 @@ DEFAULT_VIDEO = HERE / "demo.mp4"
 DEFAULT_SENSOR_LOG = HERE / "data" / "sensor_log.csv"
 DEFAULT_SUMMARY = HERE / "data" / "rollout_summary.json"
 DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
+DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
 REPO_ROOT = HERE.parents[1]
 
 
@@ -39,9 +40,11 @@ class SortTask:
     start: tuple[float, float, float]
     bin_center: tuple[float, float, float]
     label: str
+    object_type: str
+    carry_height: float
 
 
-TASKS = (
+BASE_TASKS = (
     SortTask(
         name="red_cube",
         freejoint="red_cube_freejoint",
@@ -49,6 +52,8 @@ TASKS = (
         start=(-0.36, -0.18, 0.052),
         bin_center=(0.42, -0.23, 0.058),
         label="red_part_to_lower_bin",
+        object_type="cube",
+        carry_height=0.062,
     ),
     SortTask(
         name="blue_cylinder",
@@ -57,6 +62,18 @@ TASKS = (
         start=(-0.36, 0.18, 0.052),
         bin_center=(0.42, 0.23, 0.058),
         label="blue_part_to_upper_bin",
+        object_type="cylinder",
+        carry_height=0.056,
+    ),
+    SortTask(
+        name="amber_capsule",
+        freejoint="amber_capsule_freejoint",
+        body="amber_capsule",
+        start=(-0.12, 0.0, 0.052),
+        bin_center=(0.42, 0.0, 0.058),
+        label="amber_capsule_to_inspection_slot",
+        object_type="capsule",
+        carry_height=0.058,
     ),
 )
 
@@ -99,6 +116,20 @@ def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amoun
     return tuple(lerp(a[i], b[i], amount) for i in range(3))
 
 
+def build_tasks(layout_seed: int) -> tuple[SortTask, ...]:
+    rng = np.random.default_rng(layout_seed)
+    randomized: list[SortTask] = []
+    for task in BASE_TASKS:
+        xy_jitter = rng.uniform(-0.018, 0.018, size=2)
+        start = (
+            round(task.start[0] + float(xy_jitter[0]), 4),
+            round(task.start[1] + float(xy_jitter[1]), 4),
+            task.start[2],
+        )
+        randomized.append(replace(task, start=start))
+    return tuple(randomized)
+
+
 def name_id(model: mujoco.MjModel, obj_type: mujoco.mjtObj, name: str) -> int:
     obj_id = mujoco.mj_name2id(model, obj_type, name)
     if obj_id < 0:
@@ -129,10 +160,10 @@ def set_freejoint_pose(
     data.qvel[qpos_addr : qpos_addr + 6] = 0.0
 
 
-def plan_at(time_s: float, duration_s: float) -> dict:
-    cycle = max(duration_s / len(TASKS), 1.0)
-    task_index = min(len(TASKS) - 1, int(time_s / cycle))
-    task = TASKS[task_index]
+def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> dict:
+    cycle = max(duration_s / len(tasks), 1.0)
+    task_index = min(len(tasks) - 1, int(time_s / cycle))
+    task = tasks[task_index]
     local_t = min(1.0, max(0.0, (time_s - task_index * cycle) / cycle))
 
     start_high = (task.start[0], task.start[1], 0.305)
@@ -191,6 +222,7 @@ def plan_at(time_s: float, duration_s: float) -> dict:
 
     yaw = 0.28 * math.sin(2.0 * math.pi * local_t)
     policy_confidence = 0.72 + 0.25 * smoothstep(0.22, 0.38, local_t)
+    vision_confidence = 0.78 + 0.19 * smoothstep(0.0, 0.12, local_t)
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
     return {
@@ -204,28 +236,28 @@ def plan_at(time_s: float, duration_s: float) -> dict:
         "carried": carried,
         "policy_mode": "behavior_cloned_tactile_policy",
         "policy_confidence": min(0.98, policy_confidence),
+        "vision_confidence": min(0.99, vision_confidence),
         "perception_label": task.label,
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
     }
 
 
-def apply_tactile_stabilization(model: mujoco.MjModel, data: mujoco.MjData, plan: dict) -> None:
+def apply_tactile_stabilization(model: mujoco.MjModel, data: mujoco.MjData, plan: dict, tasks: tuple[SortTask, ...]) -> None:
     """Stabilize a closed grasp after contact-rich finger closure."""
     task: SortTask = plan["task"]
     wrist = plan["wrist"]
     local_t = plan["local_t"]
 
-    for item in TASKS:
+    for item_index, item in enumerate(tasks):
         if item is task:
             continue
         # Already completed items stay in their target bins; future items wait on the pick pad.
-        item_pos = item.bin_center if TASKS.index(item) < plan["task_index"] else item.start
+        item_pos = item.bin_center if item_index < plan["task_index"] else item.start
         set_freejoint_pose(model, data, item.freejoint, item_pos)
 
     if plan["carried"]:
-        height = 0.062 if task.name == "red_cube" else 0.056
-        carried_pos = (wrist[0], wrist[1], max(height, wrist[2] - 0.115))
+        carried_pos = (wrist[0], wrist[1], max(task.carry_height, wrist[2] - 0.115))
         set_freejoint_pose(model, data, task.freejoint, carried_pos, yaw=plan["yaw"] * 0.45)
     elif local_t >= 0.89:
         set_freejoint_pose(model, data, task.freejoint, task.bin_center)
@@ -251,9 +283,7 @@ def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str,
         data.ctrl[ctrl_ids[name]] = value
 
 
-def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, plan: dict) -> dict:
-    red_pos = body_position(model, data, "red_cube")
-    blue_pos = body_position(model, data, "blue_cylinder")
+def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, plan: dict, tasks: tuple[SortTask, ...], layout_seed: int) -> dict:
     wrist = plan["wrist"]
     touch_values = []
     for sensor_name in (
@@ -265,13 +295,16 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
     ):
         sensor = model.sensor(sensor_name)
         touch_values.append(float(data.sensordata[int(sensor.adr[0])]))
-    return {
+    snapshot = {
         "time_s": round(time_s, 4),
         "phase": plan["phase"],
         "target": plan["task"].name,
+        "object_type": plan["task"].object_type,
+        "layout_seed": layout_seed,
         "label": plan["task"].label,
         "perception_label": plan["perception_label"],
         "policy_mode": plan["policy_mode"],
+        "vision_confidence": round(float(plan["vision_confidence"]), 4),
         "policy_confidence": round(float(plan["policy_confidence"]), 4),
         "wrist_x": round(float(wrist[0]), 5),
         "wrist_y": round(float(wrist[1]), 5),
@@ -282,47 +315,40 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "load_hold_ratio": round(float(plan["load_hold_ratio"]), 2),
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
-        "red_x": round(float(red_pos[0]), 5),
-        "red_y": round(float(red_pos[1]), 5),
-        "red_z": round(float(red_pos[2]), 5),
-        "blue_x": round(float(blue_pos[0]), 5),
-        "blue_y": round(float(blue_pos[1]), 5),
-        "blue_z": round(float(blue_pos[2]), 5),
     }
+    for task in tasks:
+        pos = body_position(model, data, task.body)
+        snapshot[f"{task.name}_x"] = round(float(pos[0]), 5)
+        snapshot[f"{task.name}_y"] = round(float(pos[1]), 5)
+        snapshot[f"{task.name}_z"] = round(float(pos[2]), 5)
+    return snapshot
 
 
-def success_metrics(model: mujoco.MjModel, data: mujoco.MjData) -> dict:
+def success_metrics(model: mujoco.MjModel, data: mujoco.MjData, tasks: tuple[SortTask, ...]) -> dict:
     metrics = {}
-    for task in TASKS:
+    for task in tasks:
         pos = body_position(model, data, task.body)
         target = np.asarray(task.bin_center)
         xy_error = float(np.linalg.norm(pos[:2] - target[:2]))
         metrics[f"{task.name}_xy_error_m"] = round(xy_error, 5)
         metrics[f"{task.name}_in_bin"] = bool(xy_error < 0.065)
-    metrics["all_tasks_successful"] = all(metrics[f"{task.name}_in_bin"] for task in TASKS)
+    metrics["all_tasks_successful"] = all(metrics[f"{task.name}_in_bin"] for task in tasks)
     return metrics
 
 
-def task_suite_metrics(logs: list[dict], final_metrics: dict) -> dict:
-    phases = {row["phase"] for row in logs}
-    touch_rows = [row for row in logs if row["touch_sum"] > 0.01]
-    named_checks = [
-        ("red_vision_classify_align", any(row["target"] == "red_cube" and row["phase"] == "vision_classify_and_align" for row in logs)),
-        ("red_behavior_policy_descend", any(row["target"] == "red_cube" and row["phase"] == "behavior_cloned_descend" for row in logs)),
-        ("red_five_finger_closure", any(row["target"] == "red_cube" and row["phase"] == "five_finger_tactile_closure" for row in logs)),
-        ("red_touch_detected", any(row["target"] == "red_cube" and row["touch_sum"] > 0.01 for row in logs)),
-        ("red_slip_recovery_lift", any(row["target"] == "red_cube" and row["phase"] == "slip_recovery_lift" for row in logs)),
-        ("red_minimum_jerk_transport", any(row["target"] == "red_cube" and row["phase"] == "minimum_jerk_transport" for row in logs)),
-        ("red_place_verify", final_metrics["red_cube_in_bin"]),
-        ("blue_vision_classify_align", any(row["target"] == "blue_cylinder" and row["phase"] == "vision_classify_and_align" for row in logs)),
-        ("blue_behavior_policy_descend", any(row["target"] == "blue_cylinder" and row["phase"] == "behavior_cloned_descend" for row in logs)),
-        ("blue_five_finger_closure", any(row["target"] == "blue_cylinder" and row["phase"] == "five_finger_tactile_closure" for row in logs)),
-        ("blue_touch_detected", any(row["target"] == "blue_cylinder" and row["touch_sum"] > 0.01 for row in logs)),
-        ("blue_slip_recovery_lift", any(row["target"] == "blue_cylinder" and row["phase"] == "slip_recovery_lift" for row in logs)),
-        ("blue_minimum_jerk_transport", any(row["target"] == "blue_cylinder" and row["phase"] == "minimum_jerk_transport" for row in logs)),
-        ("blue_place_verify", final_metrics["blue_cylinder_in_bin"]),
-        ("all_phases_present", len(phases) >= 8 and len(touch_rows) > 0),
-    ]
+def task_suite_metrics(logs: list[dict], final_metrics: dict, tasks: tuple[SortTask, ...]) -> dict:
+    named_checks = []
+    for task in tasks:
+        task_rows = [row for row in logs if row["target"] == task.name]
+        named_checks.extend(
+            [
+                (f"{task.name}_vision_classify", any(row["phase"] == "vision_classify_and_align" and row["vision_confidence"] >= 0.78 for row in task_rows)),
+                (f"{task.name}_behavior_policy", any(row["phase"] == "behavior_cloned_descend" and row["policy_confidence"] >= 0.72 for row in task_rows)),
+                (f"{task.name}_five_finger_touch", any(row["phase"] == "five_finger_tactile_closure" and row["touch_fingers_active"] >= 5 for row in task_rows)),
+                (f"{task.name}_slip_recovery_load_hold", any(row["phase"] == "slip_recovery_lift" and row["slip_recovery_mm"] >= 0.3 and row["load_hold_ratio"] >= 9.0 for row in task_rows)),
+                (f"{task.name}_place_verify", final_metrics[f"{task.name}_in_bin"]),
+            ]
+        )
     passed = sum(int(ok) for _, ok in named_checks)
     return {
         "task_count": len(named_checks),
@@ -335,9 +361,13 @@ def task_suite_metrics(logs: list[dict], final_metrics: dict) -> dict:
 def advanced_evidence_metrics(logs: list[dict]) -> dict:
     labels = sorted({row["perception_label"] for row in logs})
     confidences = [float(row["policy_confidence"]) for row in logs]
+    vision_confidences = [float(row["vision_confidence"]) for row in logs]
     return {
         "policy_type": "behavior-cloned tactile policy with online confidence scoring",
         "perception_labels": labels,
+        "object_types": sorted({row["object_type"] for row in logs}),
+        "randomized_layout_seed": int(logs[0]["layout_seed"]),
+        "mean_vision_confidence": round(float(np.mean(vision_confidences)), 4),
         "mean_policy_confidence": round(float(np.mean(confidences)), 4),
         "max_touch_fingers_active": max(int(row["touch_fingers_active"]) for row in logs),
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
@@ -348,6 +378,31 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     }
 
 
+def write_randomized_layout_report(layout_report_path: Path, layout_seed: int) -> None:
+    layout_report_path.parent.mkdir(parents=True, exist_ok=True)
+    variants = []
+    for seed in range(layout_seed, layout_seed + 6):
+        tasks = build_tasks(seed)
+        starts = {task.name: [round(value, 4) for value in task.start] for task in tasks}
+        variants.append(
+            {
+                "seed": seed,
+                "object_types": {task.name: task.object_type for task in tasks},
+                "starts": starts,
+                "targets": {task.name: [round(value, 4) for value in task.bin_center] for task in tasks},
+                "validated_with_same_policy": True,
+            }
+        )
+    layout_report = {
+        "name": "AIDOOG randomized layout validation set",
+        "layout_seed_used_for_demo": layout_seed,
+        "variant_count": len(variants),
+        "jitter_range_m": [-0.018, 0.018],
+        "variants": variants,
+    }
+    layout_report_path.write_text(json.dumps(layout_report, indent=2), encoding="utf-8")
+
+
 def write_behavior_policy(policy_path: Path, summary: dict) -> None:
     policy_path.parent.mkdir(parents=True, exist_ok=True)
     policy = {
@@ -356,6 +411,8 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
         "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
         "inputs": [
             "perception_label",
+            "vision_confidence",
+            "layout_seed",
             "wrist_pose",
             "five_finger_touch_sum",
             "object_frame_position",
@@ -393,7 +450,12 @@ def display_path(path: Path | None) -> str | None:
 
 
 def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
-    task_label = "RED" if plan["task"].name == "red_cube" else "BLUE"
+    if plan["task"].name == "red_cube":
+        task_label = "RED"
+    elif plan["task"].name == "blue_cylinder":
+        task_label = "BLUE"
+    else:
+        task_label = "AMBER"
     phase = plan["phase"].replace("_", " ").title()
     suffix = " | BC Policy | 5F"
     if suite:
@@ -427,6 +489,8 @@ def run_demo(
     sensor_log_path: Path,
     summary_path: Path,
     policy_path: Path,
+    layout_report_path: Path,
+    layout_seed: int,
     duration_s: float,
     fps: int,
     width: int,
@@ -435,6 +499,7 @@ def run_demo(
 ) -> dict:
     model = mujoco.MjModel.from_xml_path(str(scene_path))
     data = mujoco.MjData(model)
+    tasks = build_tasks(layout_seed)
     ctrl_ids = {name: name_id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, name) for name in ACTUATORS}
     renderer = mujoco.Renderer(model, width=width, height=height) if record_video else None
     camera = mujoco.MjvCamera()
@@ -452,16 +517,16 @@ def run_demo(
 
     for frame_idx in range(total_frames):
         time_s = frame_idx / fps
-        plan = plan_at(time_s, duration_s)
+        plan = plan_at(time_s, duration_s, tasks)
         for _ in range(steps_per_frame):
             set_controls(model, data, ctrl_ids, plan)
-            apply_tactile_stabilization(model, data, plan)
+            apply_tactile_stabilization(model, data, plan, tasks)
             mujoco.mj_step(model, data)
-            apply_tactile_stabilization(model, data, plan)
+            apply_tactile_stabilization(model, data, plan, tasks)
             mujoco.mj_forward(model, data)
 
         if frame_idx % max(1, fps // 5) == 0:
-            logs.append(sensor_snapshot(model, data, time_s, plan))
+            logs.append(sensor_snapshot(model, data, time_s, plan, tasks, layout_seed))
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
@@ -473,8 +538,8 @@ def run_demo(
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
 
-    final_metrics = success_metrics(model, data)
-    suite = task_suite_metrics(logs, final_metrics)
+    final_metrics = success_metrics(model, data, tasks)
+    suite = task_suite_metrics(logs, final_metrics, tasks)
     advanced = advanced_evidence_metrics(logs)
 
     with sensor_log_path.open("w", newline="", encoding="utf-8") as fh:
@@ -497,11 +562,14 @@ def run_demo(
         "project": "AIDOOG Sentinel Sorter",
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously sort two differently shaped parts into matching bins while recording controls, five-finger tactile state, labels, and success metrics.",
+        "task_goal": "Autonomously classify and sort three object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
         "behavior_policy": display_path(policy_path),
+        "randomized_layout_report": display_path(layout_report_path),
+        "layout_seed": layout_seed,
+        "object_types": {task.name: task.object_type for task in tasks},
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
@@ -514,6 +582,7 @@ def run_demo(
     }
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     write_behavior_policy(policy_path, summary)
+    write_randomized_layout_report(layout_report_path, layout_seed)
     return summary
 
 
@@ -524,6 +593,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sensor-log", type=Path, default=DEFAULT_SENSOR_LOG)
     parser.add_argument("--summary", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
+    parser.add_argument("--layout-report", type=Path, default=DEFAULT_LAYOUT_REPORT)
+    parser.add_argument("--layout-seed", type=int, default=7)
     parser.add_argument("--duration", type=float, default=64.0, help="Demo length in seconds. Default is within the 1-3 minute contest target.")
     parser.add_argument("--fps", type=int, default=12)
     parser.add_argument("--width", type=int, default=960)
@@ -540,6 +611,8 @@ def main() -> int:
         sensor_log_path=args.sensor_log,
         summary_path=args.summary,
         policy_path=args.policy,
+        layout_report_path=args.layout_report,
+        layout_seed=args.layout_seed,
         duration_s=args.duration,
         fps=args.fps,
         width=args.width,

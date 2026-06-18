@@ -2,11 +2,18 @@
   "project": "AIDOOG Sentinel Sorter",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously sort two differently shaped parts into matching bins while recording controls, five-finger tactile state, labels, and success metrics.",
+  "task_goal": "Autonomously classify and sort three object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
   "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
+  "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+  "layout_seed": 7,
+  "object_types": {
+    "red_cube": "cube",
+    "blue_cylinder": "cylinder",
+    "amber_capsule": "capsule"
+  },
   "duration_s": 64.0,
   "fps": 12,
   "render_size": [
@@ -21,63 +28,63 @@
     "success_rate": 1.0,
     "checks": [
       {
-        "name": "red_vision_classify_align",
+        "name": "red_cube_vision_classify",
         "passed": true
       },
       {
-        "name": "red_behavior_policy_descend",
+        "name": "red_cube_behavior_policy",
         "passed": true
       },
       {
-        "name": "red_five_finger_closure",
+        "name": "red_cube_five_finger_touch",
         "passed": true
       },
       {
-        "name": "red_touch_detected",
+        "name": "red_cube_slip_recovery_load_hold",
         "passed": true
       },
       {
-        "name": "red_slip_recovery_lift",
+        "name": "red_cube_place_verify",
         "passed": true
       },
       {
-        "name": "red_minimum_jerk_transport",
+        "name": "blue_cylinder_vision_classify",
         "passed": true
       },
       {
-        "name": "red_place_verify",
+        "name": "blue_cylinder_behavior_policy",
         "passed": true
       },
       {
-        "name": "blue_vision_classify_align",
+        "name": "blue_cylinder_five_finger_touch",
         "passed": true
       },
       {
-        "name": "blue_behavior_policy_descend",
+        "name": "blue_cylinder_slip_recovery_load_hold",
         "passed": true
       },
       {
-        "name": "blue_five_finger_closure",
+        "name": "blue_cylinder_place_verify",
         "passed": true
       },
       {
-        "name": "blue_touch_detected",
+        "name": "amber_capsule_vision_classify",
         "passed": true
       },
       {
-        "name": "blue_slip_recovery_lift",
+        "name": "amber_capsule_behavior_policy",
         "passed": true
       },
       {
-        "name": "blue_minimum_jerk_transport",
+        "name": "amber_capsule_five_finger_touch",
         "passed": true
       },
       {
-        "name": "blue_place_verify",
+        "name": "amber_capsule_slip_recovery_load_hold",
         "passed": true
       },
       {
-        "name": "all_phases_present",
+        "name": "amber_capsule_place_verify",
         "passed": true
       }
     ]
@@ -85,10 +92,18 @@
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
     "perception_labels": [
+      "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "red_part_to_lower_bin"
     ],
-    "mean_policy_confidence": 0.8943,
+    "object_types": [
+      "capsule",
+      "cube",
+      "cylinder"
+    ],
+    "randomized_layout_seed": 7,
+    "mean_vision_confidence": 0.9579,
+    "mean_policy_confidence": 0.894,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
@@ -100,9 +115,12 @@
     "time_s",
     "phase",
     "target",
+    "object_type",
+    "layout_seed",
     "label",
     "perception_label",
     "policy_mode",
+    "vision_confidence",
     "policy_confidence",
     "wrist_x",
     "wrist_y",
@@ -113,18 +131,23 @@
     "load_hold_ratio",
     "touch_sum",
     "touch_fingers_active",
-    "red_x",
-    "red_y",
-    "red_z",
-    "blue_x",
-    "blue_y",
-    "blue_z"
+    "red_cube_x",
+    "red_cube_y",
+    "red_cube_z",
+    "blue_cylinder_x",
+    "blue_cylinder_y",
+    "blue_cylinder_z",
+    "amber_capsule_x",
+    "amber_capsule_y",
+    "amber_capsule_z"
   ],
   "metrics": {
     "red_cube_xy_error_m": 0.0,
     "red_cube_in_bin": true,
     "blue_cylinder_xy_error_m": 0.0,
     "blue_cylinder_in_bin": true,
+    "amber_capsule_xy_error_m": 0.0,
+    "amber_capsule_in_bin": true,
     "all_tasks_successful": true
   }
 }
