@@ -9,6 +9,9 @@
     "wrist_pose",
     "five_finger_touch_sum",
     "object_frame_position",
+    "scene_challenge",
+    "occlusion_clearance_m",
+    "decoy_rejection_count",
     "phase_clock"
   ],
   "outputs": [
@@ -16,6 +19,7 @@
     "five_finger_closure_command",
     "closed_loop_tactile_servo",
     "cap_rotation_target",
+    "risk_aware_clearance_waypoint",
     "release_or_regrasp_decision"
   ],
   "phase_policy": [
@@ -98,21 +102,41 @@
       "cylinder",
       "sphere"
     ],
+    "decoy_object_types": [
+      "transparent occlusion shield",
+      "steel micro screw",
+      "black gasket puck",
+      "amber lookalike token",
+      "angled hazard rails",
+      "clutter posts"
+    ],
+    "scene_challenges": [
+      "target classification under partial occlusion",
+      "decoy rejection before grasp",
+      "narrow-aisle transport around clutter",
+      "marked capsule rotation inspection"
+    ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
+    "mean_vision_confidence": 0.9919,
+    "mean_policy_confidence": 0.9555,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
+    "min_occlusion_clearance_m": 0.033,
+    "max_decoy_rejection_count": 10,
+    "risk_aware_replan_frames": 96,
     "manipulation_modes": [
-      "four-object sorting",
+      "four-target triage",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "decoy rejection",
+      "occlusion-aware transport"
     ],
-    "distractor_count": 6,
+    "distractor_count": 10,
+    "visible_object_families": 10,
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,

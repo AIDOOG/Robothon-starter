@@ -6,6 +6,21 @@
     -0.018,
     0.018
   ],
+  "distractor_count": 10,
+  "decoy_object_types": [
+    "transparent occlusion shield",
+    "steel micro screw",
+    "black gasket puck",
+    "amber lookalike token",
+    "angled hazard rails",
+    "clutter posts"
+  ],
+  "scene_challenges": [
+    "target classification under partial occlusion",
+    "decoy rejection before grasp",
+    "narrow-aisle transport around clutter",
+    "marked capsule rotation inspection"
+  ],
   "variants": [
     {
       "seed": 7,

@@ -33,6 +33,10 @@
     <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
     <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
     <material name="green_part" rgba="0.12 0.86 0.32 1"/>
+    <material name="clear_decoy" rgba="0.38 0.72 1.00 0.28"/>
+    <material name="steel_decoy" rgba="0.72 0.76 0.80 1"/>
+    <material name="black_decoy" rgba="0.03 0.04 0.05 1"/>
+    <material name="amber_decoy" rgba="0.95 0.48 0.10 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
     <material name="palm_dark" rgba="0.12 0.15 0.18 1"/>
   </asset>
@@ -53,6 +57,10 @@
     <geom name="distractor_block_b" type="box" pos="0.04 -0.36 0.024" size="0.032 0.024 0.018" rgba="0.46 0.48 0.53 1"/>
     <geom name="distractor_hazard_a" type="box" pos="0.16 0.05 0.014" euler="0 0 0.45" size="0.090 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
     <geom name="distractor_hazard_b" type="box" pos="-0.20 0.05 0.014" euler="0 0 -0.38" size="0.080 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="decoy_occlusion_shield" type="box" pos="0.02 0.205 0.078" euler="0 0 0.16" size="0.155 0.006 0.064" material="clear_decoy" contype="0" conaffinity="0"/>
+    <geom name="decoy_micro_screw" type="cylinder" pos="-0.015 -0.075 0.020" euler="1.5708 0 0.50" size="0.016 0.010" material="steel_decoy" contype="0" conaffinity="0"/>
+    <geom name="decoy_gasket_puck" type="cylinder" pos="-0.255 0.020 0.016" size="0.024 0.008" material="black_decoy" contype="0" conaffinity="0"/>
+    <geom name="decoy_amber_lookalike" type="capsule" pos="-0.235 0.165 0.026" euler="1.5708 0 0.30" size="0.017 0.024" material="amber_decoy" contype="0" conaffinity="0"/>
 
     <geom name="red_pick_pad" type="box" pos="-0.36 -0.18 0.012" size="0.085 0.085 0.006" rgba="0.50 0.10 0.08 0.8"/>
     <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>
