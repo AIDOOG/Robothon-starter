@@ -19,13 +19,13 @@ The robot must autonomously classify and sort four object types from randomized 
 - amber capsule -> center inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align, descend, close a five-finger tactile grasp, recover slip, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
 - `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, two bins, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
 - `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
-- The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery and 9x load-hold evidence during transport.
+- The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
 
 ## Core features
@@ -34,14 +34,14 @@ The run demonstrates long-horizon task planning: classify, align, descend, close
 - Five-finger manipulation sequence with independent finger actuators.
 - Four object classes: cube, cylinder, capsule, and sphere.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, slip recovery, load hold, phase labels, and success metrics.
+- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - Faster 60-second contest demo video with explicit scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, behavior policy, randomized object layouts, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
+- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 

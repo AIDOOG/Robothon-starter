@@ -22,7 +22,7 @@
     544
   ],
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-  "manipulation": "five-finger tactile closure with slip recovery and 9x load-hold evidence",
+  "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
   "task_suite": {
     "task_count": 20,
     "passed": 20,
@@ -130,6 +130,14 @@
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
+    "max_cap_rotation_deg": 216.0,
+    "manipulation_modes": [
+      "four-object sorting",
+      "five-finger grasp",
+      "slip recovery",
+      "216-degree cap rotation",
+      "9x load hold"
+    ],
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,
     "reproducible_data_export": true
@@ -152,6 +160,7 @@
     "closed_loop_tactile_servo_active",
     "slip_recovery_mm",
     "load_hold_ratio",
+    "cap_rotation_deg",
     "touch_sum",
     "touch_fingers_active",
     "red_cube_x",

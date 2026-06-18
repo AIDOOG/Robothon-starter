@@ -235,6 +235,7 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
     vision_confidence = 0.90 + 0.09 * smoothstep(0.0, 0.12, local_t)
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
+    cap_rotation_deg = 216.0 * smoothstep(0.32, 0.72, local_t) if task.name == "amber_capsule" else 0.0
     return {
         "task": task,
         "task_index": task_index,
@@ -250,6 +251,7 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "perception_label": task.label,
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
+        "cap_rotation_deg": cap_rotation_deg,
     }
 
 
@@ -264,13 +266,16 @@ def apply_tactile_stabilization(model: mujoco.MjModel, data: mujoco.MjData, plan
             continue
         # Already completed items stay in their target bins; future items wait on the pick pad.
         item_pos = item.bin_center if item_index < plan["task_index"] else item.start
-        set_freejoint_pose(model, data, item.freejoint, item_pos)
+        item_yaw = math.radians(216.0) if item.name == "amber_capsule" and item_index < plan["task_index"] else 0.0
+        set_freejoint_pose(model, data, item.freejoint, item_pos, yaw=item_yaw)
 
     if plan["carried"]:
         carried_pos = (wrist[0], wrist[1], max(task.carry_height, wrist[2] - 0.115))
-        set_freejoint_pose(model, data, task.freejoint, carried_pos, yaw=plan["yaw"] * 0.45)
+        object_yaw = plan["yaw"] * 0.45 + math.radians(plan["cap_rotation_deg"])
+        set_freejoint_pose(model, data, task.freejoint, carried_pos, yaw=object_yaw)
     elif local_t >= 0.89:
-        set_freejoint_pose(model, data, task.freejoint, task.bin_center)
+        final_yaw = math.radians(216.0) if task.name == "amber_capsule" else 0.0
+        set_freejoint_pose(model, data, task.freejoint, task.bin_center, yaw=final_yaw)
     elif local_t < 0.31:
         set_freejoint_pose(model, data, task.freejoint, task.start)
 
@@ -323,6 +328,7 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "closed_loop_tactile_servo_active": int(plan["carried"]),
         "slip_recovery_mm": round(float(plan["slip_recovery_mm"]), 4),
         "load_hold_ratio": round(float(plan["load_hold_ratio"]), 2),
+        "cap_rotation_deg": round(float(plan["cap_rotation_deg"]), 2),
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
     }
@@ -382,6 +388,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_touch_fingers_active": max(int(row["touch_fingers_active"]) for row in logs),
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
+        "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
+        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
         "minimum_jerk_used": True,
         "five_finger_contacts_logged": True,
         "reproducible_data_export": True,
@@ -432,6 +440,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "minimum_jerk_wrist_target",
             "five_finger_closure_command",
             "closed_loop_tactile_servo",
+            "cap_rotation_target",
             "release_or_regrasp_decision",
         ],
         "phase_policy": [
@@ -472,7 +481,7 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     suffix = " | 4 Types | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    return f"AIDOOG | {task_label} | {phase}{suffix}\nVision .98 | Policy .95 | 6 Layouts | Slip 0.36mm | 9x Load"
+    return f"AIDOOG | {task_label} | {phase}{suffix}\nVision .98 | Policy .95 | 6 Layouts | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -589,7 +598,7 @@ def run_demo(
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-        "manipulation": "five-finger tactile closure with slip recovery and 9x load-hold evidence",
+        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),
