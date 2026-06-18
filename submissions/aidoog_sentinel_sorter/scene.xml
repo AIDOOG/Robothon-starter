@@ -85,6 +85,7 @@
     <body name="amber_capsule" pos="-0.12 0 0.052">
       <freejoint name="amber_capsule_freejoint"/>
       <geom name="amber_capsule_geom" type="capsule" size="0.026 0.034" material="amber" mass="0.08"/>
+      <geom name="amber_vial_cap_band" type="cylinder" pos="0 0 0.036" size="0.027 0.006" material="cap_mark" mass="0.002"/>
       <geom name="amber_capsule_rotation_mark" type="box" pos="0.026 0 0.018" size="0.006 0.018 0.006" material="cap_mark" mass="0.002"/>
       <site name="amber_capsule_center" pos="0 0 0" size="0.006" rgba="1 0.72 0.25 1"/>
     </body>

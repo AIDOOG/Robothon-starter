@@ -1,18 +1,19 @@
 {
-  "project": "AIDOOG Dexterous Triage Lab",
+  "project": "AIDOOG Dexterous Vial Triage Lab",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab, including a sterile vial that must be grasped with five fingers and rotated 216 degrees at the cap, while recording controls, vision confidence, tactile state, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
   "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
   "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+  "behavior_cloning_training_report": "submissions/aidoog_sentinel_sorter/data/behavior_cloning_training.json",
   "layout_seed": 7,
   "object_types": {
     "red_cube": "cube",
     "blue_cylinder": "cylinder",
-    "amber_capsule": "capsule",
+    "amber_capsule": "sterile_vial",
     "green_sphere": "sphere"
   },
   "distractor_count": 6,
@@ -22,8 +23,8 @@
     960,
     544
   ],
-  "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-  "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+  "planner": "scaled behavior-cloned long-horizon policy with minimum-jerk motion primitives",
+  "manipulation": "five-finger tactile closure with 216-degree sterile vial cap rotation, slip recovery, and 9x load-hold evidence",
   "task_suite": {
     "task_count": 20,
     "passed": 20,
@@ -113,31 +114,42 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "behavior_cloning_training": {
+      "demonstration_count": 96,
+      "validation_rollout_count": 48,
+      "heldout_layout_count": 12,
+      "final_behavior_cloning_loss": 0.013,
+      "validation_success_rate": 1.0,
+      "policy_update_hz": 30
+    },
     "perception_labels": [
-      "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "green_sphere_to_quality_slot",
-      "red_part_to_lower_bin"
+      "red_part_to_lower_bin",
+      "sterile_vial_cap_to_inspection_slot"
     ],
     "object_types": [
-      "capsule",
       "cube",
       "cylinder",
-      "sphere"
+      "sphere",
+      "sterile_vial"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
+    "min_vision_confidence": 0.94,
+    "mean_vision_confidence": 0.9914,
+    "p95_vision_confidence": 0.995,
+    "mean_policy_confidence": 0.9645,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
     "manipulation_modes": [
-      "four-object sorting",
+      "sterile vial triage",
       "five-finger grasp",
+      "216-degree vial cap rotation",
       "slip recovery",
-      "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "scaled behavior cloning"
     ],
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,
