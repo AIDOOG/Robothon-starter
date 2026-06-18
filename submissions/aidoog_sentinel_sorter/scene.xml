@@ -113,6 +113,24 @@
           <site name="finger_c_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
+
+      <body name="finger_d" pos="-0.060 0.026 0.004" euler="0 0 2.748894">
+        <joint name="finger_d_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
+        <body name="finger_d_tip" pos="0 0 -0.137">
+          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+          <site name="finger_d_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        </body>
+      </body>
+
+      <body name="finger_e" pos="-0.060 -0.026 0.004" euler="0 0 -2.748894">
+        <joint name="finger_e_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
+        <body name="finger_e_tip" pos="0 0 -0.137">
+          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+          <site name="finger_e_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        </body>
+      </body>
     </body>
   </worldbody>
 
@@ -124,6 +142,8 @@
     <position name="finger_a_position" joint="finger_a_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
     <position name="finger_b_position" joint="finger_b_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
     <position name="finger_c_position" joint="finger_c_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
+    <position name="finger_d_position" joint="finger_d_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
+    <position name="finger_e_position" joint="finger_e_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
   </actuator>
 
   <sensor>
@@ -136,9 +156,13 @@
     <jointpos name="finger_a_pos" joint="finger_a_knuckle"/>
     <jointpos name="finger_b_pos" joint="finger_b_knuckle"/>
     <jointpos name="finger_c_pos" joint="finger_c_knuckle"/>
+    <jointpos name="finger_d_pos" joint="finger_d_knuckle"/>
+    <jointpos name="finger_e_pos" joint="finger_e_knuckle"/>
     <touch name="finger_a_contact" site="finger_a_touch"/>
     <touch name="finger_b_contact" site="finger_b_touch"/>
     <touch name="finger_c_contact" site="finger_c_touch"/>
+    <touch name="finger_d_contact" site="finger_d_touch"/>
+    <touch name="finger_e_contact" site="finger_e_touch"/>
     <accelerometer name="wrist_accel" site="wrist_imu"/>
     <gyro name="wrist_gyro" site="wrist_imu"/>
     <framepos name="red_cube_pos" objtype="body" objname="red_cube"/>

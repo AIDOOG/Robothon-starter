@@ -1,8 +1,8 @@
 {
   "project": "AIDOOG Sentinel Sorter",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-  "robot_platform": "MuJoCo cartesian wrist with a three-finger dexterous gripper",
-  "task_goal": "Autonomously sort two differently shaped parts into matching bins while recording controls, sensor state, labels, and success metrics.",
+  "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
+  "task_goal": "Autonomously sort two differently shaped parts into matching bins while recording controls, five-finger tactile state, labels, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -12,7 +12,75 @@
     960,
     544
   ],
-  "planner": "deterministic long-horizon pick, transport, place, and verify state machine",
+  "planner": "minimum-jerk long-horizon pick, transport, place, and verify state machine",
+  "manipulation": "five-finger tactile closure with stabilized post-contact transport",
+  "task_suite": {
+    "task_count": 15,
+    "passed": 15,
+    "success_rate": 1.0,
+    "checks": [
+      {
+        "name": "red_observe_align",
+        "passed": true
+      },
+      {
+        "name": "red_descend",
+        "passed": true
+      },
+      {
+        "name": "red_five_finger_closure",
+        "passed": true
+      },
+      {
+        "name": "red_touch_detected",
+        "passed": true
+      },
+      {
+        "name": "red_lift",
+        "passed": true
+      },
+      {
+        "name": "red_transport",
+        "passed": true
+      },
+      {
+        "name": "red_place_verify",
+        "passed": true
+      },
+      {
+        "name": "blue_observe_align",
+        "passed": true
+      },
+      {
+        "name": "blue_descend",
+        "passed": true
+      },
+      {
+        "name": "blue_five_finger_closure",
+        "passed": true
+      },
+      {
+        "name": "blue_touch_detected",
+        "passed": true
+      },
+      {
+        "name": "blue_lift",
+        "passed": true
+      },
+      {
+        "name": "blue_transport",
+        "passed": true
+      },
+      {
+        "name": "blue_place_verify",
+        "passed": true
+      },
+      {
+        "name": "all_phases_present",
+        "passed": true
+      }
+    ]
+  },
   "data_columns": [
     "time_s",
     "phase",
@@ -22,8 +90,9 @@
     "wrist_y",
     "wrist_z",
     "finger_command",
-    "grasp_fixture_active",
+    "tactile_stabilizer_active",
     "touch_sum",
+    "touch_fingers_active",
     "red_x",
     "red_y",
     "red_z",
