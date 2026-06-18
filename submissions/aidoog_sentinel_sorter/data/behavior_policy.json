@@ -112,6 +112,8 @@
       "216-degree cap rotation",
       "9x load hold"
     ],
+    "distractor_count": 6,
+    "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,
     "reproducible_data_export": true

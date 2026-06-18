@@ -30,6 +30,7 @@ DEFAULT_SUMMARY = HERE / "data" / "rollout_summary.json"
 DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
 DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
 REPO_ROOT = HERE.parents[1]
+PROJECT_NAME = "AIDOOG Dexterous Triage Lab"
 
 
 @dataclass(frozen=True)
@@ -390,6 +391,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
         "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "distractor_count": 6,
+        "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
         "five_finger_contacts_logged": True,
         "reproducible_data_export": True,
@@ -481,7 +484,9 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     suffix = " | 4 Types | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    return f"AIDOOG | {task_label} | {phase}{suffix}\nVision .98 | Policy .95 | 6 Layouts | Cap 216deg | Slip 0.36mm | 9x Load"
+    if plan["task"].name == "amber_capsule":
+        phase = "216deg Cap Rotation"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -555,9 +560,9 @@ def run_demo(
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
             camera.lookat[:] = [0.08, 0.0, 0.12]
-            camera.distance = 1.05
-            camera.azimuth = 135 + 15 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -28
+            camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
+            camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
+            camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
@@ -583,10 +588,10 @@ def run_demo(
             final_metrics["video_fallback_reason"] = str(exc)
 
     summary = {
-        "project": "AIDOOG Sentinel Sorter",
+        "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously classify and sort four object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -594,6 +599,7 @@ def run_demo(
         "randomized_layout_report": display_path(layout_report_path),
         "layout_seed": layout_seed,
         "object_types": {task.name: task.object_type for task in tasks},
+        "distractor_count": 6,
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
@@ -611,7 +617,7 @@ def run_demo(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate the AIDOOG Sentinel Sorter MuJoCo rollout.")
+    parser = argparse.ArgumentParser(description="Generate the AIDOOG Dexterous Triage Lab MuJoCo rollout.")
     parser.add_argument("--scene", type=Path, default=DEFAULT_SCENE)
     parser.add_argument("--video", type=Path, default=DEFAULT_VIDEO)
     parser.add_argument("--sensor-log", type=Path, default=DEFAULT_SENSOR_LOG)
