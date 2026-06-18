@@ -87,16 +87,16 @@
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
     "perception_labels": [
-      "amber_capsule_to_inspection_slot",
+      "amber_vial_cap_to_inspection_slot",
       "blue_part_to_upper_bin",
       "green_sphere_to_quality_slot",
       "red_part_to_lower_bin"
     ],
     "object_types": [
-      "capsule",
       "cube",
       "cylinder",
-      "sphere"
+      "sphere",
+      "vial"
     ],
     "randomized_layout_seed": 7,
     "mean_vision_confidence": 0.9841,
@@ -109,7 +109,7 @@
       "four-object sorting",
       "five-finger grasp",
       "slip recovery",
-      "216-degree cap rotation",
+      "216-degree vial cap rotation",
       "9x load hold"
     ],
     "distractor_count": 6,

@@ -16,10 +16,10 @@ The robot must autonomously triage four object types from randomized pick layout
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
-- amber capsule -> center inspection slot
+- amber vial -> center cap-inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber vial cap by 216 degrees in a close-up camera pass, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
@@ -32,7 +32,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 
 - Runnable MuJoCo scene with no external asset dependency.
 - Five-finger manipulation sequence with independent finger actuators.
-- Four object classes: cube, cylinder, capsule, and sphere.
+- Four object classes: cube, cylinder, vial, and sphere.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
@@ -41,7 +41,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
+- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree vial cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, close-up captioned video, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 

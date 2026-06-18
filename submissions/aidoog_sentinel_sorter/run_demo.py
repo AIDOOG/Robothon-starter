@@ -72,8 +72,8 @@ BASE_TASKS = (
         body="amber_capsule",
         start=(-0.12, 0.0, 0.052),
         bin_center=(0.42, 0.0, 0.058),
-        label="amber_capsule_to_inspection_slot",
-        object_type="capsule",
+        label="amber_vial_cap_to_inspection_slot",
+        object_type="vial",
         carry_height=0.058,
     ),
     SortTask(
@@ -390,7 +390,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree vial cap rotation", "9x load hold"],
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -485,8 +485,8 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
-        phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+        phase = "216deg Vial Cap Close-Up"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Vial Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -559,10 +559,17 @@ def run_demo(
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
-            camera.lookat[:] = [0.08, 0.0, 0.12]
-            camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
+            if plan["task"].name == "amber_capsule" and 0.18 <= plan["local_t"] <= 0.82:
+                wrist = plan["wrist"]
+                camera.lookat[:] = [0.48 * wrist[0] + 0.18, 0.55 * wrist[1], 0.10]
+                camera.distance = 0.78 + 0.04 * math.sin(8.0 * math.pi * plan["local_t"])
+                camera.azimuth = 114 + 20 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -24 + 5 * math.sin(4.0 * math.pi * plan["local_t"])
+            else:
+                camera.lookat[:] = [0.08, 0.0, 0.12]
+                camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
+                camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
+                camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
@@ -591,7 +598,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab, including an amber vial close-up where the five-finger hand rotates the visible cap by 216 degrees while recording controls, vision confidence, tactile state, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -604,7 +611,7 @@ def run_demo(
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+        "manipulation": "five-finger tactile closure with 216-degree vial cap close-up rotation, slip recovery, and 9x load-hold evidence",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),
