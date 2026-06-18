@@ -489,7 +489,63 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
-def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
+def draw_dynamic_story_overlays(draw: ImageDraw.ImageDraw, width: int, height: int, plan: dict) -> None:
+    phase = plan["phase"]
+    progress = plan["local_t"]
+    cap_rotation = float(plan["cap_rotation_deg"])
+    slip_mm = float(plan["slip_recovery_mm"])
+    load_hold = float(plan["load_hold_ratio"])
+    active_fingers = 5 if plan["carried"] or phase in {"five_finger_tactile_closure", "slip_recovery_lift"} else 0
+
+    panel = (width - 238, 112, width - 18, 260)
+    draw.rounded_rectangle(panel, radius=8, fill=(0, 0, 0, 130), outline=(80, 220, 170, 120), width=1)
+    try:
+        hud_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 15)
+        small_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 13)
+    except OSError:
+        hud_font = ImageFont.load_default()
+        small_font = ImageFont.load_default()
+
+    draw.text((width - 222, 122), "LIVE TACTILE HUD", font=hud_font, fill=(235, 255, 245, 245))
+    for idx in range(5):
+        x = width - 220 + idx * 24
+        fill = (72, 235, 145, 240) if idx < active_fingers else (65, 75, 85, 190)
+        draw.ellipse((x, 150, x + 15, 165), fill=fill, outline=(220, 240, 255, 120))
+    draw.text((width - 88, 148), f"{active_fingers}/5 fingers", font=small_font, fill=(230, 245, 255, 235))
+    draw.text((width - 222, 178), f"cap {cap_rotation:05.1f} deg", font=small_font, fill=(255, 226, 120, 240))
+    draw.text((width - 222, 200), f"slip {slip_mm:0.2f} mm", font=small_font, fill=(160, 220, 255, 240))
+    draw.text((width - 222, 222), f"load {load_hold:0.1f}x", font=small_font, fill=(230, 245, 255, 235))
+
+    cx, cy, radius = width - 70, 211, 30
+    draw.arc((cx - radius, cy - radius, cx + radius, cy + radius), start=-90, end=-90 + int(360 * min(1.0, cap_rotation / 216.0)), fill=(255, 210, 70, 245), width=4)
+
+    if phase == "vision_classify_and_align":
+        beam_alpha = int(50 + 45 * math.sin(math.pi * progress) ** 2)
+        draw.polygon(
+            [(42, height - 128), (248, height - 190), (456, height - 128), (248, height - 92)],
+            fill=(70, 170, 255, beam_alpha),
+            outline=(120, 220, 255, 110),
+        )
+        draw.text((58, height - 154), "scan beam", font=small_font, fill=(210, 240, 255, 230))
+
+    if phase in {"minimum_jerk_transport", "slip_recovery_lift", "place_into_bin"}:
+        y = height - 64
+        x0, x1 = 58, width - 310
+        dot_x = int(x0 + (x1 - x0) * min(1.0, max(0.0, progress)))
+        draw.line((x0, y, x1, y), fill=(80, 235, 145, 180), width=5)
+        draw.polygon([(x1, y), (x1 - 12, y - 8), (x1 - 12, y + 8)], fill=(80, 235, 145, 220))
+        draw.ellipse((dot_x - 8, y - 8, dot_x + 8, y + 8), fill=(255, 226, 80, 245))
+        draw.text((x0, y - 28), "minimum-jerk route trail", font=small_font, fill=(220, 255, 235, 225))
+
+    if phase == "slip_recovery_lift" and slip_mm > 0.05:
+        center = (width - 134, height - 100)
+        for ripple in range(3):
+            rr = 14 + ripple * 14 + int(6 * math.sin(10 * progress))
+            draw.ellipse((center[0] - rr, center[1] - rr, center[0] + rr, center[1] + rr), outline=(110, 210, 255, 130 - ripple * 28), width=3)
+        draw.text((width - 208, height - 150), "slip recovery ripple", font=small_font, fill=(210, 235, 255, 225))
+
+
+def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float, plan: dict | None = None) -> np.ndarray:
     image = Image.fromarray(frame)
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
@@ -508,6 +564,8 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     bar_w = int((width - 68) * progress)
     draw.rectangle((34, 86, 34 + bar_w, 90), fill=(64, 235, 145, 255))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
+    if plan is not None:
+        draw_dynamic_story_overlays(draw, width, height, plan)
     return np.asarray(image)
 
 
@@ -565,7 +623,7 @@ def run_demo(
             camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
-            frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
+            frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s, plan))
 
     final_metrics = success_metrics(model, data, tasks)
     suite = task_suite_metrics(logs, final_metrics, tasks)
