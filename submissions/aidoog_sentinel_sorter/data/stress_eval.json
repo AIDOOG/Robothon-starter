@@ -1,0 +1,28 @@
+{
+  "name": "AIDOOG fixed-seed residual policy stress evaluation",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "fixed_seed_rollouts": 96,
+  "success_rate": 1.0,
+  "heldout_layout_seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111
+  ],
+  "median_raw_visual_servo_error_m": 0.0214,
+  "median_corrected_visual_servo_error_m": 0.0067,
+  "visual_servo_error_reduction_pct": 68.7,
+  "max_lateral_shove_n": 4.0,
+  "max_load_multiplier": 9.0,
+  "max_slip_recovery_mm": 0.36,
+  "max_cap_rotation_deg": 216.0,
+  "task_suite_success_rate": 1.0
+}

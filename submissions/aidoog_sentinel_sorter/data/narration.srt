@@ -1,0 +1,19 @@
+1
+00:00:00,000 --> 00:00:07,500
+AIDOOG scans a cluttered medication triage scene and selects the red part.
+
+2
+00:00:07,500 --> 00:00:15,000
+The five-finger hand closes, recovers slip, and verifies the first placement.
+
+3
+00:00:15,000 --> 00:00:30,000
+Blue cylinder handling shows the same behavior-cloned tactile policy on a new geometry.
+
+4
+00:00:30,000 --> 00:00:45,000
+The amber vial is grasped with five fingers and rotated 216 degrees at the cap.
+
+5
+00:00:45,000 --> 00:00:60,000
+The green sphere completes the 20-gate rollout while data artifacts are exported.

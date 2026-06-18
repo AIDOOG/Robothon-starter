@@ -1,0 +1,19 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "participant": "aidoog",
+  "artifacts": [
+    "submissions/aidoog_sentinel_sorter/demo.mp4",
+    "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
+    "submissions/aidoog_sentinel_sorter/data/rollout_summary.json",
+    "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
+    "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+    "submissions/aidoog_sentinel_sorter/data/contact_timeline.json",
+    "submissions/aidoog_sentinel_sorter/data/stress_eval.json",
+    "submissions/aidoog_sentinel_sorter/data/policy_card.json",
+    "submissions/aidoog_sentinel_sorter/data/narration.srt",
+    "submissions/aidoog_sentinel_sorter/data/keyframes.png",
+    "submissions/aidoog_sentinel_sorter/rubric_scorecard.json",
+    "submissions/aidoog_sentinel_sorter/JUDGE_BRIEF.md"
+  ]
+}

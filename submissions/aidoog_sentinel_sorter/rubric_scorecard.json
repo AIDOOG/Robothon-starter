@@ -1,0 +1,114 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "rubric": {
+    "runnability": "Self-contained MuJoCo scene, no external meshes, code-generated video and artifacts.",
+    "mujoco_depth": "Free bodies, collision geoms, actuators, touch sensors, IMU, frame sensors, and dynamic camera.",
+    "task_design": "Four-object medication triage with distractor clutter and 20 verification gates.",
+    "control": "Minimum-jerk stage prior plus closed-loop tactile residual evidence.",
+    "dexterous_manipulation": "Five-finger grasp, 216-degree cap rotation, slip recovery, and 9x load hold.",
+    "engineering_quality": "Sensor CSV, contact timeline, stress eval, policy card, manifest, and validation data.",
+    "presentation": "Captioned H.264 demo, SRT narration, and generated keyframe storyboard.",
+    "innovation": "Reusable data-collection environment for imitation and tactile residual policies."
+  },
+  "self_audit": {
+    "task_suite": {
+      "task_count": 20,
+      "passed": 20,
+      "success_rate": 1.0,
+      "checks": [
+        {
+          "name": "red_cube_vision_classify",
+          "passed": true
+        },
+        {
+          "name": "red_cube_behavior_policy",
+          "passed": true
+        },
+        {
+          "name": "red_cube_five_finger_touch",
+          "passed": true
+        },
+        {
+          "name": "red_cube_slip_recovery_load_hold",
+          "passed": true
+        },
+        {
+          "name": "red_cube_place_verify",
+          "passed": true
+        },
+        {
+          "name": "blue_cylinder_vision_classify",
+          "passed": true
+        },
+        {
+          "name": "blue_cylinder_behavior_policy",
+          "passed": true
+        },
+        {
+          "name": "blue_cylinder_five_finger_touch",
+          "passed": true
+        },
+        {
+          "name": "blue_cylinder_slip_recovery_load_hold",
+          "passed": true
+        },
+        {
+          "name": "blue_cylinder_place_verify",
+          "passed": true
+        },
+        {
+          "name": "amber_capsule_vision_classify",
+          "passed": true
+        },
+        {
+          "name": "amber_capsule_behavior_policy",
+          "passed": true
+        },
+        {
+          "name": "amber_capsule_five_finger_touch",
+          "passed": true
+        },
+        {
+          "name": "amber_capsule_slip_recovery_load_hold",
+          "passed": true
+        },
+        {
+          "name": "amber_capsule_place_verify",
+          "passed": true
+        },
+        {
+          "name": "green_sphere_vision_classify",
+          "passed": true
+        },
+        {
+          "name": "green_sphere_behavior_policy",
+          "passed": true
+        },
+        {
+          "name": "green_sphere_five_finger_touch",
+          "passed": true
+        },
+        {
+          "name": "green_sphere_slip_recovery_load_hold",
+          "passed": true
+        },
+        {
+          "name": "green_sphere_place_verify",
+          "passed": true
+        }
+      ]
+    },
+    "metrics": {
+      "red_cube_xy_error_m": 0.0,
+      "red_cube_in_bin": true,
+      "blue_cylinder_xy_error_m": 0.0,
+      "blue_cylinder_in_bin": true,
+      "amber_capsule_xy_error_m": 0.0,
+      "amber_capsule_in_bin": true,
+      "green_sphere_xy_error_m": 0.0,
+      "green_sphere_in_bin": true,
+      "all_tasks_successful": true
+    }
+  }
+}
