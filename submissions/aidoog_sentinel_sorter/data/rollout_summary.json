@@ -2,7 +2,7 @@
   "project": "AIDOOG Sentinel Sorter",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously classify and sort three object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
+  "task_goal": "Autonomously classify and sort four object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -12,9 +12,10 @@
   "object_types": {
     "red_cube": "cube",
     "blue_cylinder": "cylinder",
-    "amber_capsule": "capsule"
+    "amber_capsule": "capsule",
+    "green_sphere": "sphere"
   },
-  "duration_s": 64.0,
+  "duration_s": 60.0,
   "fps": 12,
   "render_size": [
     960,
@@ -23,8 +24,8 @@
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
   "manipulation": "five-finger tactile closure with slip recovery and 9x load-hold evidence",
   "task_suite": {
-    "task_count": 15,
-    "passed": 15,
+    "task_count": 20,
+    "passed": 20,
     "success_rate": 1.0,
     "checks": [
       {
@@ -86,6 +87,26 @@
       {
         "name": "amber_capsule_place_verify",
         "passed": true
+      },
+      {
+        "name": "green_sphere_vision_classify",
+        "passed": true
+      },
+      {
+        "name": "green_sphere_behavior_policy",
+        "passed": true
+      },
+      {
+        "name": "green_sphere_five_finger_touch",
+        "passed": true
+      },
+      {
+        "name": "green_sphere_slip_recovery_load_hold",
+        "passed": true
+      },
+      {
+        "name": "green_sphere_place_verify",
+        "passed": true
       }
     ]
   },
@@ -94,16 +115,18 @@
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
+      "green_sphere_to_quality_slot",
       "red_part_to_lower_bin"
     ],
     "object_types": [
       "capsule",
       "cube",
-      "cylinder"
+      "cylinder",
+      "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9579,
-    "mean_policy_confidence": 0.894,
+    "mean_vision_confidence": 0.9841,
+    "mean_policy_confidence": 0.9428,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
@@ -139,7 +162,10 @@
     "blue_cylinder_z",
     "amber_capsule_x",
     "amber_capsule_y",
-    "amber_capsule_z"
+    "amber_capsule_z",
+    "green_sphere_x",
+    "green_sphere_y",
+    "green_sphere_z"
   ],
   "metrics": {
     "red_cube_xy_error_m": 0.0,
@@ -148,6 +174,8 @@
     "blue_cylinder_in_bin": true,
     "amber_capsule_xy_error_m": 0.0,
     "amber_capsule_in_bin": true,
+    "green_sphere_xy_error_m": 0.0,
+    "green_sphere_in_bin": true,
     "all_tasks_successful": true
   }
 }

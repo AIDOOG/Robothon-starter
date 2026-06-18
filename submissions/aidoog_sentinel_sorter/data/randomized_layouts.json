@@ -12,7 +12,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -29,6 +30,11 @@
           -0.1272,
           0.0134,
           0.052
+        ],
+        "green_sphere": [
+          -0.1378,
+          -0.2984,
+          0.052
         ]
       },
       "targets": {
@@ -46,6 +52,11 @@
           0.42,
           0.0,
           0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
         ]
       },
       "validated_with_same_policy": true
@@ -55,7 +66,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -72,6 +84,11 @@
           -0.1067,
           -0.0039,
           0.052
+        ],
+        "green_sphere": [
+          -0.1222,
+          -0.3146,
+          0.052
         ]
       },
       "targets": {
@@ -89,6 +106,11 @@
           0.42,
           0.0,
           0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
         ]
       },
       "validated_with_same_policy": true
@@ -98,7 +120,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -115,6 +138,11 @@
           -0.1122,
           0.015,
           0.052
+        ],
+        "green_sphere": [
+          -0.107,
+          -0.2949,
+          0.052
         ]
       },
       "targets": {
@@ -132,6 +160,11 @@
           0.42,
           0.0,
           0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
         ]
       },
       "validated_with_same_policy": true
@@ -141,7 +174,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -158,6 +192,11 @@
           -0.1195,
           -0.0131,
           0.052
+        ],
+        "green_sphere": [
+          -0.1132,
+          -0.2977,
+          0.052
         ]
       },
       "targets": {
@@ -175,6 +214,11 @@
           0.42,
           0.0,
           0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
         ]
       },
       "validated_with_same_policy": true
@@ -184,7 +228,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -201,6 +246,11 @@
           -0.1327,
           0.0154,
           0.052
+        ],
+        "green_sphere": [
+          -0.1355,
+          -0.3233,
+          0.052
         ]
       },
       "targets": {
@@ -218,6 +268,11 @@
           0.42,
           0.0,
           0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
         ]
       },
       "validated_with_same_policy": true
@@ -227,7 +282,8 @@
       "object_types": {
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule"
+        "amber_capsule": "capsule",
+        "green_sphere": "sphere"
       },
       "starts": {
         "red_cube": [
@@ -244,6 +300,11 @@
           -0.1254,
           -0.0097,
           0.052
+        ],
+        "green_sphere": [
+          -0.1139,
+          -0.3239,
+          0.052
         ]
       },
       "targets": {
@@ -260,6 +321,11 @@
         "amber_capsule": [
           0.42,
           0.0,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
           0.058
         ]
       },

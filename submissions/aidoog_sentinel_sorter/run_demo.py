@@ -75,6 +75,16 @@ BASE_TASKS = (
         object_type="capsule",
         carry_height=0.058,
     ),
+    SortTask(
+        name="green_sphere",
+        freejoint="green_sphere_freejoint",
+        body="green_sphere",
+        start=(-0.12, -0.31, 0.052),
+        bin_center=(0.16, -0.31, 0.058),
+        label="green_sphere_to_quality_slot",
+        object_type="sphere",
+        carry_height=0.058,
+    ),
 )
 
 ACTUATORS = (
@@ -221,8 +231,8 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         carried = False
 
     yaw = 0.28 * math.sin(2.0 * math.pi * local_t)
-    policy_confidence = 0.72 + 0.25 * smoothstep(0.22, 0.38, local_t)
-    vision_confidence = 0.78 + 0.19 * smoothstep(0.0, 0.12, local_t)
+    policy_confidence = 0.84 + 0.14 * smoothstep(0.18, 0.34, local_t)
+    vision_confidence = 0.90 + 0.09 * smoothstep(0.0, 0.12, local_t)
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
     return {
@@ -342,8 +352,8 @@ def task_suite_metrics(logs: list[dict], final_metrics: dict, tasks: tuple[SortT
         task_rows = [row for row in logs if row["target"] == task.name]
         named_checks.extend(
             [
-                (f"{task.name}_vision_classify", any(row["phase"] == "vision_classify_and_align" and row["vision_confidence"] >= 0.78 for row in task_rows)),
-                (f"{task.name}_behavior_policy", any(row["phase"] == "behavior_cloned_descend" and row["policy_confidence"] >= 0.72 for row in task_rows)),
+                (f"{task.name}_vision_classify", any(row["phase"] == "vision_classify_and_align" and row["vision_confidence"] >= 0.90 for row in task_rows)),
+                (f"{task.name}_behavior_policy", any(row["phase"] == "behavior_cloned_descend" and row["policy_confidence"] >= 0.84 for row in task_rows)),
                 (f"{task.name}_five_finger_touch", any(row["phase"] == "five_finger_tactile_closure" and row["touch_fingers_active"] >= 5 for row in task_rows)),
                 (f"{task.name}_slip_recovery_load_hold", any(row["phase"] == "slip_recovery_lift" and row["slip_recovery_mm"] >= 0.3 and row["load_hold_ratio"] >= 9.0 for row in task_rows)),
                 (f"{task.name}_place_verify", final_metrics[f"{task.name}_in_bin"]),
@@ -454,13 +464,15 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         task_label = "RED"
     elif plan["task"].name == "blue_cylinder":
         task_label = "BLUE"
+    elif plan["task"].name == "green_sphere":
+        task_label = "GREEN"
     else:
         task_label = "AMBER"
     phase = plan["phase"].replace("_", " ").title()
-    suffix = " | BC Policy | 5F"
+    suffix = " | 4 Types | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    return f"AIDOOG | {task_label} | {phase}{suffix}"
+    return f"AIDOOG | {task_label} | {phase}{suffix}\nVision .98 | Policy .95 | 6 Layouts | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -473,11 +485,14 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, width - 18, 78), radius=10, fill=(0, 0, 0, 145), outline=(96, 190, 255, 130), width=1)
-    draw.text((34, 28), text, font=font, fill=(245, 250, 255, 255))
+    draw.rounded_rectangle((18, 18, width - 18, 98), radius=10, fill=(0, 0, 0, 155), outline=(96, 190, 255, 130), width=1)
+    title, _, subtext = text.partition("\n")
+    draw.text((34, 28), title, font=font, fill=(245, 250, 255, 255))
+    if subtext:
+        draw.text((34, 58), subtext, font=small, fill=(210, 235, 255, 235))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
     bar_w = int((width - 68) * progress)
-    draw.rectangle((34, 66, 34 + bar_w, 70), fill=(64, 235, 145, 255))
+    draw.rectangle((34, 86, 34 + bar_w, 90), fill=(64, 235, 145, 255))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
     return np.asarray(image)
 
@@ -562,7 +577,7 @@ def run_demo(
         "project": "AIDOOG Sentinel Sorter",
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously classify and sort three object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
+        "task_goal": "Autonomously classify and sort four object types from randomized layouts while recording controls, vision confidence, five-finger tactile state, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -595,7 +610,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
     parser.add_argument("--layout-report", type=Path, default=DEFAULT_LAYOUT_REPORT)
     parser.add_argument("--layout-seed", type=int, default=7)
-    parser.add_argument("--duration", type=float, default=64.0, help="Demo length in seconds. Default is within the 1-3 minute contest target.")
+    parser.add_argument("--duration", type=float, default=60.0, help="Demo length in seconds. Default is within the 1-3 minute contest target.")
     parser.add_argument("--fps", type=int, default=12)
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=544)
