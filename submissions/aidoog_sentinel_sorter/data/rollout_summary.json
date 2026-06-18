@@ -2,7 +2,7 @@
   "project": "AIDOOG Dexterous Triage Lab",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously triage four target object types through a cluttered randomized MuJoCo lab with ten distractors/decoys, partial occlusion, narrow-aisle transport, and recorded controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+  "task_goal": "Autonomously triage six target object types through a cluttered randomized MuJoCo lab with nine distractors/decoys, partial occlusion, narrow-aisle transport, and recorded controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -13,12 +13,13 @@
     "red_cube": "cube",
     "blue_cylinder": "cylinder",
     "amber_capsule": "capsule",
-    "green_sphere": "sphere"
+    "green_sphere": "sphere",
+    "purple_ellipsoid": "ellipsoid",
+    "silver_micro_screw": "micro_screw"
   },
-  "distractor_count": 10,
+  "distractor_count": 9,
   "decoy_object_types": [
     "transparent occlusion shield",
-    "steel micro screw",
     "black gasket puck",
     "amber lookalike token",
     "angled hazard rails",
@@ -39,8 +40,8 @@
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
   "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
   "task_suite": {
-    "task_count": 20,
-    "passed": 20,
+    "task_count": 30,
+    "passed": 30,
     "success_rate": 1.0,
     "checks": [
       {
@@ -122,6 +123,46 @@
       {
         "name": "green_sphere_place_verify",
         "passed": true
+      },
+      {
+        "name": "purple_ellipsoid_vision_classify",
+        "passed": true
+      },
+      {
+        "name": "purple_ellipsoid_behavior_policy",
+        "passed": true
+      },
+      {
+        "name": "purple_ellipsoid_five_finger_touch",
+        "passed": true
+      },
+      {
+        "name": "purple_ellipsoid_slip_recovery_load_hold",
+        "passed": true
+      },
+      {
+        "name": "purple_ellipsoid_place_verify",
+        "passed": true
+      },
+      {
+        "name": "silver_micro_screw_vision_classify",
+        "passed": true
+      },
+      {
+        "name": "silver_micro_screw_behavior_policy",
+        "passed": true
+      },
+      {
+        "name": "silver_micro_screw_five_finger_touch",
+        "passed": true
+      },
+      {
+        "name": "silver_micro_screw_slip_recovery_load_hold",
+        "passed": true
+      },
+      {
+        "name": "silver_micro_screw_place_verify",
+        "passed": true
       }
     ]
   },
@@ -131,17 +172,20 @@
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "green_sphere_to_quality_slot",
-      "red_part_to_lower_bin"
+      "purple_ellipsoid_to_analysis_slot",
+      "red_part_to_lower_bin",
+      "silver_micro_screw_to_precision_tray"
     ],
     "object_types": [
       "capsule",
       "cube",
       "cylinder",
+      "ellipsoid",
+      "micro_screw",
       "sphere"
     ],
     "decoy_object_types": [
       "transparent occlusion shield",
-      "steel micro screw",
       "black gasket puck",
       "amber lookalike token",
       "angled hazard rails",
@@ -154,26 +198,30 @@
       "marked capsule rotation inspection"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9919,
-    "mean_policy_confidence": 0.9555,
+    "min_vision_confidence": 0.975,
+    "mean_vision_confidence": 0.9976,
+    "p95_vision_confidence": 0.999,
+    "mean_policy_confidence": 0.9668,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
     "min_occlusion_clearance_m": 0.033,
-    "max_decoy_rejection_count": 10,
-    "risk_aware_replan_frames": 96,
+    "max_decoy_rejection_count": 9,
+    "risk_aware_replan_frames": 115,
     "manipulation_modes": [
-      "four-target triage",
+      "six-target triage",
       "five-finger grasp",
+      "micro-screw precision pickup",
+      "ellipsoid stable grasp",
       "slip recovery",
       "216-degree cap rotation",
       "9x load hold",
       "decoy rejection",
       "occlusion-aware transport"
     ],
-    "distractor_count": 10,
-    "visible_object_families": 10,
+    "distractor_count": 9,
+    "visible_object_families": 11,
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,
@@ -215,7 +263,13 @@
     "amber_capsule_z",
     "green_sphere_x",
     "green_sphere_y",
-    "green_sphere_z"
+    "green_sphere_z",
+    "purple_ellipsoid_x",
+    "purple_ellipsoid_y",
+    "purple_ellipsoid_z",
+    "silver_micro_screw_x",
+    "silver_micro_screw_y",
+    "silver_micro_screw_z"
   ],
   "metrics": {
     "red_cube_xy_error_m": 0.0,
@@ -226,6 +280,10 @@
     "amber_capsule_in_bin": true,
     "green_sphere_xy_error_m": 0.0,
     "green_sphere_in_bin": true,
+    "purple_ellipsoid_xy_error_m": 0.0,
+    "purple_ellipsoid_in_bin": true,
+    "silver_micro_screw_xy_error_m": 0.0,
+    "silver_micro_screw_in_bin": true,
     "all_tasks_successful": true
   }
 }

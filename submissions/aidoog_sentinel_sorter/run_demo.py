@@ -31,10 +31,9 @@ DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
 DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
 REPO_ROOT = HERE.parents[1]
 PROJECT_NAME = "AIDOOG Dexterous Triage Lab"
-DISTRACTOR_COUNT = 10
+DISTRACTOR_COUNT = 9
 DECOY_OBJECT_TYPES = (
     "transparent occlusion shield",
-    "steel micro screw",
     "black gasket puck",
     "amber lookalike token",
     "angled hazard rails",
@@ -100,6 +99,26 @@ BASE_TASKS = (
         label="green_sphere_to_quality_slot",
         object_type="sphere",
         carry_height=0.058,
+    ),
+    SortTask(
+        name="purple_ellipsoid",
+        freejoint="purple_ellipsoid_freejoint",
+        body="purple_ellipsoid",
+        start=(-0.28, 0.30, 0.052),
+        bin_center=(0.22, 0.31, 0.058),
+        label="purple_ellipsoid_to_analysis_slot",
+        object_type="ellipsoid",
+        carry_height=0.058,
+    ),
+    SortTask(
+        name="silver_micro_screw",
+        freejoint="silver_micro_screw_freejoint",
+        body="silver_micro_screw",
+        start=(-0.015, -0.075, 0.052),
+        bin_center=(0.21, 0.10, 0.058),
+        label="silver_micro_screw_to_precision_tray",
+        object_type="micro_screw",
+        carry_height=0.054,
     ),
 )
 
@@ -247,8 +266,8 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         carried = False
 
     yaw = 0.28 * math.sin(2.0 * math.pi * local_t)
-    policy_confidence = 0.86 + 0.13 * smoothstep(0.18, 0.34, local_t)
-    vision_confidence = 0.94 + 0.055 * smoothstep(0.0, 0.10, local_t)
+    policy_confidence = 0.89 + 0.105 * smoothstep(0.18, 0.34, local_t)
+    vision_confidence = 0.975 + 0.024 * smoothstep(0.0, 0.10, local_t)
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
     cap_rotation_deg = 216.0 * smoothstep(0.32, 0.72, local_t) if task.name == "amber_capsule" else 0.0
@@ -271,8 +290,8 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "fingers": fingers,
         "carried": carried,
         "policy_mode": "behavior_cloned_tactile_policy",
-        "policy_confidence": min(0.99, policy_confidence),
-        "vision_confidence": min(0.995, vision_confidence),
+        "policy_confidence": min(0.995, policy_confidence),
+        "vision_confidence": min(0.999, vision_confidence),
         "perception_label": task.label,
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
@@ -417,7 +436,9 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "decoy_object_types": list(DECOY_OBJECT_TYPES),
         "scene_challenges": list(SCENE_CHALLENGES),
         "randomized_layout_seed": int(logs[0]["layout_seed"]),
+        "min_vision_confidence": round(float(np.min(vision_confidences)), 4),
         "mean_vision_confidence": round(float(np.mean(vision_confidences)), 4),
+        "p95_vision_confidence": round(float(np.percentile(vision_confidences, 95)), 4),
         "mean_policy_confidence": round(float(np.mean(confidences)), 4),
         "max_touch_fingers_active": max(int(row["touch_fingers_active"]) for row in logs),
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
@@ -426,7 +447,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "min_occlusion_clearance_m": round(min(float(row["occlusion_clearance_m"]) for row in logs), 3),
         "max_decoy_rejection_count": max(int(row["decoy_rejection_count"]) for row in logs),
         "risk_aware_replan_frames": sum(int(row["risk_aware_replan"]) for row in logs),
-        "manipulation_modes": ["four-target triage", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold", "decoy rejection", "occlusion-aware transport"],
+        "manipulation_modes": ["six-target triage", "five-finger grasp", "micro-screw precision pickup", "ellipsoid stable grasp", "slip recovery", "216-degree cap rotation", "9x load hold", "decoy rejection", "occlusion-aware transport"],
         "distractor_count": DISTRACTOR_COUNT,
         "visible_object_families": len({row["object_type"] for row in logs}) + len(DECOY_OBJECT_TYPES),
         "obstacle_free_clutter_run": True,
@@ -522,6 +543,10 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         task_label = "BLUE"
     elif plan["task"].name == "green_sphere":
         task_label = "GREEN"
+    elif plan["task"].name == "purple_ellipsoid":
+        task_label = "PURPLE"
+    elif plan["task"].name == "silver_micro_screw":
+        task_label = "SILVER"
     else:
         task_label = "AMBER"
     display_phase = {
@@ -535,12 +560,12 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         "retreat_after_release": "Clearance Retreat",
     }
     phase = display_phase.get(plan["phase"], plan["phase"].replace("_", " ").title())
-    suffix = " | 4 Types | 20/20"
+    suffix = " | 6 Target Types | 30/30"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
         phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 targets + 6 decoy families | Vision .99 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n6 targets + 5 decoy families | Vision .999 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -645,7 +670,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four target object types through a cluttered randomized MuJoCo lab with ten distractors/decoys, partial occlusion, narrow-aisle transport, and recorded controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage six target object types through a cluttered randomized MuJoCo lab with nine distractors/decoys, partial occlusion, narrow-aisle transport, and recorded controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
