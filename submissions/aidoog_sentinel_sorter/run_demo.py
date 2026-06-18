@@ -86,6 +86,16 @@ BASE_TASKS = (
         object_type="sphere",
         carry_height=0.058,
     ),
+    SortTask(
+        name="purple_ellipsoid",
+        freejoint="purple_ellipsoid_freejoint",
+        body="purple_ellipsoid",
+        start=(-0.28, 0.30, 0.052),
+        bin_center=(0.22, 0.31, 0.058),
+        label="purple_ellipsoid_to_analysis_slot",
+        object_type="ellipsoid",
+        carry_height=0.058,
+    ),
 )
 
 ACTUATORS = (
@@ -390,7 +400,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "manipulation_modes": ["five-object triage", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -478,15 +488,17 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         task_label = "BLUE"
     elif plan["task"].name == "green_sphere":
         task_label = "GREEN"
+    elif plan["task"].name == "purple_ellipsoid":
+        task_label = "PURPLE"
     else:
         task_label = "AMBER"
     phase = plan["phase"].replace("_", " ").title()
-    suffix = " | 4 Types | 20/20"
+    suffix = " | 5 Types | 25/25"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
         phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n5 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -591,7 +603,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage five object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),

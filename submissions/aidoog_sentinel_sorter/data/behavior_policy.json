@@ -90,23 +90,25 @@
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "green_sphere_to_quality_slot",
+      "purple_ellipsoid_to_analysis_slot",
       "red_part_to_lower_bin"
     ],
     "object_types": [
       "capsule",
       "cube",
       "cylinder",
+      "ellipsoid",
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
+    "mean_vision_confidence": 0.984,
+    "mean_policy_confidence": 0.9426,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
     "manipulation_modes": [
-      "four-object sorting",
+      "five-object triage",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",

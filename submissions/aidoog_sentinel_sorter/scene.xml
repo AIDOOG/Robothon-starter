@@ -33,6 +33,7 @@
     <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
     <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
     <material name="green_part" rgba="0.12 0.86 0.32 1"/>
+    <material name="purple_part" rgba="0.62 0.30 0.95 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
     <material name="palm_dark" rgba="0.12 0.15 0.18 1"/>
   </asset>
@@ -61,6 +62,7 @@
     <geom name="amber_slot_floor" type="box" pos="0.42 0.00 0.012" size="0.10 0.07 0.006" rgba="1.00 0.62 0.12 0.78"/>
     <geom name="blue_bin_floor" type="box" pos="0.42 0.23 0.012" size="0.12 0.10 0.006" material="green_goal"/>
     <geom name="green_slot_floor" type="box" pos="0.16 -0.31 0.012" size="0.075 0.055 0.006" rgba="0.10 0.86 0.36 0.78"/>
+    <geom name="purple_slot_floor" type="box" pos="0.22 0.31 0.012" size="0.075 0.055 0.006" rgba="0.62 0.30 0.95 0.78"/>
     <geom name="red_bin_back" class="bin" pos="0.42 -0.34 0.052" size="0.13 0.01 0.045"/>
     <geom name="red_bin_front" class="bin" pos="0.42 -0.12 0.052" size="0.13 0.01 0.045"/>
     <geom name="red_bin_left" class="bin" pos="0.28 -0.23 0.052" size="0.01 0.11 0.045"/>
@@ -93,6 +95,12 @@
       <freejoint name="green_sphere_freejoint"/>
       <geom name="green_sphere_geom" type="sphere" size="0.041" material="green_part" mass="0.075"/>
       <site name="green_sphere_center" pos="0 0 0" size="0.006" rgba="0.4 1 0.45 1"/>
+    </body>
+
+    <body name="purple_ellipsoid" pos="-0.28 0.30 0.052">
+      <freejoint name="purple_ellipsoid_freejoint"/>
+      <geom name="purple_ellipsoid_geom" type="ellipsoid" size="0.047 0.030 0.035" material="purple_part" mass="0.085"/>
+      <site name="purple_ellipsoid_center" pos="0 0 0" size="0.006" rgba="0.8 0.55 1 1"/>
     </body>
 
     <body name="cartesian_wrist" pos="0 0 0.19">
@@ -189,5 +197,6 @@
     <framepos name="blue_cylinder_pos" objtype="body" objname="blue_cylinder"/>
     <framepos name="amber_capsule_pos" objtype="body" objname="amber_capsule"/>
     <framepos name="green_sphere_pos" objtype="body" objname="green_sphere"/>
+    <framepos name="purple_ellipsoid_pos" objtype="body" objname="purple_ellipsoid"/>
   </sensor>
 </mujoco>

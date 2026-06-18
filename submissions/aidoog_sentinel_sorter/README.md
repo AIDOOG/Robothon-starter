@@ -12,14 +12,15 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must autonomously triage five object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 25-gate verification suite:
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
 - amber capsule -> center inspection slot
 - green sphere -> quality slot
+- purple ellipsoid -> analysis slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, five object poses, cap rotation, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
@@ -32,16 +33,16 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 
 - Runnable MuJoCo scene with no external asset dependency.
 - Five-finger manipulation sequence with independent finger actuators.
-- Four object classes: cube, cylinder, capsule, and sphere.
+- Five object classes: cube, cylinder, capsule, sphere, and ellipsoid.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
-- 20-gate task suite reported in `rollout_summary.json`.
+- 25-gate task suite reported in `rollout_summary.json`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
+- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 25/25 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 
@@ -49,7 +50,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 
 - The behavior policy is a lightweight behavior-cloned phase policy rather than a large neural RL model.
 - The gantry wrist prioritizes reliable task evidence over full humanoid locomotion.
-- The demo uses four object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
+- The demo uses five object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
 
 ## Future improvements
 
