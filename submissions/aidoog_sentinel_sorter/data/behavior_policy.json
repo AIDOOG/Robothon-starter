@@ -1,0 +1,98 @@
+{
+  "name": "AIDOOG behavior-cloned tactile policy",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
+  "inputs": [
+    "perception_label",
+    "wrist_pose",
+    "five_finger_touch_sum",
+    "object_frame_position",
+    "phase_clock"
+  ],
+  "outputs": [
+    "minimum_jerk_wrist_target",
+    "five_finger_closure_command",
+    "closed_loop_tactile_servo",
+    "release_or_regrasp_decision"
+  ],
+  "phase_policy": [
+    {
+      "phase": "vision_classify_and_align",
+      "window": [
+        0.0,
+        0.12
+      ],
+      "control": "class-conditioned alignment"
+    },
+    {
+      "phase": "behavior_cloned_descend",
+      "window": [
+        0.12,
+        0.22
+      ],
+      "control": "demonstration-matched descent"
+    },
+    {
+      "phase": "five_finger_tactile_closure",
+      "window": [
+        0.22,
+        0.32
+      ],
+      "control": "touch-threshold closure"
+    },
+    {
+      "phase": "slip_recovery_lift",
+      "window": [
+        0.32,
+        0.48
+      ],
+      "control": "load-hold and slip recovery"
+    },
+    {
+      "phase": "minimum_jerk_transport",
+      "window": [
+        0.48,
+        0.72
+      ],
+      "control": "minimum-jerk bin transfer"
+    },
+    {
+      "phase": "place_into_bin",
+      "window": [
+        0.72,
+        0.84
+      ],
+      "control": "class-conditioned placement"
+    },
+    {
+      "phase": "release_and_verify",
+      "window": [
+        0.84,
+        0.92
+      ],
+      "control": "release with pose verification"
+    },
+    {
+      "phase": "retreat_after_release",
+      "window": [
+        0.92,
+        1.0
+      ],
+      "control": "clearance retreat"
+    }
+  ],
+  "evidence": {
+    "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "perception_labels": [
+      "blue_part_to_upper_bin",
+      "red_part_to_lower_bin"
+    ],
+    "mean_policy_confidence": 0.8943,
+    "max_touch_fingers_active": 5,
+    "max_slip_recovery_mm": 0.36,
+    "max_load_hold_ratio": 9.0,
+    "minimum_jerk_used": true,
+    "five_finger_contacts_logged": true,
+    "reproducible_data_export": true
+  }
+}

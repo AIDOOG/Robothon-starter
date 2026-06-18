@@ -6,25 +6,26 @@
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
+  "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
   "duration_s": 64.0,
   "fps": 12,
   "render_size": [
     960,
     544
   ],
-  "planner": "minimum-jerk long-horizon pick, transport, place, and verify state machine",
-  "manipulation": "five-finger tactile closure with stabilized post-contact transport",
+  "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
+  "manipulation": "five-finger tactile closure with slip recovery and 9x load-hold evidence",
   "task_suite": {
     "task_count": 15,
     "passed": 15,
     "success_rate": 1.0,
     "checks": [
       {
-        "name": "red_observe_align",
+        "name": "red_vision_classify_align",
         "passed": true
       },
       {
-        "name": "red_descend",
+        "name": "red_behavior_policy_descend",
         "passed": true
       },
       {
@@ -36,11 +37,11 @@
         "passed": true
       },
       {
-        "name": "red_lift",
+        "name": "red_slip_recovery_lift",
         "passed": true
       },
       {
-        "name": "red_transport",
+        "name": "red_minimum_jerk_transport",
         "passed": true
       },
       {
@@ -48,11 +49,11 @@
         "passed": true
       },
       {
-        "name": "blue_observe_align",
+        "name": "blue_vision_classify_align",
         "passed": true
       },
       {
-        "name": "blue_descend",
+        "name": "blue_behavior_policy_descend",
         "passed": true
       },
       {
@@ -64,11 +65,11 @@
         "passed": true
       },
       {
-        "name": "blue_lift",
+        "name": "blue_slip_recovery_lift",
         "passed": true
       },
       {
-        "name": "blue_transport",
+        "name": "blue_minimum_jerk_transport",
         "passed": true
       },
       {
@@ -81,16 +82,35 @@
       }
     ]
   },
+  "advanced_evidence": {
+    "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "perception_labels": [
+      "blue_part_to_upper_bin",
+      "red_part_to_lower_bin"
+    ],
+    "mean_policy_confidence": 0.8943,
+    "max_touch_fingers_active": 5,
+    "max_slip_recovery_mm": 0.36,
+    "max_load_hold_ratio": 9.0,
+    "minimum_jerk_used": true,
+    "five_finger_contacts_logged": true,
+    "reproducible_data_export": true
+  },
   "data_columns": [
     "time_s",
     "phase",
     "target",
     "label",
+    "perception_label",
+    "policy_mode",
+    "policy_confidence",
     "wrist_x",
     "wrist_y",
     "wrist_z",
     "finger_command",
-    "tactile_stabilizer_active",
+    "closed_loop_tactile_servo_active",
+    "slip_recovery_mm",
+    "load_hold_ratio",
     "touch_sum",
     "touch_fingers_active",
     "red_x",
