@@ -489,7 +489,31 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
     return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
-def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
+def draw_minimal_story_overlays(draw: ImageDraw.ImageDraw, width: int, height: int, plan: dict) -> None:
+    phase = plan["phase"]
+    local_t = plan["local_t"]
+    try:
+        small_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 13)
+    except OSError:
+        small_font = ImageFont.load_default()
+
+    if phase in {"slip_recovery_lift", "minimum_jerk_transport", "place_into_bin"}:
+        y = height - 62
+        x0, x1 = 58, width - 260
+        dot_x = int(x0 + (x1 - x0) * min(1.0, max(0.0, local_t)))
+        draw.line((x0, y, x1, y), fill=(64, 235, 145, 155), width=4)
+        draw.polygon([(x1, y), (x1 - 11, y - 7), (x1 - 11, y + 7)], fill=(64, 235, 145, 205))
+        draw.ellipse((dot_x - 7, y - 7, dot_x + 7, y + 7), fill=(255, 225, 72, 230))
+        draw.text((x0, y - 24), "route trail", font=small_font, fill=(220, 255, 235, 210))
+
+    if plan["task"].name == "amber_capsule" and float(plan["cap_rotation_deg"]) > 1.0:
+        cx, cy, radius = width - 92, 150, 32
+        rotation = min(1.0, float(plan["cap_rotation_deg"]) / 216.0)
+        draw.arc((cx - radius, cy - radius, cx + radius, cy + radius), start=-90, end=-90 + int(360 * rotation), fill=(255, 210, 72, 235), width=4)
+        draw.text((width - 178, 188), f"cap {plan['cap_rotation_deg']:05.1f} deg", font=small_font, fill=(255, 232, 145, 225))
+
+
+def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float, plan: dict | None = None) -> np.ndarray:
     image = Image.fromarray(frame)
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
@@ -508,6 +532,8 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     bar_w = int((width - 68) * progress)
     draw.rectangle((34, 86, 34 + bar_w, 90), fill=(64, 235, 145, 255))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
+    if plan is not None:
+        draw_minimal_story_overlays(draw, width, height, plan)
     return np.asarray(image)
 
 
@@ -565,7 +591,7 @@ def run_demo(
             camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
-            frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
+            frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s, plan))
 
     final_metrics = success_metrics(model, data, tasks)
     suite = task_suite_metrics(logs, final_metrics, tasks)
