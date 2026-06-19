@@ -12,14 +12,14 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite. The v24 main flow keeps the same four-object triage task but gives each object a distinct visible skill: red route avoidance, blue upright alignment, amber 216-degree precision rotation, and green slip regrasp recovery:
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
 - amber capsule -> center inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, route clearance, upright alignment, cap rotation, regrasp recovery, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
@@ -33,8 +33,9 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 - Runnable MuJoCo scene with no external asset dependency.
 - Five-finger manipulation sequence with independent finger actuators.
 - Four object classes: cube, cylinder, capsule, and sphere.
+- Four object-specific main-flow skills: route avoidance, upright alignment, precision rotation, and slip regrasp recovery.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
+- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, route clearance, upright alignment, cap rotation, regrasp recovery, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 

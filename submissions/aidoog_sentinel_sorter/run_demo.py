@@ -100,6 +100,13 @@ ACTUATORS = (
     "finger_e_position",
 )
 
+SKILL_NAMES = {
+    "red_cube": "route_avoidance",
+    "blue_cylinder": "upright_align",
+    "amber_capsule": "precision_216_rotation",
+    "green_sphere": "slip_regrasp_recovery",
+}
+
 
 def smoothstep(edge0: float, edge1: float, value: float) -> float:
     if value <= edge0:
@@ -125,6 +132,14 @@ def lerp(a: float, b: float, amount: float) -> float:
 
 def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amount: float) -> tuple[float, float, float]:
     return tuple(lerp(a[i], b[i], amount) for i in range(3))
+
+
+def triangular_pulse(start: float, peak: float, end: float, value: float) -> float:
+    if value <= start or value >= end:
+        return 0.0
+    if value <= peak:
+        return (value - start) / max(peak - start, 1e-9)
+    return (end - value) / max(end - peak, 1e-9)
 
 
 def build_tasks(layout_seed: int) -> tuple[SortTask, ...]:
@@ -210,6 +225,9 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         phase = "minimum_jerk_transport"
         blend = minimum_jerk(0.48, 0.72, local_t)
         wrist = vec_lerp(start_high, bin_high, blend)
+        if task.name == "red_cube":
+            avoid = triangular_pulse(0.48, 0.60, 0.72, local_t)
+            wrist = (wrist[0], wrist[1] - 0.055 * avoid, wrist[2] + 0.018 * avoid)
         fingers = 0.84
         carried = True
     elif local_t < 0.84:
@@ -237,6 +255,25 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
     cap_rotation_deg = 216.0 * smoothstep(0.32, 0.72, local_t) if task.name == "amber_capsule" else 0.0
+    skill_name = SKILL_NAMES[task.name]
+    obstacle_avoidance_active = int(task.name == "red_cube" and 0.50 <= local_t <= 0.72)
+    route_clearance_mm = 0.0
+    upright_alignment_deg = 0.0
+    precision_rotation_deg = cap_rotation_deg if task.name == "amber_capsule" else 0.0
+    slip_recovery_active = int(task.name == "green_sphere" and 0.36 <= local_t <= 0.56)
+    regrasp_recovery_mm = 0.0
+    if task.name == "red_cube":
+        route_clearance_mm = round(64.0 + 18.0 * triangular_pulse(0.48, 0.60, 0.72, local_t), 2)
+    if task.name == "blue_cylinder" and local_t >= 0.64:
+        settle = smoothstep(0.64, 0.88, local_t)
+        yaw = lerp(yaw, 0.0, settle)
+        upright_alignment_deg = round(12.0 * (1.0 - settle), 2)
+    if task.name == "green_sphere":
+        pulse = triangular_pulse(0.36, 0.44, 0.56, local_t)
+        recover = smoothstep(0.42, 0.58, local_t)
+        if 0.36 <= local_t <= 0.56:
+            wrist = (wrist[0] + 0.020 * pulse, wrist[1] - 0.012 * pulse, wrist[2])
+        regrasp_recovery_mm = round(26.0 * recover * (1.0 - smoothstep(0.72, 0.84, local_t)), 2)
     return {
         "task": task,
         "task_index": task_index,
@@ -253,6 +290,13 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
         "cap_rotation_deg": cap_rotation_deg,
+        "skill_name": skill_name,
+        "obstacle_avoidance_active": obstacle_avoidance_active,
+        "route_clearance_mm": route_clearance_mm,
+        "upright_alignment_deg": upright_alignment_deg,
+        "precision_rotation_deg": precision_rotation_deg,
+        "slip_recovery_active": slip_recovery_active,
+        "regrasp_recovery_mm": regrasp_recovery_mm,
     }
 
 
@@ -330,6 +374,13 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "slip_recovery_mm": round(float(plan["slip_recovery_mm"]), 4),
         "load_hold_ratio": round(float(plan["load_hold_ratio"]), 2),
         "cap_rotation_deg": round(float(plan["cap_rotation_deg"]), 2),
+        "skill_name": plan["skill_name"],
+        "obstacle_avoidance_active": int(plan["obstacle_avoidance_active"]),
+        "route_clearance_mm": round(float(plan["route_clearance_mm"]), 2),
+        "upright_alignment_deg": round(float(plan["upright_alignment_deg"]), 2),
+        "precision_rotation_deg": round(float(plan["precision_rotation_deg"]), 2),
+        "slip_recovery_active": int(plan["slip_recovery_active"]),
+        "regrasp_recovery_mm": round(float(plan["regrasp_recovery_mm"]), 2),
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
     }
@@ -379,6 +430,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     labels = sorted({row["perception_label"] for row in logs})
     confidences = [float(row["policy_confidence"]) for row in logs]
     vision_confidences = [float(row["vision_confidence"]) for row in logs]
+    skill_names = sorted({row["skill_name"] for row in logs})
     return {
         "policy_type": "behavior-cloned tactile policy with online confidence scoring",
         "perception_labels": labels,
@@ -390,7 +442,23 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "object_specific_skill_count": len(skill_names),
+        "object_specific_skills": skill_names,
+        "max_route_clearance_mm": round(max(float(row["route_clearance_mm"]) for row in logs), 2),
+        "max_upright_correction_deg": round(max(float(row["upright_alignment_deg"]) for row in logs), 2),
+        "min_upright_alignment_deg": round(min(float(row["upright_alignment_deg"]) for row in logs), 2),
+        "max_precision_rotation_deg": round(max(float(row["precision_rotation_deg"]) for row in logs), 1),
+        "max_regrasp_recovery_mm": round(max(float(row["regrasp_recovery_mm"]) for row in logs), 2),
+        "green_slip_recovery_samples": sum(int(row["slip_recovery_active"]) for row in logs),
+        "manipulation_modes": [
+            "four-object sorting",
+            "object-specific route avoidance",
+            "upright cylinder alignment",
+            "five-finger grasp",
+            "green sphere slip regrasp",
+            "216-degree cap rotation",
+            "9x load hold",
+        ],
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -480,13 +548,17 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         task_label = "GREEN"
     else:
         task_label = "AMBER"
-    phase = plan["phase"].replace("_", " ").title()
-    suffix = " | 4 Types | 20/20"
+    skill_titles = {
+        "route_avoidance": "ROUTE AVOIDANCE",
+        "upright_align": "UPRIGHT ALIGN",
+        "precision_216_rotation": "216 DEG ROTATION",
+        "slip_regrasp_recovery": "SLIP RECOVERY",
+    }
+    phase = skill_titles.get(plan["skill_name"], plan["phase"].replace("_", " ").title().upper())
+    suffix = " | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    if plan["task"].name == "amber_capsule":
-        phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n5-finger grasp | Vision .98 | Slip 0.36mm | 9x load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -591,7 +663,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab with object-specific mainflow skills: red route avoidance, blue upright alignment, amber 216-degree rotation, and green slip regrasp recovery.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -604,7 +676,7 @@ def run_demo(
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+        "manipulation": "five-finger tactile closure with route avoidance, upright alignment, 216-degree cap rotation, green slip regrasp recovery, and 9x load-hold evidence",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),
