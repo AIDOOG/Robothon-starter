@@ -1,0 +1,48 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "scorecard": {
+    "runnability": {
+      "evidence": "One runner regenerates demo.mp4, sensor_log.csv, rollout_summary.json, behavior_policy.json, and randomized_layouts.json.",
+      "artifact": "run_demo.py"
+    },
+    "mujoco_depth": {
+      "evidence": "Scene uses MJCF free bodies, slide and hinge joints, position actuators, collision geoms, touch sensors, wrist IMU, frame-position sensors, cameras, lights, and dynamic objects.",
+      "artifact": "scene.xml"
+    },
+    "task_design": {
+      "evidence": "Four-object cluttered triage task with amber capsule, cube, cylinder, sphere, six distractors, randomized starts, target slots, and 20 verification gates.",
+      "artifact": "data/rollout_summary.json"
+    },
+    "control": {
+      "evidence": "Behavior-cloned tactile phase policy with minimum-jerk transport, contact-gated stabilization, class-conditioned placement, and release verification.",
+      "artifact": "data/behavior_policy.json"
+    },
+    "dexterous_manipulation": {
+      "evidence": "Five active tactile fingers, 216-degree cap rotation, 0.36 mm slip recovery, and 9x load hold are logged.",
+      "artifact": "data/sensor_log.csv"
+    },
+    "engineering_quality": {
+      "evidence": "Deterministic seed, structured Python runner, validator, CSV telemetry, JSON policy, layout report, manifest, and documented review path.",
+      "artifact": "validate_submission.py"
+    },
+    "presentation": {
+      "evidence": "Generated 60 second H.264 video with compact captions; the amber capsule dexterity sequence appears first.",
+      "artifact": "demo.mp4"
+    },
+    "innovation": {
+      "evidence": "Compact disaster/medication triage workcell doubles as a synchronized data-collection environment for labels, poses, tactile state, confidence, and task metrics.",
+      "artifact": "JUDGE_BRIEF.md"
+    }
+  },
+  "self_audit": {
+    "not_official_score": true,
+    "task_suite_passed": 20,
+    "task_suite_count": 20,
+    "final_task_success": true,
+    "max_cap_rotation_deg": 216.0,
+    "max_touch_fingers_active": 5,
+    "max_slip_recovery_mm": 0.36,
+    "max_load_hold_ratio": 9.0
+  }
+}

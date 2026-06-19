@@ -1,0 +1,36 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "participant_name": "aidoog",
+  "github_account": "AIDOOG",
+  "canonical_pull_request": "https://github.com/Faraday-Future-AI/Robothon-starter/pull/103",
+  "entry_point": "run_demo.py",
+  "validator": "validate_submission.py",
+  "required_artifacts": [
+    "README.md",
+    "registration.json",
+    "scene.xml",
+    "run_demo.py",
+    "demo.mp4",
+    "data/rollout_summary.json",
+    "data/sensor_log.csv",
+    "data/behavior_policy.json",
+    "data/randomized_layouts.json",
+    "JUDGE_BRIEF.md",
+    "rubric_scorecard.json"
+  ],
+  "verification_commands": [
+    "python3 submissions/aidoog_sentinel_sorter/run_demo.py",
+    "python3 submissions/aidoog_sentinel_sorter/validate_submission.py"
+  ],
+  "headline_metrics": {
+    "task_suite_passed": 20,
+    "task_suite_count": 20,
+    "max_cap_rotation_deg": 216.0,
+    "max_touch_fingers_active": 5,
+    "max_slip_recovery_mm": 0.36,
+    "max_load_hold_ratio": 9.0,
+    "layout_variants": 6,
+    "distractor_count": 6
+  }
+}
