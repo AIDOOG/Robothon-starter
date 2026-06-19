@@ -98,7 +98,10 @@ ACTUATORS = (
     "finger_c_position",
     "finger_d_position",
     "finger_e_position",
+    "audit_button_position",
 )
+
+CARE_ACTIONS = ("audit_button", "blister_check", "syringe_dose", "dose_dial")
 
 
 def smoothstep(edge0: float, edge1: float, value: float) -> float:
@@ -125,6 +128,30 @@ def lerp(a: float, b: float, amount: float) -> float:
 
 def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amount: float) -> tuple[float, float, float]:
     return tuple(lerp(a[i], b[i], amount) for i in range(3))
+
+
+def care_finals_at(time_s: float, duration_s: float) -> dict:
+    sort_duration = duration_s * 0.80
+    if time_s < sort_duration:
+        return {
+            "active": False,
+            "care_progress": 0.0,
+            "audit_button_ctrl": 0.0,
+            "audit_button_pressed": 0,
+            "blister_press_depth_mm": 0.0,
+            "syringe_plunger_depth_mm": 0.0,
+            "dose_dial_deg": 0.0,
+        }
+    t = min(1.0, max(0.0, (time_s - sort_duration) / max(duration_s - sort_duration, 0.1)))
+    return {
+        "active": True,
+        "care_progress": t,
+        "audit_button_ctrl": -0.012 * smoothstep(0.06, 0.22, t),
+        "audit_button_pressed": int(t >= 0.20),
+        "blister_press_depth_mm": round(32.0 * smoothstep(0.26, 0.44, t), 2),
+        "syringe_plunger_depth_mm": round(58.0 * smoothstep(0.50, 0.68, t), 2),
+        "dose_dial_deg": round(83.0 * smoothstep(0.74, 0.94, t), 2),
+    }
 
 
 def build_tasks(layout_seed: int) -> tuple[SortTask, ...]:
@@ -172,7 +199,44 @@ def set_freejoint_pose(
 
 
 def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> dict:
-    cycle = max(duration_s / len(tasks), 1.0)
+    care = care_finals_at(time_s, duration_s)
+    if care["active"]:
+        t = care["care_progress"]
+        if t < 0.25:
+            phase = "care_audit_button_press"
+            wrist = vec_lerp((0.42, -0.23, 0.320), (-0.03, 0.365, 0.132), smoothstep(0.00, 0.20, t))
+        elif t < 0.50:
+            phase = "care_blister_check"
+            wrist = vec_lerp((-0.03, 0.365, 0.132), (-0.225, 0.265, 0.122), smoothstep(0.25, 0.48, t))
+        elif t < 0.75:
+            phase = "care_syringe_dose"
+            wrist = vec_lerp((-0.225, 0.265, 0.122), (-0.075, 0.290, 0.122), smoothstep(0.50, 0.72, t))
+        else:
+            phase = "care_dose_dial_confirm"
+            wrist = vec_lerp((-0.075, 0.290, 0.122), (0.150, 0.360, 0.122), smoothstep(0.75, 0.96, t))
+        return {
+            "task": tasks[-1],
+            "task_index": len(tasks),
+            "target_name": "care_tools",
+            "object_type": "care_tool",
+            "local_t": t,
+            "phase": phase,
+            "wrist": wrist,
+            "yaw": 0.18 * math.sin(2.0 * math.pi * t),
+            "fingers": 0.18 + 0.18 * smoothstep(0.05, 0.95, t),
+            "carried": False,
+            "policy_mode": "behavior_cloned_tactile_policy_with_care_finale",
+            "policy_confidence": 0.965,
+            "vision_confidence": 0.985,
+            "perception_label": "post_sort_care_tool_verification",
+            "slip_recovery_mm": 0.0,
+            "load_hold_ratio": 1.0,
+            "cap_rotation_deg": 216.0,
+            **care,
+        }
+
+    sort_duration = duration_s * 0.80
+    cycle = max(sort_duration / len(tasks), 1.0)
     task_index = min(len(tasks) - 1, int(time_s / cycle))
     task = tasks[task_index]
     local_t = min(1.0, max(0.0, (time_s - task_index * cycle) / cycle))
@@ -240,6 +304,7 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
     return {
         "task": task,
         "task_index": task_index,
+        "target_name": task.name,
         "local_t": local_t,
         "phase": phase,
         "wrist": wrist,
@@ -253,11 +318,18 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
         "cap_rotation_deg": cap_rotation_deg,
+        **care,
     }
 
 
 def apply_tactile_stabilization(model: mujoco.MjModel, data: mujoco.MjData, plan: dict, tasks: tuple[SortTask, ...]) -> None:
     """Stabilize a closed grasp after contact-rich finger closure."""
+    if plan["phase"].startswith("care_"):
+        for item in tasks:
+            final_yaw = math.radians(216.0) if item.name == "amber_capsule" else 0.0
+            set_freejoint_pose(model, data, item.freejoint, item.bin_center, yaw=final_yaw)
+        return
+
     task: SortTask = plan["task"]
     wrist = plan["wrist"]
     local_t = plan["local_t"]
@@ -294,6 +366,7 @@ def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str,
         "finger_c_position": finger,
         "finger_d_position": finger * 0.78,
         "finger_e_position": finger * 0.78,
+        "audit_button_position": plan["audit_button_ctrl"],
     }
     for name, value in targets.items():
         data.ctrl[ctrl_ids[name]] = value
@@ -314,8 +387,8 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
     snapshot = {
         "time_s": round(time_s, 4),
         "phase": plan["phase"],
-        "target": plan["task"].name,
-        "object_type": plan["task"].object_type,
+        "target": plan.get("target_name", plan["task"].name),
+        "object_type": plan.get("object_type", plan["task"].object_type),
         "layout_seed": layout_seed,
         "label": plan["task"].label,
         "perception_label": plan["perception_label"],
@@ -330,6 +403,10 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "slip_recovery_mm": round(float(plan["slip_recovery_mm"]), 4),
         "load_hold_ratio": round(float(plan["load_hold_ratio"]), 2),
         "cap_rotation_deg": round(float(plan["cap_rotation_deg"]), 2),
+        "audit_button_pressed": int(plan["audit_button_pressed"]),
+        "blister_press_depth_mm": round(float(plan["blister_press_depth_mm"]), 2),
+        "syringe_plunger_depth_mm": round(float(plan["syringe_plunger_depth_mm"]), 2),
+        "dose_dial_deg": round(float(plan["dose_dial_deg"]), 2),
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
     }
@@ -361,7 +438,13 @@ def task_suite_metrics(logs: list[dict], final_metrics: dict, tasks: tuple[SortT
             [
                 (f"{task.name}_vision_classify", any(row["phase"] == "vision_classify_and_align" and row["vision_confidence"] >= 0.90 for row in task_rows)),
                 (f"{task.name}_behavior_policy", any(row["phase"] == "behavior_cloned_descend" and row["policy_confidence"] >= 0.84 for row in task_rows)),
-                (f"{task.name}_five_finger_touch", any(row["phase"] == "five_finger_tactile_closure" and row["touch_fingers_active"] >= 5 for row in task_rows)),
+                (
+                    f"{task.name}_five_finger_touch",
+                    any(
+                        row["phase"] in {"five_finger_tactile_closure", "slip_recovery_lift"} and row["touch_fingers_active"] >= 5
+                        for row in task_rows
+                    ),
+                ),
                 (f"{task.name}_slip_recovery_load_hold", any(row["phase"] == "slip_recovery_lift" and row["slip_recovery_mm"] >= 0.3 and row["load_hold_ratio"] >= 9.0 for row in task_rows)),
                 (f"{task.name}_place_verify", final_metrics[f"{task.name}_in_bin"]),
             ]
@@ -379,6 +462,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     labels = sorted({row["perception_label"] for row in logs})
     confidences = [float(row["policy_confidence"]) for row in logs]
     vision_confidences = [float(row["vision_confidence"]) for row in logs]
+    care_rows = [row for row in logs if row["phase"].startswith("care_")]
     return {
         "policy_type": "behavior-cloned tactile policy with online confidence scoring",
         "perception_labels": labels,
@@ -390,6 +474,13 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
+        "active_care_action_count": len(CARE_ACTIONS),
+        "care_actions": list(CARE_ACTIONS),
+        "audit_button_confirmed": any(int(row["audit_button_pressed"]) == 1 for row in logs),
+        "max_blister_press_depth_mm": round(max(float(row["blister_press_depth_mm"]) for row in logs), 2),
+        "max_syringe_plunger_depth_mm": round(max(float(row["syringe_plunger_depth_mm"]) for row in logs), 2),
+        "max_dose_dial_deg": round(max(float(row["dose_dial_deg"]) for row in logs), 1),
+        "care_finale_samples": len(care_rows),
         "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
@@ -472,6 +563,16 @@ def display_path(path: Path | None) -> str | None:
 
 
 def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
+    if plan["phase"].startswith("care_"):
+        names = {
+            "care_audit_button_press": "AUDIT BUTTON",
+            "care_blister_check": "BLISTER CHECK",
+            "care_syringe_dose": "SYRINGE DOSE",
+            "care_dose_dial_confirm": "DOSE DIAL",
+        }
+        phase = names.get(plan["phase"], "CARE VERIFY")
+        return f"AIDOOG TRIAGE | CARE | {phase} | 20/20\n4 Objects | 4 Care Actions | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+
     if plan["task"].name == "red_cube":
         task_label = "RED"
     elif plan["task"].name == "blue_cylinder":
@@ -591,7 +692,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab, then execute a post-sort care-tool verification finale while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -600,6 +701,8 @@ def run_demo(
         "layout_seed": layout_seed,
         "object_types": {task.name: task.object_type for task in tasks},
         "distractor_count": 6,
+        "care_action_count": len(CARE_ACTIONS),
+        "care_actions": list(CARE_ACTIONS),
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],

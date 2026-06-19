@@ -12,18 +12,18 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must autonomously triage four object types from randomized pick layouts through a cluttered care-lab scene into matching targets, then run an active care-tool verification finale, while passing a 20-gate verification suite:
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
 - amber capsule -> center inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and then verify the completed kit by pressing an audit button, checking a blister pack, dosing a syringe plunger, and confirming a dose dial. The rollout also records layout seeds, labels, object poses, cap rotation, care-action state, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
+- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, active care-tool props, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
 - `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
@@ -33,8 +33,9 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 - Runnable MuJoCo scene with no external asset dependency.
 - Five-finger manipulation sequence with independent finger actuators.
 - Four object classes: cube, cylinder, capsule, and sphere.
+- Four post-sort care actions: audit button, blister check, syringe dose, and dose dial.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
+- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, care-action state, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 

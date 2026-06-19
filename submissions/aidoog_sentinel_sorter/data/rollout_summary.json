@@ -2,7 +2,7 @@
   "project": "AIDOOG Dexterous Triage Lab",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab, then execute a post-sort care-tool verification finale while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -16,6 +16,13 @@
     "green_sphere": "sphere"
   },
   "distractor_count": 6,
+  "care_action_count": 4,
+  "care_actions": [
+    "audit_button",
+    "blister_check",
+    "syringe_dose",
+    "dose_dial"
+  ],
   "duration_s": 60.0,
   "fps": 12,
   "render_size": [
@@ -117,21 +124,35 @@
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
       "green_sphere_to_quality_slot",
+      "post_sort_care_tool_verification",
       "red_part_to_lower_bin"
     ],
     "object_types": [
       "capsule",
+      "care_tool",
       "cube",
       "cylinder",
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
+    "mean_vision_confidence": 0.9842,
+    "mean_policy_confidence": 0.9471,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
+    "active_care_action_count": 4,
+    "care_actions": [
+      "audit_button",
+      "blister_check",
+      "syringe_dose",
+      "dose_dial"
+    ],
+    "audit_button_confirmed": true,
+    "max_blister_press_depth_mm": 32.0,
+    "max_syringe_plunger_depth_mm": 58.0,
+    "max_dose_dial_deg": 83.0,
+    "care_finale_samples": 72,
     "manipulation_modes": [
       "four-object sorting",
       "five-finger grasp",
@@ -164,6 +185,10 @@
     "slip_recovery_mm",
     "load_hold_ratio",
     "cap_rotation_deg",
+    "audit_button_pressed",
+    "blister_press_depth_mm",
+    "syringe_plunger_depth_mm",
+    "dose_dial_deg",
     "touch_sum",
     "touch_fingers_active",
     "red_cube_x",
