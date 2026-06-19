@@ -9,14 +9,16 @@
     "wrist_pose",
     "five_finger_touch_sum",
     "object_frame_position",
-    "phase_clock"
+    "phase_clock",
+    "visible_care_tool_state"
   ],
   "outputs": [
     "minimum_jerk_wrist_target",
     "five_finger_closure_command",
     "closed_loop_tactile_servo",
     "cap_rotation_target",
-    "release_or_regrasp_decision"
+    "release_or_regrasp_decision",
+    "care_tool_checklist_state"
   ],
   "phase_policy": [
     {
@@ -105,12 +107,25 @@
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
+    "visible_care_tool_count": 4,
+    "care_tool_shapes": [
+      "audit_button",
+      "blister_pack",
+      "syringe_plunger",
+      "dose_dial"
+    ],
+    "max_care_tool_checklist_progress": 1.0,
+    "audit_button_checked": true,
+    "blister_pack_registered": true,
+    "max_syringe_plunger_mm": 58.0,
+    "max_dose_dial_deg": 83.0,
     "manipulation_modes": [
       "four-object sorting",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "visible care-tool triage props"
     ],
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,

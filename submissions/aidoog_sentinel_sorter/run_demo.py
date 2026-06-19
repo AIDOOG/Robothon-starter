@@ -31,6 +31,7 @@ DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
 DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
 REPO_ROOT = HERE.parents[1]
 PROJECT_NAME = "AIDOOG Dexterous Triage Lab"
+CARE_TOOL_SHAPES = ("audit_button", "blister_pack", "syringe_plunger", "dose_dial")
 
 
 @dataclass(frozen=True)
@@ -125,6 +126,19 @@ def lerp(a: float, b: float, amount: float) -> float:
 
 def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amount: float) -> tuple[float, float, float]:
     return tuple(lerp(a[i], b[i], amount) for i in range(3))
+
+
+def care_tool_state(time_s: float, duration_s: float) -> dict:
+    progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
+    checklist = smoothstep(0.12, 0.88, progress)
+    return {
+        "visible_care_tool_count": len(CARE_TOOL_SHAPES),
+        "care_tool_checklist_progress": round(float(checklist), 4),
+        "audit_button_checked": int(progress >= 0.86),
+        "blister_pack_registered": int(progress >= 0.24),
+        "syringe_plunger_mm": round(58.0 * smoothstep(0.38, 0.68, progress), 2),
+        "dose_dial_deg": round(83.0 * smoothstep(0.52, 0.82, progress), 2),
+    }
 
 
 def build_tasks(layout_seed: int) -> tuple[SortTask, ...]:
@@ -299,7 +313,15 @@ def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str,
         data.ctrl[ctrl_ids[name]] = value
 
 
-def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, plan: dict, tasks: tuple[SortTask, ...], layout_seed: int) -> dict:
+def sensor_snapshot(
+    model: mujoco.MjModel,
+    data: mujoco.MjData,
+    time_s: float,
+    duration_s: float,
+    plan: dict,
+    tasks: tuple[SortTask, ...],
+    layout_seed: int,
+) -> dict:
     wrist = plan["wrist"]
     touch_values = []
     for sensor_name in (
@@ -333,6 +355,7 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
     }
+    snapshot.update(care_tool_state(time_s, duration_s))
     for task in tasks:
         pos = body_position(model, data, task.body)
         snapshot[f"{task.name}_x"] = round(float(pos[0]), 5)
@@ -390,7 +413,21 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "visible_care_tool_count": max(int(row["visible_care_tool_count"]) for row in logs),
+        "care_tool_shapes": list(CARE_TOOL_SHAPES),
+        "max_care_tool_checklist_progress": round(max(float(row["care_tool_checklist_progress"]) for row in logs), 4),
+        "audit_button_checked": any(int(row["audit_button_checked"]) == 1 for row in logs),
+        "blister_pack_registered": any(int(row["blister_pack_registered"]) == 1 for row in logs),
+        "max_syringe_plunger_mm": round(max(float(row["syringe_plunger_mm"]) for row in logs), 2),
+        "max_dose_dial_deg": round(max(float(row["dose_dial_deg"]) for row in logs), 1),
+        "manipulation_modes": [
+            "four-object sorting",
+            "five-finger grasp",
+            "slip recovery",
+            "216-degree cap rotation",
+            "9x load hold",
+            "visible care-tool triage props",
+        ],
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -419,6 +456,7 @@ def write_randomized_layout_report(layout_report_path: Path, layout_seed: int) -
         "layout_seed_used_for_demo": layout_seed,
         "variant_count": len(variants),
         "jitter_range_m": [-0.018, 0.018],
+        "care_tool_shapes": list(CARE_TOOL_SHAPES),
         "variants": variants,
     }
     layout_report_path.write_text(json.dumps(layout_report, indent=2), encoding="utf-8")
@@ -438,6 +476,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "five_finger_touch_sum",
             "object_frame_position",
             "phase_clock",
+            "visible_care_tool_state",
         ],
         "outputs": [
             "minimum_jerk_wrist_target",
@@ -445,6 +484,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "closed_loop_tactile_servo",
             "cap_rotation_target",
             "release_or_regrasp_decision",
+            "care_tool_checklist_state",
         ],
         "phase_policy": [
             {"phase": "vision_classify_and_align", "window": [0.00, 0.12], "control": "class-conditioned alignment"},
@@ -486,7 +526,7 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
         phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 4 Care Tools | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -555,7 +595,7 @@ def run_demo(
             mujoco.mj_forward(model, data)
 
         if frame_idx % max(1, fps // 5) == 0:
-            logs.append(sensor_snapshot(model, data, time_s, plan, tasks, layout_seed))
+            logs.append(sensor_snapshot(model, data, time_s, duration_s, plan, tasks, layout_seed))
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
@@ -591,7 +631,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab with visible care tools while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -599,12 +639,13 @@ def run_demo(
         "randomized_layout_report": display_path(layout_report_path),
         "layout_seed": layout_seed,
         "object_types": {task.name: task.object_type for task in tasks},
+        "care_tool_shapes": list(CARE_TOOL_SHAPES),
         "distractor_count": 6,
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and visible care-tool triage context",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),

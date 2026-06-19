@@ -33,6 +33,10 @@
     <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
     <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
     <material name="green_part" rgba="0.12 0.86 0.32 1"/>
+    <material name="care_teal" rgba="0.10 0.72 0.82 1"/>
+    <material name="care_white" rgba="0.92 0.94 0.90 1"/>
+    <material name="care_red" rgba="0.92 0.10 0.12 1"/>
+    <material name="care_purple" rgba="0.54 0.28 0.92 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
     <material name="palm_dark" rgba="0.12 0.15 0.18 1"/>
   </asset>
@@ -53,6 +57,15 @@
     <geom name="distractor_block_b" type="box" pos="0.04 -0.36 0.024" size="0.032 0.024 0.018" rgba="0.46 0.48 0.53 1"/>
     <geom name="distractor_hazard_a" type="box" pos="0.16 0.05 0.014" euler="0 0 0.45" size="0.090 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
     <geom name="distractor_hazard_b" type="box" pos="-0.20 0.05 0.014" euler="0 0 -0.38" size="0.080 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="care_audit_button_base" type="box" pos="-0.03 0.365 0.014" size="0.055 0.035 0.008" material="care_white" contype="0" conaffinity="0"/>
+    <geom name="care_audit_button" type="cylinder" pos="-0.03 0.365 0.034" size="0.020 0.010" material="care_red" contype="0" conaffinity="0"/>
+    <geom name="care_blister_pack" type="box" pos="-0.225 0.265 0.018" euler="0 0 0.14" size="0.074 0.038 0.006" material="care_white" contype="0" conaffinity="0"/>
+    <geom name="care_blister_pill_a" type="sphere" pos="-0.250 0.255 0.030" size="0.010" material="care_teal" contype="0" conaffinity="0"/>
+    <geom name="care_blister_pill_b" type="sphere" pos="-0.220 0.267 0.030" size="0.010" material="care_teal" contype="0" conaffinity="0"/>
+    <geom name="care_syringe_body" type="capsule" pos="-0.090 0.285 0.026" euler="1.5708 0 0.18" size="0.010 0.055" material="care_white" contype="0" conaffinity="0"/>
+    <geom name="care_syringe_plunger" type="capsule" pos="-0.055 0.292 0.026" euler="1.5708 0 0.18" size="0.007 0.030" material="care_teal" contype="0" conaffinity="0"/>
+    <geom name="care_dose_dial" type="cylinder" pos="0.150 0.360 0.026" size="0.026 0.014" material="care_purple" contype="0" conaffinity="0"/>
+    <geom name="care_dose_dial_mark" type="box" pos="0.170 0.360 0.044" euler="0 0 0.55" size="0.020 0.004 0.004" material="care_white" contype="0" conaffinity="0"/>
 
     <geom name="red_pick_pad" type="box" pos="-0.36 -0.18 0.012" size="0.085 0.085 0.006" rgba="0.50 0.10 0.08 0.8"/>
     <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>

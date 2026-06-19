@@ -6,6 +6,12 @@
     -0.018,
     0.018
   ],
+  "care_tool_shapes": [
+    "audit_button",
+    "blister_pack",
+    "syringe_plunger",
+    "dose_dial"
+  ],
   "variants": [
     {
       "seed": 7,

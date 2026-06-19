@@ -12,18 +12,18 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must autonomously triage four object types from randomized pick layouts through a cluttered care-lab scene into matching targets while passing a 20-gate verification suite:
 
 - red cube -> lower bin
 - blue cylinder -> upper bin
 - amber capsule -> center inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run demonstrates long-horizon task planning: classify, align around six distractor objects and four visible care tools, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, care-tool checklist state, cap rotation, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
+- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, four visible care-tool props, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
 - `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
@@ -34,14 +34,14 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 - Five-finger manipulation sequence with independent finger actuators.
 - Four object classes: cube, cylinder, capsule, and sphere.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
+- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, care-tool checklist state, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
+- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, visible care tools, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 
@@ -49,7 +49,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 
 - The behavior policy is a lightweight behavior-cloned phase policy rather than a large neural RL model.
 - The gantry wrist prioritizes reliable task evidence over full humanoid locomotion.
-- The demo uses four object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
+- The demo uses four active object types plus visible care tools; the same planner structure can be extended to more bins or larger randomized clutter sets.
 
 ## Future improvements
 
@@ -83,7 +83,7 @@ submissions/aidoog_sentinel_sorter/data/behavior_policy.json
 submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
 ```
 
-The process exits with code `0` when both objects finish inside their assigned bins.
+The process exits with code `0` when all objects finish inside their assigned bins.
 
 ## Demo video
 

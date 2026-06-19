@@ -2,7 +2,7 @@
   "project": "AIDOOG Dexterous Triage Lab",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab with visible care tools while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -15,6 +15,12 @@
     "amber_capsule": "capsule",
     "green_sphere": "sphere"
   },
+  "care_tool_shapes": [
+    "audit_button",
+    "blister_pack",
+    "syringe_plunger",
+    "dose_dial"
+  ],
   "distractor_count": 6,
   "duration_s": 60.0,
   "fps": 12,
@@ -23,7 +29,7 @@
     544
   ],
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-  "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+  "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and visible care-tool triage context",
   "task_suite": {
     "task_count": 20,
     "passed": 20,
@@ -132,12 +138,25 @@
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
+    "visible_care_tool_count": 4,
+    "care_tool_shapes": [
+      "audit_button",
+      "blister_pack",
+      "syringe_plunger",
+      "dose_dial"
+    ],
+    "max_care_tool_checklist_progress": 1.0,
+    "audit_button_checked": true,
+    "blister_pack_registered": true,
+    "max_syringe_plunger_mm": 58.0,
+    "max_dose_dial_deg": 83.0,
     "manipulation_modes": [
       "four-object sorting",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "visible care-tool triage props"
     ],
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,
@@ -166,6 +185,12 @@
     "cap_rotation_deg",
     "touch_sum",
     "touch_fingers_active",
+    "visible_care_tool_count",
+    "care_tool_checklist_progress",
+    "audit_button_checked",
+    "blister_pack_registered",
+    "syringe_plunger_mm",
+    "dose_dial_deg",
     "red_cube_x",
     "red_cube_y",
     "red_cube_z",
