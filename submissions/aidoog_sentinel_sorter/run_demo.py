@@ -480,13 +480,23 @@ def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
         task_label = "GREEN"
     else:
         task_label = "AMBER"
-    phase = plan["phase"].replace("_", " ").title()
+    phase_names = {
+        "vision_classify_and_align": "Classify",
+        "behavior_cloned_descend": "Descend",
+        "five_finger_tactile_closure": "Five-Finger Grasp",
+        "slip_recovery_lift": "Slip Recovery",
+        "minimum_jerk_transport": "Transport",
+        "place_into_bin": "Place",
+        "release_and_verify": "Verify",
+        "retreat_after_release": "Retreat",
+    }
+    phase = phase_names.get(plan["phase"], plan["phase"].replace("_", " ").title())
     suffix = " | 4 Types | 20/20"
     if suite:
         suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
     if plan["task"].name == "amber_capsule":
         phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 objects | 6 distractors | 216deg | slip 0.36mm | 9x load"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:

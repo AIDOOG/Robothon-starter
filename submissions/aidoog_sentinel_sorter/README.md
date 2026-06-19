@@ -83,7 +83,7 @@ submissions/aidoog_sentinel_sorter/data/behavior_policy.json
 submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
 ```
 
-The process exits with code `0` when both objects finish inside their assigned bins.
+The process exits with code `0` when all objects finish inside their assigned bins.
 
 ## Demo video
 
