@@ -98,6 +98,11 @@ ACTUATORS = (
     "finger_c_position",
     "finger_d_position",
     "finger_e_position",
+    "finger_a_distal_position",
+    "finger_b_distal_position",
+    "finger_c_distal_position",
+    "finger_d_distal_position",
+    "finger_e_distal_position",
 )
 
 
@@ -294,6 +299,11 @@ def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str,
         "finger_c_position": finger,
         "finger_d_position": finger * 0.78,
         "finger_e_position": finger * 0.78,
+        "finger_a_distal_position": min(0.86, finger * 0.72),
+        "finger_b_distal_position": min(0.86, finger * 0.72),
+        "finger_c_distal_position": min(0.86, finger * 0.72),
+        "finger_d_distal_position": min(0.82, finger * 0.62),
+        "finger_e_distal_position": min(0.82, finger * 0.62),
     }
     for name, value in targets.items():
         data.ctrl[ctrl_ids[name]] = value
@@ -391,6 +401,9 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
         "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
+        "actuated_channels": 14,
+        "finger_joint_count": 10,
+        "distal_finger_joints": True,
         "distractor_count": 6,
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
@@ -590,7 +603,7 @@ def run_demo(
     summary = {
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
+        "robot_platform": "MuJoCo cartesian wrist with a two-joint, five-finger dexterous gripper",
         "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,

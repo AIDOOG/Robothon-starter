@@ -109,46 +109,66 @@
 
       <body name="finger_a" pos="0.050 0 0.004" euler="0 0 0">
         <joint name="finger_a_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
-        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_a_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_a_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.074"/>
+        <body name="finger_a_distal" pos="0 0 -0.078">
+          <joint name="finger_a_distal_joint" type="hinge" axis="0 1 0" range="-0.10 0.90"/>
+          <geom class="finger" fromto="0 0 -0.004 0.000 0 -0.064" size="0.010"/>
+          <body name="finger_a_tip" pos="0 0 -0.070">
+            <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+            <site name="finger_a_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+          </body>
         </body>
       </body>
 
       <body name="finger_b" pos="-0.025 0.043 0.004" euler="0 0 2.094395">
         <joint name="finger_b_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
-        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_b_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_b_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.074"/>
+        <body name="finger_b_distal" pos="0 0 -0.078">
+          <joint name="finger_b_distal_joint" type="hinge" axis="0 1 0" range="-0.10 0.90"/>
+          <geom class="finger" fromto="0 0 -0.004 0.000 0 -0.064" size="0.010"/>
+          <body name="finger_b_tip" pos="0 0 -0.070">
+            <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+            <site name="finger_b_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+          </body>
         </body>
       </body>
 
       <body name="finger_c" pos="-0.025 -0.043 0.004" euler="0 0 -2.094395">
         <joint name="finger_c_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
-        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_c_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_c_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.074"/>
+        <body name="finger_c_distal" pos="0 0 -0.078">
+          <joint name="finger_c_distal_joint" type="hinge" axis="0 1 0" range="-0.10 0.90"/>
+          <geom class="finger" fromto="0 0 -0.004 0.000 0 -0.064" size="0.010"/>
+          <body name="finger_c_tip" pos="0 0 -0.070">
+            <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+            <site name="finger_c_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+          </body>
         </body>
       </body>
 
       <body name="finger_d" pos="-0.060 0.026 0.004" euler="0 0 2.748894">
         <joint name="finger_d_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
-        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
-        <body name="finger_d_tip" pos="0 0 -0.137">
-          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_d_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.068"/>
+        <body name="finger_d_distal" pos="0 0 -0.071">
+          <joint name="finger_d_distal_joint" type="hinge" axis="0 1 0" range="-0.10 0.85"/>
+          <geom class="finger" fromto="0 0 -0.004 0.000 0 -0.059" size="0.009"/>
+          <body name="finger_d_tip" pos="0 0 -0.064">
+            <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+            <site name="finger_d_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+          </body>
         </body>
       </body>
 
       <body name="finger_e" pos="-0.060 -0.026 0.004" euler="0 0 -2.748894">
         <joint name="finger_e_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
-        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
-        <body name="finger_e_tip" pos="0 0 -0.137">
-          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_e_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.068"/>
+        <body name="finger_e_distal" pos="0 0 -0.071">
+          <joint name="finger_e_distal_joint" type="hinge" axis="0 1 0" range="-0.10 0.85"/>
+          <geom class="finger" fromto="0 0 -0.004 0.000 0 -0.059" size="0.009"/>
+          <body name="finger_e_tip" pos="0 0 -0.064">
+            <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
+            <site name="finger_e_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+          </body>
         </body>
       </body>
     </body>
@@ -164,6 +184,11 @@
     <position name="finger_c_position" joint="finger_c_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
     <position name="finger_d_position" joint="finger_d_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
     <position name="finger_e_position" joint="finger_e_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
+    <position name="finger_a_distal_position" joint="finger_a_distal_joint" kp="30" dampratio="0.82" ctrlrange="-0.08 0.86"/>
+    <position name="finger_b_distal_position" joint="finger_b_distal_joint" kp="30" dampratio="0.82" ctrlrange="-0.08 0.86"/>
+    <position name="finger_c_distal_position" joint="finger_c_distal_joint" kp="30" dampratio="0.82" ctrlrange="-0.08 0.86"/>
+    <position name="finger_d_distal_position" joint="finger_d_distal_joint" kp="26" dampratio="0.82" ctrlrange="-0.08 0.82"/>
+    <position name="finger_e_distal_position" joint="finger_e_distal_joint" kp="26" dampratio="0.82" ctrlrange="-0.08 0.82"/>
   </actuator>
 
   <sensor>
@@ -178,6 +203,11 @@
     <jointpos name="finger_c_pos" joint="finger_c_knuckle"/>
     <jointpos name="finger_d_pos" joint="finger_d_knuckle"/>
     <jointpos name="finger_e_pos" joint="finger_e_knuckle"/>
+    <jointpos name="finger_a_distal_pos" joint="finger_a_distal_joint"/>
+    <jointpos name="finger_b_distal_pos" joint="finger_b_distal_joint"/>
+    <jointpos name="finger_c_distal_pos" joint="finger_c_distal_joint"/>
+    <jointpos name="finger_d_distal_pos" joint="finger_d_distal_joint"/>
+    <jointpos name="finger_e_distal_pos" joint="finger_e_distal_joint"/>
     <touch name="finger_a_contact" site="finger_a_touch"/>
     <touch name="finger_b_contact" site="finger_b_touch"/>
     <touch name="finger_c_contact" site="finger_c_touch"/>

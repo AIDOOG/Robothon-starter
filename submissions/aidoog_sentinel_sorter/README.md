@@ -8,7 +8,7 @@ AIDOOG Dexterous Triage Lab
 
 ## Robot platform
 
-MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry, touch sensors, IMU sensors, object frame sensors, and independent finger actuators so the reviewer does not need extra mesh downloads.
+MuJoCo cartesian wrist with a two-joint, five-finger dexterous gripper. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry, touch sensors, IMU sensors, object frame sensors, ten finger joints, and fourteen independent actuators so the reviewer does not need extra mesh downloads.
 
 ## Task goal
 
@@ -23,7 +23,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
+- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, ten finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
 - `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
@@ -31,7 +31,7 @@ The run demonstrates long-horizon task planning: classify, align around six dist
 ## Core features
 
 - Runnable MuJoCo scene with no external asset dependency.
-- Five-finger manipulation sequence with independent finger actuators.
+- Five-finger manipulation sequence with two joints per finger and fourteen independent actuator channels.
 - Four object classes: cube, cylinder, capsule, and sphere.
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.

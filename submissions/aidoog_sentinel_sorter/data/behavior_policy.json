@@ -112,6 +112,9 @@
       "216-degree cap rotation",
       "9x load hold"
     ],
+    "actuated_channels": 14,
+    "finger_joint_count": 10,
+    "distal_finger_joints": true,
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
