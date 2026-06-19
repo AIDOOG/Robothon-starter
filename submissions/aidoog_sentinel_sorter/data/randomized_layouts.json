@@ -10,25 +10,25 @@
     {
       "seed": 7,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.1155,
+          0.0143,
+          0.052
+        ],
         "red_cube": [
-          -0.3555,
-          -0.1657,
+          -0.3501,
+          -0.1899,
           0.052
         ],
         "blue_cylinder": [
-          -0.3501,
-          0.1701,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1272,
-          0.0134,
+          -0.3672,
+          0.1934,
           0.052
         ],
         "green_sphere": [
@@ -38,6 +38,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -46,11 +51,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [
@@ -64,25 +64,25 @@
     {
       "seed": 8,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.1262,
+          0.0175,
+          0.052
+        ],
         "red_cube": [
-          -0.3662,
-          -0.1625,
+          -0.3665,
+          -0.1696,
           0.052
         ],
         "blue_cylinder": [
-          -0.3665,
-          0.1904,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1067,
-          -0.0039,
+          -0.3467,
+          0.1761,
           0.052
         ],
         "green_sphere": [
@@ -92,6 +92,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -100,11 +105,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [
@@ -118,25 +118,25 @@
     {
       "seed": 9,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.1067,
+          -0.0077,
+          0.052
+        ],
         "red_cube": [
-          -0.3467,
-          -0.1877,
+          -0.3563,
+          -0.17,
           0.052
         ],
         "blue_cylinder": [
-          -0.3563,
-          0.19,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1122,
-          0.015,
+          -0.3522,
+          0.195,
           0.052
         ],
         "green_sphere": [
@@ -146,6 +146,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -154,11 +159,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [
@@ -172,25 +172,25 @@
     {
       "seed": 10,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.1036,
+          -0.0105,
+          0.052
+        ],
         "red_cube": [
-          -0.3436,
-          -0.1905,
+          -0.3482,
+          -0.1926,
           0.052
         ],
         "blue_cylinder": [
-          -0.3482,
-          0.1674,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1195,
-          -0.0131,
+          -0.3595,
+          0.1669,
           0.052
         ],
         "green_sphere": [
@@ -200,6 +200,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -208,11 +213,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [
@@ -226,25 +226,25 @@
     {
       "seed": 11,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.1334,
+          -0.0,
+          0.052
+        ],
         "red_cube": [
-          -0.3734,
-          -0.18,
+          -0.3563,
+          -0.197,
           0.052
         ],
         "blue_cylinder": [
-          -0.3563,
-          0.163,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1327,
-          0.0154,
+          -0.3727,
+          0.1954,
           0.052
         ],
         "green_sphere": [
@@ -254,6 +254,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -262,11 +267,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [
@@ -280,25 +280,25 @@
     {
       "seed": 12,
       "object_types": {
+        "amber_capsule": "capsule",
         "red_cube": "cube",
         "blue_cylinder": "cylinder",
-        "amber_capsule": "capsule",
         "green_sphere": "sphere"
       },
       "starts": {
+        "amber_capsule": [
+          -0.129,
+          0.0161,
+          0.052
+        ],
         "red_cube": [
-          -0.369,
-          -0.1639,
+          -0.3712,
+          -0.1915,
           0.052
         ],
         "blue_cylinder": [
-          -0.3712,
-          0.1685,
-          0.052
-        ],
-        "amber_capsule": [
-          -0.1254,
-          -0.0097,
+          -0.3654,
+          0.1703,
           0.052
         ],
         "green_sphere": [
@@ -308,6 +308,11 @@
         ]
       },
       "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
         "red_cube": [
           0.42,
           -0.23,
@@ -316,11 +321,6 @@
         "blue_cylinder": [
           0.42,
           0.23,
-          0.058
-        ],
-        "amber_capsule": [
-          0.42,
-          0.0,
           0.058
         ],
         "green_sphere": [

@@ -10,9 +10,9 @@
   "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
   "layout_seed": 7,
   "object_types": {
+    "amber_capsule": "capsule",
     "red_cube": "cube",
     "blue_cylinder": "cylinder",
-    "amber_capsule": "capsule",
     "green_sphere": "sphere"
   },
   "distractor_count": 6,
@@ -29,6 +29,26 @@
     "passed": 20,
     "success_rate": 1.0,
     "checks": [
+      {
+        "name": "amber_capsule_vision_classify",
+        "passed": true
+      },
+      {
+        "name": "amber_capsule_behavior_policy",
+        "passed": true
+      },
+      {
+        "name": "amber_capsule_five_finger_touch",
+        "passed": true
+      },
+      {
+        "name": "amber_capsule_slip_recovery_load_hold",
+        "passed": true
+      },
+      {
+        "name": "amber_capsule_place_verify",
+        "passed": true
+      },
       {
         "name": "red_cube_vision_classify",
         "passed": true
@@ -67,26 +87,6 @@
       },
       {
         "name": "blue_cylinder_place_verify",
-        "passed": true
-      },
-      {
-        "name": "amber_capsule_vision_classify",
-        "passed": true
-      },
-      {
-        "name": "amber_capsule_behavior_policy",
-        "passed": true
-      },
-      {
-        "name": "amber_capsule_five_finger_touch",
-        "passed": true
-      },
-      {
-        "name": "amber_capsule_slip_recovery_load_hold",
-        "passed": true
-      },
-      {
-        "name": "amber_capsule_place_verify",
         "passed": true
       },
       {
@@ -166,26 +166,26 @@
     "cap_rotation_deg",
     "touch_sum",
     "touch_fingers_active",
+    "amber_capsule_x",
+    "amber_capsule_y",
+    "amber_capsule_z",
     "red_cube_x",
     "red_cube_y",
     "red_cube_z",
     "blue_cylinder_x",
     "blue_cylinder_y",
     "blue_cylinder_z",
-    "amber_capsule_x",
-    "amber_capsule_y",
-    "amber_capsule_z",
     "green_sphere_x",
     "green_sphere_y",
     "green_sphere_z"
   ],
   "metrics": {
+    "amber_capsule_xy_error_m": 0.0,
+    "amber_capsule_in_bin": true,
     "red_cube_xy_error_m": 0.0,
     "red_cube_in_bin": true,
     "blue_cylinder_xy_error_m": 0.0,
     "blue_cylinder_in_bin": true,
-    "amber_capsule_xy_error_m": 0.0,
-    "amber_capsule_in_bin": true,
     "green_sphere_xy_error_m": 0.0,
     "green_sphere_in_bin": true,
     "all_tasks_successful": true

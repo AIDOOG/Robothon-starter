@@ -14,12 +14,12 @@ MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-c
 
 The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
 
+- amber capsule -> center inspection slot
 - red cube -> lower bin
 - blue cylinder -> upper bin
-- amber capsule -> center inspection slot
 - green sphere -> quality slot
 
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run now leads with the highest-value evidence: classify the amber capsule, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify before continuing through the red, blue, and green triage objects. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
 
 ## Technical approach
 

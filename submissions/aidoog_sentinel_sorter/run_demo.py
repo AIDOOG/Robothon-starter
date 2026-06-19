@@ -47,6 +47,16 @@ class SortTask:
 
 BASE_TASKS = (
     SortTask(
+        name="amber_capsule",
+        freejoint="amber_capsule_freejoint",
+        body="amber_capsule",
+        start=(-0.12, 0.0, 0.052),
+        bin_center=(0.42, 0.0, 0.058),
+        label="amber_capsule_to_inspection_slot",
+        object_type="capsule",
+        carry_height=0.058,
+    ),
+    SortTask(
         name="red_cube",
         freejoint="red_cube_freejoint",
         body="red_cube",
@@ -65,16 +75,6 @@ BASE_TASKS = (
         label="blue_part_to_upper_bin",
         object_type="cylinder",
         carry_height=0.056,
-    ),
-    SortTask(
-        name="amber_capsule",
-        freejoint="amber_capsule_freejoint",
-        body="amber_capsule",
-        start=(-0.12, 0.0, 0.052),
-        bin_center=(0.42, 0.0, 0.058),
-        label="amber_capsule_to_inspection_slot",
-        object_type="capsule",
-        carry_height=0.058,
     ),
     SortTask(
         name="green_sphere",
