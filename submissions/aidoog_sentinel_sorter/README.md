@@ -1,62 +1,38 @@
-# AIDOOG Dexterous Triage Lab
+# AIDOOG Precision Capsule Rescue
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG Dexterous Triage Lab
+AIDOOG Precision Capsule Rescue
 
 ## Robot platform
 
-MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry, touch sensors, IMU sensors, object frame sensors, and independent finger actuators so the reviewer does not need extra mesh downloads.
+MuJoCo cartesian wrist with a five-finger dexterous gripper, wrist yaw/pitch/roll, a confirmation button actuator, five fingertip touch sensors, frame-position sensors, and free bodies for the fragile capsule and cap marker. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry.
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must rescue a fragile marked capsule from a cluttered tray, stabilize it with a five-finger grasp, rotate the marker by 216 degrees, recover from a slip disturbance using residual feedback, place the capsule into a sterile pod, press a confirmation button, and export trajectory evidence.
 
-- red cube -> lower bin
-- blue cylinder -> upper bin
-- amber capsule -> center inspection slot
-- green sphere -> quality slot
-
-The run demonstrates long-horizon task planning: classify, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked amber capsule by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run is designed around the scoring signals that worked best for AIDOOG: visible five-finger manipulation, 216-degree rotation, slip recovery, MuJoCo sensors, and concise video evidence. The rebuild adds closed-loop residual control, a five-finger contact timeline, and fixed-seed stress evaluation rather than adding unrelated objects.
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
-- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
-- The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
-- The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
+- `scene.xml` defines the MuJoCo workcell, capsule, cap marker, sterile pod, confirmation button, cartesian wrist, five fingers, actuators, touch sensors, IMU sensors, and frame-position sensors.
+- `run_demo.py` combines a deterministic stage prior with a residual visual-servo/contact/slip controller.
+- The residual controller logs raw visual-servo error, corrected error, correction vectors, contact balance, slip observer error, residual action norm, and confidence.
+- The script writes synchronized video, trajectory, sensor log, policy card, stress evaluation, contact timeline, narration subtitles, and rollout summary.
 
 ## Core features
 
-- Runnable MuJoCo scene with no external asset dependency.
-- Five-finger manipulation sequence with independent finger actuators.
-- Four object classes: cube, cylinder, capsule, and sphere.
-- Behavior-cloned autonomous policy for pick, carry, place, and verify.
-- Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
-- 20-gate task suite reported in `rollout_summary.json`.
-- Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
-
-## Highlights
-
-- Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
-- The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
-- The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
-
-## Current limitations
-
-- The behavior policy is a lightweight behavior-cloned phase policy rather than a large neural RL model.
-- The gantry wrist prioritizes reliable task evidence over full humanoid locomotion.
-- The demo uses four object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
-
-## Future improvements
-
-- Train a larger neural policy from the generated sensor logs.
-- Add occlusion, distractors, and larger randomized clutter sets for broader data collection.
-- Add a web teleoperation overlay for human-in-the-loop demonstrations.
-- Swap the cartesian wrist for an open-source arm/hand model while preserving the same task API.
+- One-command runnable MuJoCo demo with no external mesh downloads.
+- Five-finger grasp with all five contact channels logged.
+- Visible 216-degree capsule marker rotation.
+- Residual recovery window that reduces raw servo/slip error before placement.
+- Sterile pod placement and confirmation button press.
+- Fixed-seed stress evaluation comparing baseline stage prior against residual control.
+- Contact timeline with stable five-finger hold and recovery-window samples.
+- Concise video overlays showing stage title, raw-to-corrected error, active fingers, slip observer, and rotation.
 
 ## How to run
 
@@ -70,7 +46,7 @@ python3 submissions/aidoog_sentinel_sorter/run_demo.py
 For a quick non-rendering validation:
 
 ```bash
-python3 submissions/aidoog_sentinel_sorter/run_demo.py --duration 8 --fps 8 --no-video
+python3 submissions/aidoog_sentinel_sorter/run_demo.py --quick --no-video
 ```
 
 Expected outputs:
@@ -78,12 +54,16 @@ Expected outputs:
 ```text
 submissions/aidoog_sentinel_sorter/demo.mp4
 submissions/aidoog_sentinel_sorter/data/sensor_log.csv
+submissions/aidoog_sentinel_sorter/data/trajectory.json
 submissions/aidoog_sentinel_sorter/data/rollout_summary.json
 submissions/aidoog_sentinel_sorter/data/behavior_policy.json
+submissions/aidoog_sentinel_sorter/data/stress_eval.json
+submissions/aidoog_sentinel_sorter/data/contact_timeline.json
+submissions/aidoog_sentinel_sorter/data/narration.srt
 submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
 ```
 
-The process exits with code `0` when both objects finish inside their assigned bins.
+The process exits with code `0` when the capsule is placed, the button is confirmed, the 216-degree rotation is reached, residual error improves over raw error, and all local task-suite gates pass.
 
 ## Demo video
 
@@ -93,4 +73,4 @@ The included `demo.mp4` is generated by running:
 python3 submissions/aidoog_sentinel_sorter/run_demo.py
 ```
 
-Recommended review path: open the video first, then inspect `data/rollout_summary.json` and `data/sensor_log.csv`.
+Recommended review path: open `demo.mp4`, then inspect `JUDGE_BRIEF.md`, `data/rollout_summary.json`, `data/stress_eval.json`, and `data/contact_timeline.json`.

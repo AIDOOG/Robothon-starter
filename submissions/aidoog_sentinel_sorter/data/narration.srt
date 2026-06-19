@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:07,680
+Sensors online.
+
+2
+00:00:07,680 --> 00:00:16,000
+Servo locks the capsule.
+
+3
+00:00:16,000 --> 00:00:24,320
+Five-finger grip.
+
+4
+00:00:24,320 --> 00:00:35,200
+Two hundred sixteen degree rotation.
+
+5
+00:00:35,200 --> 00:00:44,800
+Disturbance carry.
+
+6
+00:00:44,800 --> 00:00:53,760
+Residual recovery.
+
+7
+00:00:53,760 --> 00:01:00,160
+Sterile pod placement.
+
+8
+00:01:00,160 --> 00:01:04,000
+Confirmation and export.

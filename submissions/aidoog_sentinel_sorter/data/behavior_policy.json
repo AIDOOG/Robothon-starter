@@ -1,121 +1,103 @@
 {
-  "name": "AIDOOG behavior-cloned tactile policy",
+  "name": "AIDOOG residual capsule rescue policy",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-  "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
+  "policy_family": "deterministic stage prior with closed-loop residual visual-servo/contact/slip correction",
   "inputs": [
-    "perception_label",
-    "vision_confidence",
-    "layout_seed",
-    "wrist_pose",
-    "five_finger_touch_sum",
-    "object_frame_position",
-    "phase_clock"
+    "stage_clock",
+    "capsule_frame_position",
+    "pod_target_position",
+    "five_finger_contact_proxy",
+    "visual_servo_error",
+    "slip_observer_error"
   ],
   "outputs": [
-    "minimum_jerk_wrist_target",
-    "five_finger_closure_command",
-    "closed_loop_tactile_servo",
-    "cap_rotation_target",
-    "release_or_regrasp_decision"
+    "corrected_wrist_target",
+    "five_finger_grip_delta",
+    "button_confirmation_control",
+    "trajectory_and_contact_timeline"
   ],
-  "phase_policy": [
+  "stage_policy": [
     {
-      "phase": "vision_classify_and_align",
+      "key": "sensor_sweep",
       "window": [
         0.0,
         0.12
       ],
-      "control": "class-conditioned alignment"
+      "success_signal": "scene and sensors online"
     },
     {
-      "phase": "behavior_cloned_descend",
+      "key": "visual_servo_approach",
       "window": [
         0.12,
-        0.22
+        0.25
       ],
-      "control": "demonstration-matched descent"
+      "success_signal": "palm aligns to capsule"
     },
     {
-      "phase": "five_finger_tactile_closure",
+      "key": "balanced_five_finger_grasp",
       "window": [
-        0.22,
-        0.32
+        0.25,
+        0.38
       ],
-      "control": "touch-threshold closure"
+      "success_signal": "five contacts balanced"
     },
     {
-      "phase": "slip_recovery_lift",
+      "key": "in_hand_216_rotation",
       "window": [
-        0.32,
-        0.48
+        0.38,
+        0.55
       ],
-      "control": "load-hold and slip recovery"
+      "success_signal": "capsule marker reaches 216 degrees"
     },
     {
-      "phase": "minimum_jerk_transport",
+      "key": "disturbance_carry",
       "window": [
-        0.48,
-        0.72
+        0.55,
+        0.7
       ],
-      "control": "minimum-jerk bin transfer"
+      "success_signal": "capsule carried through slip window"
     },
     {
-      "phase": "place_into_bin",
+      "key": "residual_slip_recovery",
       "window": [
-        0.72,
+        0.7,
         0.84
       ],
-      "control": "class-conditioned placement"
+      "success_signal": "residual controller reduces slip"
     },
     {
-      "phase": "release_and_verify",
+      "key": "sterile_pod_place",
       "window": [
         0.84,
-        0.92
+        0.94
       ],
-      "control": "release with pose verification"
+      "success_signal": "capsule placed in sterile pod"
     },
     {
-      "phase": "retreat_after_release",
+      "key": "confirmation_and_export",
       "window": [
-        0.92,
-        1.0
+        0.94,
+        1.01
       ],
-      "control": "clearance retreat"
+      "success_signal": "button confirmed and data exported"
     }
   ],
   "evidence": {
-    "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "perception_labels": [
-      "amber_capsule_to_inspection_slot",
-      "blue_part_to_upper_bin",
-      "green_sphere_to_quality_slot",
-      "red_part_to_lower_bin"
-    ],
-    "object_types": [
-      "capsule",
-      "cube",
-      "cylinder",
-      "sphere"
-    ],
-    "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9841,
-    "mean_policy_confidence": 0.9428,
-    "max_touch_fingers_active": 5,
-    "max_slip_recovery_mm": 0.36,
-    "max_load_hold_ratio": 9.0,
-    "max_cap_rotation_deg": 216.0,
-    "manipulation_modes": [
-      "four-object sorting",
-      "five-finger grasp",
-      "slip recovery",
-      "216-degree cap rotation",
-      "9x load hold"
-    ],
-    "distractor_count": 6,
-    "obstacle_free_clutter_run": true,
-    "minimum_jerk_used": true,
-    "five_finger_contacts_logged": true,
-    "reproducible_data_export": true
+    "task_success": true,
+    "capsule_xy_error_m": 0.0,
+    "capsule_in_pod": true,
+    "button_pressed": true,
+    "max_active_fingers": 5,
+    "max_rotation_deg": 216.0,
+    "raw_median_error_m": 0.02904,
+    "corrected_median_error_m": 0.01067,
+    "raw_p95_error_m": 0.32546,
+    "corrected_p95_error_m": 0.29211,
+    "residual_corrections_applied": 569,
+    "peak_residual_action_norm": 0.22218,
+    "max_slip_observer_error_mm": 31.897,
+    "mean_policy_confidence": 0.6214,
+    "stage_count": 8,
+    "sample_count": 384
   }
 }

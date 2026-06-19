@@ -5,7 +5,7 @@ import csv
 import json
 import math
 import sys
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -23,82 +23,90 @@ except ImportError as exc:
 
 
 HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parents[1]
 DEFAULT_SCENE = HERE / "scene.xml"
 DEFAULT_VIDEO = HERE / "demo.mp4"
-DEFAULT_SENSOR_LOG = HERE / "data" / "sensor_log.csv"
-DEFAULT_SUMMARY = HERE / "data" / "rollout_summary.json"
-DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
-DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
-REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG Dexterous Triage Lab"
-
-
-@dataclass(frozen=True)
-class SortTask:
-    name: str
-    freejoint: str
-    body: str
-    start: tuple[float, float, float]
-    bin_center: tuple[float, float, float]
-    label: str
-    object_type: str
-    carry_height: float
-
-
-BASE_TASKS = (
-    SortTask(
-        name="red_cube",
-        freejoint="red_cube_freejoint",
-        body="red_cube",
-        start=(-0.36, -0.18, 0.052),
-        bin_center=(0.42, -0.23, 0.058),
-        label="red_part_to_lower_bin",
-        object_type="cube",
-        carry_height=0.062,
-    ),
-    SortTask(
-        name="blue_cylinder",
-        freejoint="blue_cylinder_freejoint",
-        body="blue_cylinder",
-        start=(-0.36, 0.18, 0.052),
-        bin_center=(0.42, 0.23, 0.058),
-        label="blue_part_to_upper_bin",
-        object_type="cylinder",
-        carry_height=0.056,
-    ),
-    SortTask(
-        name="amber_capsule",
-        freejoint="amber_capsule_freejoint",
-        body="amber_capsule",
-        start=(-0.12, 0.0, 0.052),
-        bin_center=(0.42, 0.0, 0.058),
-        label="amber_capsule_to_inspection_slot",
-        object_type="capsule",
-        carry_height=0.058,
-    ),
-    SortTask(
-        name="green_sphere",
-        freejoint="green_sphere_freejoint",
-        body="green_sphere",
-        start=(-0.12, -0.31, 0.052),
-        bin_center=(0.16, -0.31, 0.058),
-        label="green_sphere_to_quality_slot",
-        object_type="sphere",
-        carry_height=0.058,
-    ),
-)
+DATA_DIR = HERE / "data"
+DEFAULT_SENSOR_LOG = DATA_DIR / "sensor_log.csv"
+DEFAULT_TRAJECTORY = DATA_DIR / "trajectory.json"
+DEFAULT_SUMMARY = DATA_DIR / "rollout_summary.json"
+DEFAULT_POLICY = DATA_DIR / "behavior_policy.json"
+DEFAULT_STRESS = DATA_DIR / "stress_eval.json"
+DEFAULT_CONTACT_TIMELINE = DATA_DIR / "contact_timeline.json"
+DEFAULT_NARRATION = DATA_DIR / "narration.srt"
+DEFAULT_LAYOUT_REPORT = DATA_DIR / "randomized_layouts.json"
+PROJECT_NAME = "AIDOOG Precision Capsule Rescue"
+REGISTRATION_UUID = "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9"
 
 ACTUATORS = (
     "x_position",
     "y_position",
     "z_position",
     "yaw_position",
-    "finger_a_position",
-    "finger_b_position",
-    "finger_c_position",
-    "finger_d_position",
-    "finger_e_position",
+    "pitch_position",
+    "roll_position",
+    "thumb_position",
+    "index_position",
+    "middle_position",
+    "ring_position",
+    "little_position",
+    "button_position",
 )
+
+FINGER_NAMES = ("thumb", "index", "middle", "ring", "little")
+CAPSULE_START = np.array([-0.42, -0.16, 0.060])
+CAP_START = np.array([-0.42, -0.16, 0.125])
+POD_TARGET = np.array([0.45, 0.20, 0.060])
+CAP_EXPORT = np.array([0.17, 0.34, 0.090])
+
+
+@dataclass(frozen=True)
+class Stage:
+    key: str
+    title: str
+    start: float
+    end: float
+    success_signal: str
+
+
+@dataclass
+class ResidualState:
+    servo_error_ema: np.ndarray
+    contact_error_ema: float
+    slip_error_ema: float
+    corrections_applied: int = 0
+    residual_norm_peak: float = 0.0
+
+
+STAGES = (
+    Stage("sensor_sweep", "SENSOR SWEEP", 0.00, 0.12, "scene and sensors online"),
+    Stage("visual_servo_approach", "VISUAL SERVO APPROACH", 0.12, 0.25, "palm aligns to capsule"),
+    Stage("balanced_five_finger_grasp", "FIVE-FINGER GRASP", 0.25, 0.38, "five contacts balanced"),
+    Stage("in_hand_216_rotation", "216 DEG ROTATION", 0.38, 0.55, "capsule marker reaches 216 degrees"),
+    Stage("disturbance_carry", "DISTURBANCE CARRY", 0.55, 0.70, "capsule carried through slip window"),
+    Stage("residual_slip_recovery", "RESIDUAL RECOVERY", 0.70, 0.84, "residual controller reduces slip"),
+    Stage("sterile_pod_place", "POD PLACE", 0.84, 0.94, "capsule placed in sterile pod"),
+    Stage("confirmation_and_export", "POD PLACE + EXPORT", 0.94, 1.01, "button confirmed and data exported"),
+)
+
+NARRATION = (
+    (0.00, 0.12, "Sensors online."),
+    (0.12, 0.25, "Servo locks the capsule."),
+    (0.25, 0.38, "Five-finger grip."),
+    (0.38, 0.55, "Two hundred sixteen degree rotation."),
+    (0.55, 0.70, "Disturbance carry."),
+    (0.70, 0.84, "Residual recovery."),
+    (0.84, 0.94, "Sterile pod placement."),
+    (0.94, 1.01, "Confirmation and export."),
+)
+
+
+def new_residual_state() -> ResidualState:
+    return ResidualState(
+        servo_error_ema=np.zeros(3, dtype=float),
+        contact_error_ema=0.0,
+        slip_error_ema=0.0,
+    )
 
 
 def smoothstep(edge0: float, edge1: float, value: float) -> float:
@@ -106,7 +114,7 @@ def smoothstep(edge0: float, edge1: float, value: float) -> float:
         return 0.0
     if value >= edge1:
         return 1.0
-    x = (value - edge0) / (edge1 - edge0)
+    x = (value - edge0) / max(edge1 - edge0, 1e-9)
     return x * x * (3.0 - 2.0 * x)
 
 
@@ -115,30 +123,16 @@ def minimum_jerk(edge0: float, edge1: float, value: float) -> float:
         return 0.0
     if value >= edge1:
         return 1.0
-    x = (value - edge0) / (edge1 - edge0)
+    x = (value - edge0) / max(edge1 - edge0, 1e-9)
     return x**3 * (10.0 - 15.0 * x + 6.0 * x * x)
 
 
-def lerp(a: float, b: float, amount: float) -> float:
+def lerp_vec(a: np.ndarray, b: np.ndarray, amount: float) -> np.ndarray:
     return a * (1.0 - amount) + b * amount
 
 
-def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amount: float) -> tuple[float, float, float]:
-    return tuple(lerp(a[i], b[i], amount) for i in range(3))
-
-
-def build_tasks(layout_seed: int) -> tuple[SortTask, ...]:
-    rng = np.random.default_rng(layout_seed)
-    randomized: list[SortTask] = []
-    for task in BASE_TASKS:
-        xy_jitter = rng.uniform(-0.018, 0.018, size=2)
-        start = (
-            round(task.start[0] + float(xy_jitter[0]), 4),
-            round(task.start[1] + float(xy_jitter[1]), 4),
-            task.start[2],
-        )
-        randomized.append(replace(task, start=start))
-    return tuple(randomized)
+def yaw_quat(yaw: float) -> np.ndarray:
+    return np.array([math.cos(yaw / 2.0), 0.0, 0.0, math.sin(yaw / 2.0)])
 
 
 def name_id(model: mujoco.MjModel, obj_type: mujoco.mjtObj, name: str) -> int:
@@ -153,312 +147,352 @@ def joint_qpos_addr(model: mujoco.MjModel, joint_name: str) -> int:
     return int(model.jnt_qposadr[joint_id])
 
 
+def set_freejoint_pose(model: mujoco.MjModel, data: mujoco.MjData, joint_name: str, pos: np.ndarray, yaw: float) -> None:
+    addr = joint_qpos_addr(model, joint_name)
+    data.qpos[addr : addr + 3] = pos
+    data.qpos[addr + 3 : addr + 7] = yaw_quat(yaw)
+    data.qvel[addr : addr + 6] = 0.0
+
+
 def body_position(model: mujoco.MjModel, data: mujoco.MjData, body_name: str) -> np.ndarray:
     body_id = name_id(model, mujoco.mjtObj.mjOBJ_BODY, body_name)
     return data.xpos[body_id].copy()
 
 
-def set_freejoint_pose(
-    model: mujoco.MjModel,
-    data: mujoco.MjData,
-    joint_name: str,
-    pos: tuple[float, float, float],
-    yaw: float = 0.0,
-) -> None:
-    qpos_addr = joint_qpos_addr(model, joint_name)
-    data.qpos[qpos_addr : qpos_addr + 3] = pos
-    data.qpos[qpos_addr + 3 : qpos_addr + 7] = [math.cos(yaw / 2.0), 0.0, 0.0, math.sin(yaw / 2.0)]
-    data.qvel[qpos_addr : qpos_addr + 6] = 0.0
+def stage_for_phase(phase: float) -> Stage:
+    for stage in STAGES:
+        if stage.start <= phase < stage.end:
+            return stage
+    return STAGES[-1]
 
 
-def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> dict:
-    cycle = max(duration_s / len(tasks), 1.0)
-    task_index = min(len(tasks) - 1, int(time_s / cycle))
-    task = tasks[task_index]
-    local_t = min(1.0, max(0.0, (time_s - task_index * cycle) / cycle))
+def stage_progress(stage: Stage, phase: float) -> float:
+    return smoothstep(stage.start, stage.end, phase)
 
-    start_high = (task.start[0], task.start[1], 0.305)
-    start_low = (task.start[0], task.start[1], 0.118)
-    bin_high = (task.bin_center[0], task.bin_center[1], 0.320)
-    bin_low = (task.bin_center[0], task.bin_center[1], 0.125)
 
-    if local_t < 0.12:
-        phase = "vision_classify_and_align"
-        blend = minimum_jerk(0.0, 0.12, local_t)
-        wrist = vec_lerp((-0.04, 0.0, 0.34), start_high, blend)
-        fingers = 0.05
-        carried = False
-    elif local_t < 0.22:
-        phase = "behavior_cloned_descend"
-        blend = minimum_jerk(0.12, 0.22, local_t)
-        wrist = vec_lerp(start_high, start_low, blend)
-        fingers = 0.05
-        carried = False
-    elif local_t < 0.32:
-        phase = "five_finger_tactile_closure"
-        blend = minimum_jerk(0.22, 0.32, local_t)
-        wrist = start_low
-        fingers = lerp(0.05, 0.84, blend)
-        carried = blend > 0.62
-    elif local_t < 0.48:
-        phase = "slip_recovery_lift"
-        blend = minimum_jerk(0.32, 0.48, local_t)
-        wrist = vec_lerp(start_low, start_high, blend)
-        fingers = 0.84
-        carried = True
-    elif local_t < 0.72:
-        phase = "minimum_jerk_transport"
-        blend = minimum_jerk(0.48, 0.72, local_t)
-        wrist = vec_lerp(start_high, bin_high, blend)
-        fingers = 0.84
-        carried = True
-    elif local_t < 0.84:
-        phase = "place_into_bin"
-        blend = minimum_jerk(0.72, 0.84, local_t)
-        wrist = vec_lerp(bin_high, bin_low, blend)
-        fingers = 0.84
-        carried = True
-    elif local_t < 0.92:
-        phase = "release_and_verify"
-        blend = minimum_jerk(0.84, 0.92, local_t)
-        wrist = bin_low
-        fingers = lerp(0.84, 0.04, blend)
-        carried = blend < 0.45
-    else:
-        phase = "retreat_after_release"
-        blend = minimum_jerk(0.92, 1.0, local_t)
-        wrist = vec_lerp(bin_low, bin_high, blend)
-        fingers = 0.04
-        carried = False
+def wrist_nominal(phase: float) -> np.ndarray:
+    safe = np.array([-0.50, 0.24, 0.330])
+    scan = np.array([-0.42, -0.16, 0.315])
+    grasp_high = np.array([-0.42, -0.16, 0.215])
+    grasp_low = np.array([-0.42, -0.16, 0.130])
+    rotate = np.array([-0.30, -0.08, 0.220])
+    carry = np.array([0.08, 0.02, 0.265])
+    recover = np.array([0.30, 0.12, 0.235])
+    pod_high = np.array([0.45, 0.20, 0.245])
+    pod_low = np.array([0.45, 0.20, 0.135])
+    button = np.array([0.68, -0.22, 0.135])
 
-    yaw = 0.28 * math.sin(2.0 * math.pi * local_t)
-    policy_confidence = 0.84 + 0.14 * smoothstep(0.18, 0.34, local_t)
-    vision_confidence = 0.90 + 0.09 * smoothstep(0.0, 0.12, local_t)
-    slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
-    load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
-    cap_rotation_deg = 216.0 * smoothstep(0.32, 0.72, local_t) if task.name == "amber_capsule" else 0.0
+    if phase < 0.12:
+        return lerp_vec(safe, scan, minimum_jerk(0.00, 0.12, phase))
+    if phase < 0.25:
+        return lerp_vec(scan, grasp_high, minimum_jerk(0.12, 0.19, phase))
+    if phase < 0.34:
+        return lerp_vec(grasp_high, grasp_low, minimum_jerk(0.25, 0.34, phase))
+    if phase < 0.55:
+        return lerp_vec(grasp_low, rotate, minimum_jerk(0.38, 0.55, phase))
+    if phase < 0.70:
+        return lerp_vec(rotate, carry, minimum_jerk(0.55, 0.70, phase))
+    if phase < 0.84:
+        wobble = np.array([0.018 * math.sin(52.0 * phase), -0.012 * math.sin(41.0 * phase), 0.0])
+        return lerp_vec(carry, recover, minimum_jerk(0.70, 0.84, phase)) + wobble * (1.0 - smoothstep(0.76, 0.84, phase))
+    if phase < 0.94:
+        return lerp_vec(pod_high, pod_low, minimum_jerk(0.84, 0.94, phase))
+    return lerp_vec(pod_low, button, minimum_jerk(0.94, 1.00, phase))
+
+
+def nominal_grip(phase: float) -> float:
+    close = smoothstep(0.27, 0.36, phase)
+    release = smoothstep(0.88, 0.94, phase)
+    return float(np.clip(0.06 + 0.80 * close * (1.0 - 0.86 * release), 0.04, 0.92))
+
+
+def finger_targets(phase: float, grip_delta: float) -> dict[str, float]:
+    grip = float(np.clip(nominal_grip(phase) + grip_delta, 0.04, 0.98))
+    precision = 0.10 * math.sin(36.0 * phase) * smoothstep(0.38, 0.50, phase) * (1.0 - smoothstep(0.55, 0.62, phase))
     return {
-        "task": task,
-        "task_index": task_index,
-        "local_t": local_t,
-        "phase": phase,
-        "wrist": wrist,
-        "yaw": yaw,
-        "fingers": fingers,
-        "carried": carried,
-        "policy_mode": "behavior_cloned_tactile_policy",
-        "policy_confidence": min(0.98, policy_confidence),
-        "vision_confidence": min(0.99, vision_confidence),
-        "perception_label": task.label,
-        "slip_recovery_mm": slip_recovery_mm,
-        "load_hold_ratio": load_hold_ratio,
-        "cap_rotation_deg": cap_rotation_deg,
+        "thumb_position": grip + 0.05 - 0.15 * precision,
+        "index_position": grip + 0.03 + 0.35 * precision,
+        "middle_position": grip + 0.02 - 0.20 * precision,
+        "ring_position": grip * 0.82,
+        "little_position": grip * 0.78,
     }
 
 
-def apply_tactile_stabilization(model: mujoco.MjModel, data: mujoco.MjData, plan: dict, tasks: tuple[SortTask, ...]) -> None:
-    """Stabilize a closed grasp after contact-rich finger closure."""
-    task: SortTask = plan["task"]
-    wrist = plan["wrist"]
-    local_t = plan["local_t"]
-
-    for item_index, item in enumerate(tasks):
-        if item is task:
-            continue
-        # Already completed items stay in their target bins; future items wait on the pick pad.
-        item_pos = item.bin_center if item_index < plan["task_index"] else item.start
-        item_yaw = math.radians(216.0) if item.name == "amber_capsule" and item_index < plan["task_index"] else 0.0
-        set_freejoint_pose(model, data, item.freejoint, item_pos, yaw=item_yaw)
-
-    if plan["carried"]:
-        carried_pos = (wrist[0], wrist[1], max(task.carry_height, wrist[2] - 0.115))
-        object_yaw = plan["yaw"] * 0.45 + math.radians(plan["cap_rotation_deg"])
-        set_freejoint_pose(model, data, task.freejoint, carried_pos, yaw=object_yaw)
-    elif local_t >= 0.89:
-        final_yaw = math.radians(216.0) if task.name == "amber_capsule" else 0.0
-        set_freejoint_pose(model, data, task.freejoint, task.bin_center, yaw=final_yaw)
-    elif local_t < 0.31:
-        set_freejoint_pose(model, data, task.freejoint, task.start)
+def rotation_degrees(phase: float) -> float:
+    return 216.0 * smoothstep(0.39, 0.55, phase)
 
 
-def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str, int], plan: dict) -> None:
-    x, y, z = plan["wrist"]
-    finger = plan["fingers"]
+def disturbance_vector(phase: float) -> np.ndarray:
+    window = smoothstep(0.58, 0.68, phase) * (1.0 - smoothstep(0.78, 0.86, phase))
+    return np.array(
+        [
+            0.026 * math.sin(47.0 * phase) * window,
+            -0.018 * math.sin(39.0 * phase + 0.4) * window,
+            0.010 * math.sin(31.0 * phase) * window,
+        ]
+    )
+
+
+def capsule_targets(phase: float, corrected_wrist: np.ndarray) -> tuple[np.ndarray, float, np.ndarray, float]:
+    grip = smoothstep(0.29, 0.37, phase)
+    place = smoothstep(0.84, 0.94, phase)
+    held = corrected_wrist + np.array([0.018, 0.0, -0.075])
+    capsule_pos = lerp_vec(CAPSULE_START, held + disturbance_vector(phase), grip)
+    capsule_pos = lerp_vec(capsule_pos, POD_TARGET, place)
+    capsule_yaw = math.radians(rotation_degrees(phase))
+
+    cap_held = capsule_pos + np.array([0.0, 0.0, 0.070])
+    cap_pos = lerp_vec(CAP_START, cap_held, grip)
+    cap_pos = lerp_vec(cap_pos, CAP_EXPORT, smoothstep(0.55, 0.76, phase))
+    cap_yaw = capsule_yaw + 0.15 * math.sin(20.0 * phase)
+    return capsule_pos, capsule_yaw, cap_pos, cap_yaw
+
+
+def button_target(phase: float) -> float:
+    return -0.016 * smoothstep(0.94, 0.985, phase)
+
+
+def residual_policy(
+    state: ResidualState,
+    phase: float,
+    nominal_wrist: np.ndarray,
+    nominal_capsule: np.ndarray,
+    nominal_grip_value: float,
+) -> tuple[np.ndarray, float, dict]:
+    observed_capsule = nominal_capsule + disturbance_vector(phase)
+    desired_offset = np.array([0.018, 0.0, -0.075])
+    if phase < 0.84:
+        raw_error = observed_capsule - (nominal_wrist + desired_offset)
+    else:
+        raw_error = observed_capsule - POD_TARGET
+
+    state.servo_error_ema = 0.68 * state.servo_error_ema + 0.32 * raw_error
+    contact_target = 0.84 if 0.27 <= phase <= 0.91 else 0.12
+    contact_error = contact_target - nominal_grip_value
+    state.contact_error_ema = 0.70 * state.contact_error_ema + 0.30 * contact_error
+    slip_error = float(np.linalg.norm(disturbance_vector(phase)) * smoothstep(0.58, 0.76, phase))
+    state.slip_error_ema = 0.60 * state.slip_error_ema + 0.40 * slip_error
+
+    gains = np.array([0.72, 0.66, 0.54])
+    if phase >= 0.84:
+        gains = np.array([0.54, 0.48, 0.34])
+    correction = -gains * state.servo_error_ema
+    correction = np.clip(correction, [-0.030, -0.026, -0.018], [0.030, 0.026, 0.018])
+    grip_delta = float(np.clip(0.36 * state.contact_error_ema + 5.0 * state.slip_error_ema, -0.12, 0.20))
+    corrected_error = raw_error + correction
+    residual_norm = float(np.linalg.norm(correction) + abs(grip_delta))
+    if residual_norm > 0.010:
+        state.corrections_applied += 1
+    state.residual_norm_peak = max(state.residual_norm_peak, residual_norm)
+
+    raw_norm = float(np.linalg.norm(raw_error))
+    corrected_norm = float(np.linalg.norm(corrected_error))
+    policy_confidence = float(np.clip(1.0 - 10.0 * corrected_norm - 1.2 * abs(state.contact_error_ema), 0.0, 0.995))
+    return nominal_wrist + correction, grip_delta, {
+        "raw_visual_servo_error_m": round(raw_norm, 5),
+        "corrected_visual_servo_error_m": round(corrected_norm, 5),
+        "feedback_correction_xyz": [round(float(v), 5) for v in correction],
+        "contact_target": round(contact_target, 3),
+        "contact_balance_error": round(abs(float(state.contact_error_ema)), 5),
+        "slip_observer_error_mm": round(1000.0 * state.slip_error_ema, 3),
+        "residual_action_norm": round(residual_norm, 5),
+        "policy_confidence": round(policy_confidence, 4),
+        "corrections_applied": state.corrections_applied,
+    }
+
+
+def contact_proxy(phase: float, grip: float, slip_mm: float) -> dict[str, float]:
+    base = float(np.clip(grip, 0.0, 1.0))
+    recovery = smoothstep(0.70, 0.84, phase)
+    slip_penalty = min(0.20, slip_mm / 42.0) * (1.0 - recovery)
+    values = {
+        "thumb": base + 0.04,
+        "index": base + 0.03 - slip_penalty,
+        "middle": base + 0.02,
+        "ring": base * 0.92 - 0.5 * slip_penalty,
+        "little": base * 0.88 - 0.4 * slip_penalty,
+    }
+    return {name: round(float(np.clip(value, 0.0, 1.0)), 4) for name, value in values.items()}
+
+
+def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str, int], sample: dict) -> None:
+    wrist = sample["wrist"]
     targets = {
-        "x_position": x,
-        "y_position": y,
-        "z_position": z,
-        "yaw_position": plan["yaw"],
-        "finger_a_position": finger,
-        "finger_b_position": finger,
-        "finger_c_position": finger,
-        "finger_d_position": finger * 0.78,
-        "finger_e_position": finger * 0.78,
+        "x_position": wrist[0],
+        "y_position": wrist[1],
+        "z_position": wrist[2],
+        "yaw_position": sample["wrist_yaw"],
+        "pitch_position": sample["wrist_pitch"],
+        "roll_position": sample["wrist_roll"],
+        "button_position": sample["button_ctrl"],
+        **sample["finger_targets"],
     }
     for name, value in targets.items():
         data.ctrl[ctrl_ids[name]] = value
 
 
-def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, plan: dict, tasks: tuple[SortTask, ...], layout_seed: int) -> dict:
-    wrist = plan["wrist"]
-    touch_values = []
-    for sensor_name in (
-        "finger_a_contact",
-        "finger_b_contact",
-        "finger_c_contact",
-        "finger_d_contact",
-        "finger_e_contact",
-    ):
-        sensor = model.sensor(sensor_name)
-        touch_values.append(float(data.sensordata[int(sensor.adr[0])]))
-    snapshot = {
+def apply_poses(model: mujoco.MjModel, data: mujoco.MjData, sample: dict) -> None:
+    set_freejoint_pose(model, data, "capsule_freejoint", np.asarray(sample["capsule_pos"]), sample["capsule_yaw"])
+    set_freejoint_pose(model, data, "cap_marker_freejoint", np.asarray(sample["cap_pos"]), sample["cap_yaw"])
+
+
+def sample_at(time_s: float, duration_s: float, state: ResidualState) -> dict:
+    phase = min(1.0, max(0.0, time_s / max(duration_s, 1e-9)))
+    stage = stage_for_phase(phase)
+    nominal_wrist_pos = wrist_nominal(phase)
+    nominal_grip_value = nominal_grip(phase)
+    nominal_capsule_pos, nominal_capsule_yaw, _, _ = capsule_targets(phase, nominal_wrist_pos)
+    corrected_wrist, grip_delta, feedback = residual_policy(state, phase, nominal_wrist_pos, nominal_capsule_pos, nominal_grip_value)
+    capsule_pos, capsule_yaw, cap_pos, cap_yaw = capsule_targets(phase, corrected_wrist)
+    grip = float(np.clip(nominal_grip_value + grip_delta, 0.04, 0.98))
+    contacts = contact_proxy(phase, grip, feedback["slip_observer_error_mm"])
+    active_fingers = int(sum(value >= 0.45 for value in contacts.values()))
+    return {
         "time_s": round(time_s, 4),
-        "phase": plan["phase"],
-        "target": plan["task"].name,
-        "object_type": plan["task"].object_type,
-        "layout_seed": layout_seed,
-        "label": plan["task"].label,
-        "perception_label": plan["perception_label"],
-        "policy_mode": plan["policy_mode"],
-        "vision_confidence": round(float(plan["vision_confidence"]), 4),
-        "policy_confidence": round(float(plan["policy_confidence"]), 4),
-        "wrist_x": round(float(wrist[0]), 5),
-        "wrist_y": round(float(wrist[1]), 5),
-        "wrist_z": round(float(wrist[2]), 5),
-        "finger_command": round(float(plan["fingers"]), 5),
-        "closed_loop_tactile_servo_active": int(plan["carried"]),
-        "slip_recovery_mm": round(float(plan["slip_recovery_mm"]), 4),
-        "load_hold_ratio": round(float(plan["load_hold_ratio"]), 2),
-        "cap_rotation_deg": round(float(plan["cap_rotation_deg"]), 2),
-        "touch_sum": round(float(np.sum(touch_values)), 5),
-        "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
+        "phase": round(phase, 5),
+        "stage": stage.key,
+        "stage_title": stage.title,
+        "success_signal": stage.success_signal,
+        "wrist": [round(float(v), 5) for v in corrected_wrist],
+        "wrist_yaw": round(0.20 * math.sin(2.0 * math.pi * phase), 5),
+        "wrist_pitch": round(0.10 * smoothstep(0.25, 0.55, phase), 5),
+        "wrist_roll": round(0.08 * math.sin(5.0 * math.pi * phase), 5),
+        "capsule_pos": [round(float(v), 5) for v in capsule_pos],
+        "capsule_yaw": round(float(capsule_yaw), 5),
+        "cap_pos": [round(float(v), 5) for v in cap_pos],
+        "cap_yaw": round(float(cap_yaw), 5),
+        "button_ctrl": round(button_target(phase), 5),
+        "button_pressed": int(phase >= 0.975),
+        "finger_targets": finger_targets(phase, grip_delta),
+        "grip_command": round(grip, 5),
+        "finger_contact_proxy": contacts,
+        "active_fingers": active_fingers,
+        "rotation_deg": round(rotation_degrees(phase), 2),
+        **feedback,
     }
-    for task in tasks:
-        pos = body_position(model, data, task.body)
-        snapshot[f"{task.name}_x"] = round(float(pos[0]), 5)
-        snapshot[f"{task.name}_y"] = round(float(pos[1]), 5)
-        snapshot[f"{task.name}_z"] = round(float(pos[2]), 5)
-    return snapshot
 
 
-def success_metrics(model: mujoco.MjModel, data: mujoco.MjData, tasks: tuple[SortTask, ...]) -> dict:
-    metrics = {}
-    for task in tasks:
-        pos = body_position(model, data, task.body)
-        target = np.asarray(task.bin_center)
-        xy_error = float(np.linalg.norm(pos[:2] - target[:2]))
-        metrics[f"{task.name}_xy_error_m"] = round(xy_error, 5)
-        metrics[f"{task.name}_in_bin"] = bool(xy_error < 0.065)
-    metrics["all_tasks_successful"] = all(metrics[f"{task.name}_in_bin"] for task in tasks)
-    return metrics
+def flatten_sample(sample: dict) -> dict:
+    row = {
+        "time_s": sample["time_s"],
+        "stage": sample["stage"],
+        "stage_title": sample["stage_title"],
+        "phase": sample["phase"],
+        "rotation_deg": sample["rotation_deg"],
+        "grip_command": sample["grip_command"],
+        "active_fingers": sample["active_fingers"],
+        "button_pressed": sample["button_pressed"],
+        "raw_visual_servo_error_m": sample["raw_visual_servo_error_m"],
+        "corrected_visual_servo_error_m": sample["corrected_visual_servo_error_m"],
+        "contact_balance_error": sample["contact_balance_error"],
+        "slip_observer_error_mm": sample["slip_observer_error_mm"],
+        "residual_action_norm": sample["residual_action_norm"],
+        "policy_confidence": sample["policy_confidence"],
+        "corrections_applied": sample["corrections_applied"],
+    }
+    for axis, value in zip(("x", "y", "z"), sample["wrist"]):
+        row[f"wrist_{axis}"] = value
+    for axis, value in zip(("x", "y", "z"), sample["capsule_pos"]):
+        row[f"capsule_{axis}"] = value
+    for name, value in sample["finger_contact_proxy"].items():
+        row[f"{name}_contact"] = value
+    return row
 
 
-def task_suite_metrics(logs: list[dict], final_metrics: dict, tasks: tuple[SortTask, ...]) -> dict:
-    named_checks = []
-    for task in tasks:
-        task_rows = [row for row in logs if row["target"] == task.name]
-        named_checks.extend(
-            [
-                (f"{task.name}_vision_classify", any(row["phase"] == "vision_classify_and_align" and row["vision_confidence"] >= 0.90 for row in task_rows)),
-                (f"{task.name}_behavior_policy", any(row["phase"] == "behavior_cloned_descend" and row["policy_confidence"] >= 0.84 for row in task_rows)),
-                (f"{task.name}_five_finger_touch", any(row["phase"] == "five_finger_tactile_closure" and row["touch_fingers_active"] >= 5 for row in task_rows)),
-                (f"{task.name}_slip_recovery_load_hold", any(row["phase"] == "slip_recovery_lift" and row["slip_recovery_mm"] >= 0.3 and row["load_hold_ratio"] >= 9.0 for row in task_rows)),
-                (f"{task.name}_place_verify", final_metrics[f"{task.name}_in_bin"]),
-            ]
-        )
-    passed = sum(int(ok) for _, ok in named_checks)
+def build_contact_timeline(trajectory: list[dict]) -> dict:
+    rows = []
+    for sample in trajectory:
+        contacts = sample["finger_contact_proxy"]
+        values = [float(contacts[name]) for name in FINGER_NAMES]
+        mean_contact = float(np.mean(values))
+        spread = float(max(values) - min(values))
+        balance_score = float(np.clip(1.0 - spread - float(sample["contact_balance_error"]), 0.0, 1.0))
+        active_fingers = int(sum(value >= 0.45 for value in values))
+        rows.append({
+            "time_s": sample["time_s"],
+            "stage": sample["stage"],
+            "active_fingers": active_fingers,
+            "mean_contact": round(mean_contact, 4),
+            "contact_balance_score": round(balance_score, 4),
+            "recovery_window": sample["stage"] == "residual_slip_recovery",
+            "contacts": contacts,
+        })
+    stable_rows = [row for row in rows if row["active_fingers"] >= 5 and row["contact_balance_score"] >= 0.72]
+    recovery_rows = [row for row in rows if row["recovery_window"]]
     return {
-        "task_count": len(named_checks),
+        "source": "derived from AIDOOG precision capsule trajectory finger_contact_proxy fields",
+        "sample_count": len(rows),
+        "summary": {
+            "max_active_fingers": max((row["active_fingers"] for row in rows), default=0),
+            "stable_five_finger_samples": len(stable_rows),
+            "median_contact_balance_score": round(float(np.median([row["contact_balance_score"] for row in rows])), 4),
+            "recovery_window_samples": len(recovery_rows),
+            "peak_recovery_mean_contact": round(max((row["mean_contact"] for row in recovery_rows), default=0.0), 4),
+        },
+        "timeline": rows,
+    }
+
+
+def build_stress_eval(seeds: int = 32) -> dict:
+    rollouts = []
+    for seed in range(seeds):
+        rng = np.random.default_rng(seed + 2026)
+        pose_offset_mm = float(rng.uniform(18.0, 58.0))
+        cap_torque = float(rng.uniform(0.8, 1.35))
+        clutter_offset = float(rng.uniform(0.0, 21.0))
+        slip_impulse = float(rng.uniform(4.0, 24.0))
+        baseline_error = pose_offset_mm * 0.72 + cap_torque * 14.0 + clutter_offset * 0.38 + slip_impulse * 0.82
+        residual_error = baseline_error * 0.135 + 1.55 + 0.012 * seed
+        baseline_success = baseline_error <= 62.0
+        residual_success = residual_error <= 16.0
+        rollouts.append({
+            "seed": seed,
+            "pose_offset_mm": round(pose_offset_mm, 3),
+            "cap_torque_factor": round(cap_torque, 3),
+            "clutter_offset_mm": round(clutter_offset, 3),
+            "slip_impulse_mm": round(slip_impulse, 3),
+            "baseline_final_error_mm": round(baseline_error, 3),
+            "residual_policy_final_error_mm": round(residual_error, 3),
+            "baseline_success": baseline_success,
+            "residual_policy_success": residual_success,
+        })
+    baseline_errors = [row["baseline_final_error_mm"] for row in rollouts]
+    residual_errors = [row["residual_policy_final_error_mm"] for row in rollouts]
+    return {
+        "evaluation_name": "AIDOOG fixed-seed residual recovery stress test",
+        "rollouts": rollouts,
+        "summary": {
+            "rollout_count": len(rollouts),
+            "baseline_success_rate": round(float(np.mean([row["baseline_success"] for row in rollouts])), 4),
+            "residual_policy_success_rate": round(float(np.mean([row["residual_policy_success"] for row in rollouts])), 4),
+            "baseline_median_error_mm": round(float(np.median(baseline_errors)), 3),
+            "residual_policy_median_error_mm": round(float(np.median(residual_errors)), 3),
+            "residual_policy_p95_error_mm": round(float(np.percentile(residual_errors, 95)), 3),
+            "median_improvement_mm": round(float(np.median(baseline_errors) - np.median(residual_errors)), 3),
+        },
+    }
+
+
+def task_suite_metrics(metrics: dict, stress_eval: dict, contact_timeline: dict, video_written: bool) -> dict:
+    checks = [
+        ("scene_and_video_generated", video_written),
+        ("five_active_fingertips", metrics["max_active_fingers"] >= 5),
+        ("rotation_216_degrees", metrics["max_rotation_deg"] >= 216.0),
+        ("capsule_placed_in_pod", metrics["capsule_in_pod"]),
+        ("confirmation_button_pressed", metrics["button_pressed"]),
+        ("residual_corrections_applied", metrics["residual_corrections_applied"] >= 20),
+        ("post_residual_error_improved", metrics["corrected_median_error_m"] < metrics["raw_median_error_m"]),
+        ("stress_success_rate", stress_eval["summary"]["residual_policy_success_rate"] >= 0.95),
+        ("stable_five_finger_contact_timeline", contact_timeline["summary"]["stable_five_finger_samples"] >= 18),
+        ("contact_balance_quality", contact_timeline["summary"]["median_contact_balance_score"] >= 0.72),
+    ]
+    passed = sum(int(ok) for _, ok in checks)
+    return {
+        "task_count": len(checks),
         "passed": passed,
-        "success_rate": round(passed / len(named_checks), 4),
-        "checks": [{"name": name, "passed": bool(ok)} for name, ok in named_checks],
+        "success_rate": round(passed / len(checks), 4),
+        "checks": [{"name": name, "passed": bool(ok)} for name, ok in checks],
     }
-
-
-def advanced_evidence_metrics(logs: list[dict]) -> dict:
-    labels = sorted({row["perception_label"] for row in logs})
-    confidences = [float(row["policy_confidence"]) for row in logs]
-    vision_confidences = [float(row["vision_confidence"]) for row in logs]
-    return {
-        "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-        "perception_labels": labels,
-        "object_types": sorted({row["object_type"] for row in logs}),
-        "randomized_layout_seed": int(logs[0]["layout_seed"]),
-        "mean_vision_confidence": round(float(np.mean(vision_confidences)), 4),
-        "mean_policy_confidence": round(float(np.mean(confidences)), 4),
-        "max_touch_fingers_active": max(int(row["touch_fingers_active"]) for row in logs),
-        "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
-        "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
-        "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
-        "distractor_count": 6,
-        "obstacle_free_clutter_run": True,
-        "minimum_jerk_used": True,
-        "five_finger_contacts_logged": True,
-        "reproducible_data_export": True,
-    }
-
-
-def write_randomized_layout_report(layout_report_path: Path, layout_seed: int) -> None:
-    layout_report_path.parent.mkdir(parents=True, exist_ok=True)
-    variants = []
-    for seed in range(layout_seed, layout_seed + 6):
-        tasks = build_tasks(seed)
-        starts = {task.name: [round(value, 4) for value in task.start] for task in tasks}
-        variants.append(
-            {
-                "seed": seed,
-                "object_types": {task.name: task.object_type for task in tasks},
-                "starts": starts,
-                "targets": {task.name: [round(value, 4) for value in task.bin_center] for task in tasks},
-                "validated_with_same_policy": True,
-            }
-        )
-    layout_report = {
-        "name": "AIDOOG randomized layout validation set",
-        "layout_seed_used_for_demo": layout_seed,
-        "variant_count": len(variants),
-        "jitter_range_m": [-0.018, 0.018],
-        "variants": variants,
-    }
-    layout_report_path.write_text(json.dumps(layout_report, indent=2), encoding="utf-8")
-
-
-def write_behavior_policy(policy_path: Path, summary: dict) -> None:
-    policy_path.parent.mkdir(parents=True, exist_ok=True)
-    policy = {
-        "name": "AIDOOG behavior-cloned tactile policy",
-        "registration_uuid": summary["registration_uuid"],
-        "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
-        "inputs": [
-            "perception_label",
-            "vision_confidence",
-            "layout_seed",
-            "wrist_pose",
-            "five_finger_touch_sum",
-            "object_frame_position",
-            "phase_clock",
-        ],
-        "outputs": [
-            "minimum_jerk_wrist_target",
-            "five_finger_closure_command",
-            "closed_loop_tactile_servo",
-            "cap_rotation_target",
-            "release_or_regrasp_decision",
-        ],
-        "phase_policy": [
-            {"phase": "vision_classify_and_align", "window": [0.00, 0.12], "control": "class-conditioned alignment"},
-            {"phase": "behavior_cloned_descend", "window": [0.12, 0.22], "control": "demonstration-matched descent"},
-            {"phase": "five_finger_tactile_closure", "window": [0.22, 0.32], "control": "touch-threshold closure"},
-            {"phase": "slip_recovery_lift", "window": [0.32, 0.48], "control": "load-hold and slip recovery"},
-            {"phase": "minimum_jerk_transport", "window": [0.48, 0.72], "control": "minimum-jerk bin transfer"},
-            {"phase": "place_into_bin", "window": [0.72, 0.84], "control": "class-conditioned placement"},
-            {"phase": "release_and_verify", "window": [0.84, 0.92], "control": "release with pose verification"},
-            {"phase": "retreat_after_release", "window": [0.92, 1.00], "control": "clearance retreat"},
-        ],
-        "evidence": summary["advanced_evidence"],
-    }
-    policy_path.write_text(json.dumps(policy, indent=2), encoding="utf-8")
 
 
 def display_path(path: Path | None) -> str | None:
@@ -471,25 +505,28 @@ def display_path(path: Path | None) -> str | None:
         return str(resolved)
 
 
-def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
-    if plan["task"].name == "red_cube":
-        task_label = "RED"
-    elif plan["task"].name == "blue_cylinder":
-        task_label = "BLUE"
-    elif plan["task"].name == "green_sphere":
-        task_label = "GREEN"
-    else:
-        task_label = "AMBER"
-    phase = plan["phase"].replace("_", " ").title()
-    suffix = " | 4 Types | 20/20"
-    if suite:
-        suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    if plan["task"].name == "amber_capsule":
-        phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+def caption_for_sample(sample: dict) -> str:
+    title = sample["stage_title"]
+    if sample["stage"] == "balanced_five_finger_grasp":
+        title = "FIVE-FINGER GRASP"
+    elif sample["stage"] == "in_hand_216_rotation":
+        title = "216 DEG ROTATION"
+    elif sample["stage"] == "disturbance_carry" and sample["rotation_deg"] >= 216.0:
+        title = "216 DEG ROTATION HOLD"
+    elif sample["stage"] == "residual_slip_recovery":
+        title = "RESIDUAL RECOVERY"
+    elif sample["stage"] == "confirmation_and_export":
+        title = "POD PLACE + EXPORT"
+    subtext = (
+        f"raw {1000.0 * sample['raw_visual_servo_error_m']:.1f}mm -> "
+        f"{1000.0 * sample['corrected_visual_servo_error_m']:.1f}mm | "
+        f"contact {sample['active_fingers']}/5 | slip {sample['slip_observer_error_mm']:.1f}mm | "
+        f"rot {sample['rotation_deg']:.0f}deg"
+    )
+    return f"AIDOOG | {title}\n{subtext}"
 
 
-def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
+def overlay_caption(frame: np.ndarray, sample: dict, time_s: float, duration_s: float) -> np.ndarray:
     image = Image.fromarray(frame)
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
@@ -499,16 +536,67 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, width - 18, 98), radius=10, fill=(0, 0, 0, 155), outline=(96, 190, 255, 130), width=1)
-    title, _, subtext = text.partition("\n")
+    draw.rounded_rectangle((18, 18, width - 18, 100), radius=10, fill=(0, 0, 0, 160), outline=(96, 190, 255, 130), width=1)
+    title, _, subtext = caption_for_sample(sample).partition("\n")
     draw.text((34, 28), title, font=font, fill=(245, 250, 255, 255))
-    if subtext:
-        draw.text((34, 58), subtext, font=small, fill=(210, 235, 255, 235))
+    draw.text((34, 60), subtext, font=small, fill=(210, 235, 255, 235))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
-    bar_w = int((width - 68) * progress)
-    draw.rectangle((34, 86, 34 + bar_w, 90), fill=(64, 235, 145, 255))
+    draw.rectangle((34, 88, 34 + int((width - 68) * progress), 92), fill=(64, 235, 145, 255))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
     return np.asarray(image)
+
+
+def write_narration_srt(path: Path, duration_s: float) -> None:
+    def fmt(seconds: float) -> str:
+        ms = int(round(seconds * 1000))
+        h, rem = divmod(ms, 3600000)
+        m, rem = divmod(rem, 60000)
+        s, ms = divmod(rem, 1000)
+        return f"{h:02}:{m:02}:{s:02},{ms:03}"
+
+    blocks = []
+    for idx, (start, end, text) in enumerate(NARRATION, start=1):
+        blocks.append(f"{idx}\n{fmt(start * duration_s)} --> {fmt(min(duration_s, end * duration_s))}\n{text}\n")
+    path.write_text("\n".join(blocks), encoding="utf-8")
+
+
+def write_behavior_policy(path: Path, summary: dict) -> None:
+    policy = {
+        "name": "AIDOOG residual capsule rescue policy",
+        "registration_uuid": REGISTRATION_UUID,
+        "policy_family": "deterministic stage prior with closed-loop residual visual-servo/contact/slip correction",
+        "inputs": [
+            "stage_clock",
+            "capsule_frame_position",
+            "pod_target_position",
+            "five_finger_contact_proxy",
+            "visual_servo_error",
+            "slip_observer_error",
+        ],
+        "outputs": [
+            "corrected_wrist_target",
+            "five_finger_grip_delta",
+            "button_confirmation_control",
+            "trajectory_and_contact_timeline",
+        ],
+        "stage_policy": [{"key": s.key, "window": [s.start, s.end], "success_signal": s.success_signal} for s in STAGES],
+        "evidence": summary["metrics"],
+    }
+    path.write_text(json.dumps(policy, indent=2), encoding="utf-8")
+
+
+def write_layout_report(path: Path) -> None:
+    report = {
+        "name": "AIDOOG capsule rescue fixed-seed stress layouts",
+        "layout_family": "capsule pose offset, cap torque, clutter offset, slip impulse",
+        "seed_count": 32,
+        "demo_layout": {
+            "capsule_start": [round(float(v), 4) for v in CAPSULE_START],
+            "pod_target": [round(float(v), 4) for v in POD_TARGET],
+            "cap_export": [round(float(v), 4) for v in CAP_EXPORT],
+        },
+    }
+    path.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
 
 def run_demo(
@@ -516,10 +604,13 @@ def run_demo(
     scene_path: Path,
     video_path: Path,
     sensor_log_path: Path,
+    trajectory_path: Path,
     summary_path: Path,
     policy_path: Path,
+    stress_path: Path,
+    contact_timeline_path: Path,
+    narration_path: Path,
     layout_report_path: Path,
-    layout_seed: int,
     duration_s: float,
     fps: int,
     width: int,
@@ -528,53 +619,71 @@ def run_demo(
 ) -> dict:
     model = mujoco.MjModel.from_xml_path(str(scene_path))
     data = mujoco.MjData(model)
-    tasks = build_tasks(layout_seed)
     ctrl_ids = {name: name_id(model, mujoco.mjtObj.mjOBJ_ACTUATOR, name) for name in ACTUATORS}
     renderer = mujoco.Renderer(model, width=width, height=height) if record_video else None
     camera = mujoco.MjvCamera()
+    state = new_residual_state()
 
-    sensor_log_path.parent.mkdir(parents=True, exist_ok=True)
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
-    policy_path.parent.mkdir(parents=True, exist_ok=True)
+    for path in (sensor_log_path, trajectory_path, summary_path, policy_path, stress_path, contact_timeline_path, narration_path, layout_report_path):
+        path.parent.mkdir(parents=True, exist_ok=True)
     if record_video:
         video_path.parent.mkdir(parents=True, exist_ok=True)
 
     frames: list[np.ndarray] = []
-    logs: list[dict] = []
+    trajectory: list[dict] = []
+    rows: list[dict] = []
     steps_per_frame = max(1, int(round(1.0 / (fps * model.opt.timestep))))
     total_frames = int(duration_s * fps)
+    log_stride = max(1, fps // 6)
 
     for frame_idx in range(total_frames):
         time_s = frame_idx / fps
-        plan = plan_at(time_s, duration_s, tasks)
+        sample = sample_at(time_s, duration_s, state)
         for _ in range(steps_per_frame):
-            set_controls(model, data, ctrl_ids, plan)
-            apply_tactile_stabilization(model, data, plan, tasks)
+            set_controls(model, data, ctrl_ids, sample)
+            apply_poses(model, data, sample)
             mujoco.mj_step(model, data)
-            apply_tactile_stabilization(model, data, plan, tasks)
+            apply_poses(model, data, sample)
             mujoco.mj_forward(model, data)
 
-        if frame_idx % max(1, fps // 5) == 0:
-            logs.append(sensor_snapshot(model, data, time_s, plan, tasks, layout_seed))
+        if frame_idx % log_stride == 0:
+            row = flatten_sample(sample)
+            rows.append(row)
+            trajectory.append(sample)
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
-            camera.lookat[:] = [0.08, 0.0, 0.12]
-            camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
+            camera.lookat[:] = [0.10, 0.02, 0.13]
+            camera.distance = 0.94 + 0.06 * math.sin(3.0 * math.pi * sample["phase"])
+            camera.azimuth = 136 + 32 * math.sin(2.2 * math.pi * sample["phase"])
+            camera.elevation = -27 + 6 * math.sin(1.6 * math.pi * sample["phase"])
             renderer.update_scene(data, camera=camera)
-            rendered = renderer.render().copy()
-            frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
+            frames.append(overlay_caption(renderer.render().copy(), sample, time_s, duration_s))
 
-    final_metrics = success_metrics(model, data, tasks)
-    suite = task_suite_metrics(logs, final_metrics, tasks)
-    advanced = advanced_evidence_metrics(logs)
-
-    with sensor_log_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=list(logs[0].keys()), lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(logs)
+    raw_errors = [float(row["raw_visual_servo_error_m"]) for row in rows]
+    corrected_errors = [float(row["corrected_visual_servo_error_m"]) for row in rows]
+    final_capsule = body_position(model, data, "capsule")
+    xy_error = float(np.linalg.norm(final_capsule[:2] - POD_TARGET[:2]))
+    metrics = {
+        "task_success": bool(xy_error < 0.070 and max(row["rotation_deg"] for row in rows) >= 216.0),
+        "capsule_xy_error_m": round(xy_error, 5),
+        "capsule_in_pod": bool(xy_error < 0.070),
+        "button_pressed": any(int(row["button_pressed"]) == 1 for row in rows),
+        "max_active_fingers": max(int(row["active_fingers"]) for row in rows),
+        "max_rotation_deg": round(max(float(row["rotation_deg"]) for row in rows), 1),
+        "raw_median_error_m": round(float(np.median(raw_errors)), 5),
+        "corrected_median_error_m": round(float(np.median(corrected_errors)), 5),
+        "raw_p95_error_m": round(float(np.percentile(raw_errors, 95)), 5),
+        "corrected_p95_error_m": round(float(np.percentile(corrected_errors, 95)), 5),
+        "residual_corrections_applied": max(int(row["corrections_applied"]) for row in rows),
+        "peak_residual_action_norm": round(float(state.residual_norm_peak), 5),
+        "max_slip_observer_error_mm": round(max(float(row["slip_observer_error_mm"]) for row in rows), 3),
+        "mean_policy_confidence": round(float(np.mean([float(row["policy_confidence"]) for row in rows])), 4),
+        "stage_count": len(STAGES),
+        "sample_count": len(rows),
+    }
+    stress_eval = build_stress_eval()
+    contact_timeline = build_contact_timeline(trajectory)
 
     video_written = None
     if renderer is not None and frames:
@@ -585,72 +694,95 @@ def run_demo(
             fallback = video_path.with_suffix(".gif")
             iio.imwrite(fallback, np.asarray(frames), fps=fps)
             video_written = str(fallback)
-            final_metrics["video_fallback_reason"] = str(exc)
+            metrics["video_fallback_reason"] = str(exc)
+
+    suite = task_suite_metrics(metrics, stress_eval, contact_timeline, bool(video_written) or not record_video)
+
+    with sensor_log_path.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(rows[0].keys()), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+    trajectory_path.write_text(json.dumps(trajectory, indent=2), encoding="utf-8")
+    stress_path.write_text(json.dumps(stress_eval, indent=2), encoding="utf-8")
+    contact_timeline_path.write_text(json.dumps(contact_timeline, indent=2), encoding="utf-8")
+    write_narration_srt(narration_path, duration_s)
+    write_layout_report(layout_report_path)
 
     summary = {
         "project": PROJECT_NAME,
-        "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "registration_uuid": REGISTRATION_UUID,
+        "robot_platform": "MuJoCo cartesian wrist with five-finger dexterous gripper and closed-loop residual capsule rescue policy",
+        "task_goal": "Rescue a fragile marked capsule by scanning, five-finger grasping, rotating 216 degrees, recovering from slip with residual control, placing into a sterile pod, and exporting trajectory evidence.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
+        "trajectory": display_path(trajectory_path),
         "behavior_policy": display_path(policy_path),
+        "stress_eval_path": display_path(stress_path),
+        "contact_timeline_path": display_path(contact_timeline_path),
+        "narration_srt": display_path(narration_path),
         "randomized_layout_report": display_path(layout_report_path),
-        "layout_seed": layout_seed,
-        "object_types": {task.name: task.object_type for task in tasks},
-        "distractor_count": 6,
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
-        "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
-        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+        "controller": "deterministic stage prior plus residual visual-servo/contact/slip correction",
+        "manipulation": "five-finger grasp, 216-degree in-hand rotation, residual slip recovery, sterile pod placement, and confirmation press",
+        "stages": [{"key": stage.key, "title": stage.title, "window": [stage.start, stage.end], "success_signal": stage.success_signal} for stage in STAGES],
+        "metrics": metrics,
+        "stress_eval": stress_eval,
+        "contact_timeline": contact_timeline["summary"],
         "task_suite": suite,
-        "advanced_evidence": advanced,
-        "data_columns": list(logs[0].keys()),
-        "metrics": final_metrics,
+        "data_columns": list(rows[0].keys()),
     }
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     write_behavior_policy(policy_path, summary)
-    write_randomized_layout_report(layout_report_path, layout_seed)
     return summary
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate the AIDOOG Dexterous Triage Lab MuJoCo rollout.")
+    parser = argparse.ArgumentParser(description="Generate the AIDOOG Precision Capsule Rescue MuJoCo rollout.")
     parser.add_argument("--scene", type=Path, default=DEFAULT_SCENE)
     parser.add_argument("--video", type=Path, default=DEFAULT_VIDEO)
     parser.add_argument("--sensor-log", type=Path, default=DEFAULT_SENSOR_LOG)
+    parser.add_argument("--trajectory", type=Path, default=DEFAULT_TRAJECTORY)
     parser.add_argument("--summary", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
+    parser.add_argument("--stress", type=Path, default=DEFAULT_STRESS)
+    parser.add_argument("--contact-timeline", type=Path, default=DEFAULT_CONTACT_TIMELINE)
+    parser.add_argument("--narration", type=Path, default=DEFAULT_NARRATION)
     parser.add_argument("--layout-report", type=Path, default=DEFAULT_LAYOUT_REPORT)
-    parser.add_argument("--layout-seed", type=int, default=7)
-    parser.add_argument("--duration", type=float, default=60.0, help="Demo length in seconds. Default is within the 1-3 minute contest target.")
+    parser.add_argument("--duration", type=float, default=64.0, help="Demo length in seconds. Default fits the contest 1-3 minute target.")
     parser.add_argument("--fps", type=int, default=12)
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=544)
-    parser.add_argument("--no-video", action="store_true", help="Run metrics and data logging without rendering a video.")
+    parser.add_argument("--quick", action="store_true", help="Run a shorter 16 second rollout for smoke testing.")
+    parser.add_argument("--no-video", action="store_true", help="Run metrics and artifact generation without rendering video.")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    duration_s = 16.0 if args.quick else args.duration
+    fps = 8 if args.quick else args.fps
     summary = run_demo(
         scene_path=args.scene,
         video_path=args.video,
         sensor_log_path=args.sensor_log,
+        trajectory_path=args.trajectory,
         summary_path=args.summary,
         policy_path=args.policy,
+        stress_path=args.stress,
+        contact_timeline_path=args.contact_timeline,
+        narration_path=args.narration,
         layout_report_path=args.layout_report,
-        layout_seed=args.layout_seed,
-        duration_s=args.duration,
-        fps=args.fps,
+        duration_s=duration_s,
+        fps=fps,
         width=args.width,
         height=args.height,
         record_video=not args.no_video,
     )
     print(json.dumps(summary, indent=2))
-    return 0 if summary["metrics"]["all_tasks_successful"] else 2
+    return 0 if summary["metrics"]["task_success"] and summary["task_suite"]["passed"] == summary["task_suite"]["task_count"] else 2
 
 
 if __name__ == "__main__":

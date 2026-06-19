@@ -1,0 +1,5773 @@
+{
+  "source": "derived from AIDOOG precision capsule trajectory finger_contact_proxy fields",
+  "sample_count": 384,
+  "summary": {
+    "max_active_fingers": 5,
+    "stable_five_finger_samples": 217,
+    "median_contact_balance_score": 0.8377,
+    "recovery_window_samples": 54,
+    "peak_recovery_mean_contact": 0.9259
+  },
+  "timeline": [
+    {
+      "time_s": 0.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0818,
+      "contact_balance_score": 0.934,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1065,
+        "index": 0.0965,
+        "middle": 0.0865,
+        "ring": 0.0612,
+        "little": 0.0585
+      }
+    },
+    {
+      "time_s": 0.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0892,
+      "contact_balance_score": 0.9117,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1142,
+        "index": 0.1042,
+        "middle": 0.0942,
+        "ring": 0.0683,
+        "little": 0.0653
+      }
+    },
+    {
+      "time_s": 0.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0929,
+      "contact_balance_score": 0.9007,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.118,
+        "index": 0.108,
+        "middle": 0.098,
+        "ring": 0.0717,
+        "little": 0.0686
+      }
+    },
+    {
+      "time_s": 0.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0946,
+      "contact_balance_score": 0.8953,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1198,
+        "index": 0.1098,
+        "middle": 0.0998,
+        "ring": 0.0734,
+        "little": 0.0702
+      }
+    },
+    {
+      "time_s": 0.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0955,
+      "contact_balance_score": 0.8927,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1207,
+        "index": 0.1107,
+        "middle": 0.1007,
+        "ring": 0.0743,
+        "little": 0.071
+      }
+    },
+    {
+      "time_s": 0.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0959,
+      "contact_balance_score": 0.8914,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1212,
+        "index": 0.1112,
+        "middle": 0.1012,
+        "ring": 0.0747,
+        "little": 0.0714
+      }
+    },
+    {
+      "time_s": 1.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0961,
+      "contact_balance_score": 0.8908,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1214,
+        "index": 0.1114,
+        "middle": 0.1014,
+        "ring": 0.0749,
+        "little": 0.0716
+      }
+    },
+    {
+      "time_s": 1.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0962,
+      "contact_balance_score": 0.8905,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1215,
+        "index": 0.1115,
+        "middle": 0.1015,
+        "ring": 0.075,
+        "little": 0.0717
+      }
+    },
+    {
+      "time_s": 1.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8904,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1215,
+        "index": 0.1115,
+        "middle": 0.1015,
+        "ring": 0.075,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 1.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8903,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.075,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 1.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 1.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 2.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 3.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 4.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 5.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 6.8333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.0,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.1667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.3333,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.5,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.6667,
+      "stage": "sensor_sweep",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 7.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 8.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 9.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 10.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 11.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 12.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 13.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 14.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.0,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.1667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.3333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.5,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.6667,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 15.8333,
+      "stage": "visual_servo_approach",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 16.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 17.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 17.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.0963,
+      "contact_balance_score": 0.8902,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1216,
+        "index": 0.1116,
+        "middle": 0.1016,
+        "ring": 0.0751,
+        "little": 0.0718
+      }
+    },
+    {
+      "time_s": 17.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.1711,
+      "contact_balance_score": 0.665,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1995,
+        "index": 0.1895,
+        "middle": 0.1795,
+        "ring": 0.1468,
+        "little": 0.1404
+      }
+    },
+    {
+      "time_s": 17.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.2626,
+      "contact_balance_score": 0.3977,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2948,
+        "index": 0.2848,
+        "middle": 0.2748,
+        "ring": 0.2344,
+        "little": 0.2242
+      }
+    },
+    {
+      "time_s": 17.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.2775,
+      "contact_balance_score": 0.2737,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3103,
+        "index": 0.3003,
+        "middle": 0.2903,
+        "ring": 0.2487,
+        "little": 0.2379
+      }
+    },
+    {
+      "time_s": 17.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.2875,
+      "contact_balance_score": 0.2175,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3207,
+        "index": 0.3107,
+        "middle": 0.3007,
+        "ring": 0.2583,
+        "little": 0.247
+      }
+    },
+    {
+      "time_s": 18.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.3006,
+      "contact_balance_score": 0.1955,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3344,
+        "index": 0.3244,
+        "middle": 0.3144,
+        "ring": 0.2708,
+        "little": 0.259
+      }
+    },
+    {
+      "time_s": 18.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.3166,
+      "contact_balance_score": 0.1918,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.351,
+        "index": 0.341,
+        "middle": 0.331,
+        "ring": 0.2862,
+        "little": 0.2737
+      }
+    },
+    {
+      "time_s": 18.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.3353,
+      "contact_balance_score": 0.1982,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3705,
+        "index": 0.3605,
+        "middle": 0.3505,
+        "ring": 0.304,
+        "little": 0.2908
+      }
+    },
+    {
+      "time_s": 18.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.3564,
+      "contact_balance_score": 0.2109,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3925,
+        "index": 0.3825,
+        "middle": 0.3725,
+        "ring": 0.3243,
+        "little": 0.3102
+      }
+    },
+    {
+      "time_s": 18.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.3797,
+      "contact_balance_score": 0.2276,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.4168,
+        "index": 0.4068,
+        "middle": 0.3968,
+        "ring": 0.3466,
+        "little": 0.3316
+      }
+    },
+    {
+      "time_s": 18.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 0,
+      "mean_contact": 0.4051,
+      "contact_balance_score": 0.2473,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.4432,
+        "index": 0.4332,
+        "middle": 0.4232,
+        "ring": 0.3709,
+        "little": 0.3548
+      }
+    },
+    {
+      "time_s": 19.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 3,
+      "mean_contact": 0.4321,
+      "contact_balance_score": 0.2693,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.4714,
+        "index": 0.4614,
+        "middle": 0.4514,
+        "ring": 0.3969,
+        "little": 0.3796
+      }
+    },
+    {
+      "time_s": 19.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 3,
+      "mean_contact": 0.4608,
+      "contact_balance_score": 0.2932,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.5013,
+        "index": 0.4913,
+        "middle": 0.4813,
+        "ring": 0.4244,
+        "little": 0.4059
+      }
+    },
+    {
+      "time_s": 19.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 4,
+      "mean_contact": 0.4908,
+      "contact_balance_score": 0.3188,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.5325,
+        "index": 0.5225,
+        "middle": 0.5125,
+        "ring": 0.4531,
+        "little": 0.4334
+      }
+    },
+    {
+      "time_s": 19.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.5205,
+      "contact_balance_score": 0.3458,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.5634,
+        "index": 0.5534,
+        "middle": 0.5434,
+        "ring": 0.4815,
+        "little": 0.4606
+      }
+    },
+    {
+      "time_s": 19.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.5414,
+      "contact_balance_score": 0.3752,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.5852,
+        "index": 0.5752,
+        "middle": 0.5652,
+        "ring": 0.5016,
+        "little": 0.4798
+      }
+    },
+    {
+      "time_s": 19.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.5627,
+      "contact_balance_score": 0.4054,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6074,
+        "index": 0.5974,
+        "middle": 0.5874,
+        "ring": 0.522,
+        "little": 0.4993
+      }
+    },
+    {
+      "time_s": 20.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.5841,
+      "contact_balance_score": 0.4364,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6297,
+        "index": 0.6197,
+        "middle": 0.6097,
+        "ring": 0.5425,
+        "little": 0.5189
+      }
+    },
+    {
+      "time_s": 20.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.6056,
+      "contact_balance_score": 0.4679,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6521,
+        "index": 0.6421,
+        "middle": 0.6321,
+        "ring": 0.5631,
+        "little": 0.5386
+      }
+    },
+    {
+      "time_s": 20.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.627,
+      "contact_balance_score": 0.4997,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6744,
+        "index": 0.6644,
+        "middle": 0.6544,
+        "ring": 0.5836,
+        "little": 0.5582
+      }
+    },
+    {
+      "time_s": 20.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.6481,
+      "contact_balance_score": 0.5315,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6964,
+        "index": 0.6864,
+        "middle": 0.6764,
+        "ring": 0.6039,
+        "little": 0.5776
+      }
+    },
+    {
+      "time_s": 20.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.6689,
+      "contact_balance_score": 0.5633,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.718,
+        "index": 0.708,
+        "middle": 0.698,
+        "ring": 0.6238,
+        "little": 0.5967
+      }
+    },
+    {
+      "time_s": 20.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.6891,
+      "contact_balance_score": 0.5945,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7391,
+        "index": 0.7291,
+        "middle": 0.7191,
+        "ring": 0.6432,
+        "little": 0.6152
+      }
+    },
+    {
+      "time_s": 21.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7087,
+      "contact_balance_score": 0.6252,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7595,
+        "index": 0.7495,
+        "middle": 0.7395,
+        "ring": 0.6619,
+        "little": 0.6331
+      }
+    },
+    {
+      "time_s": 21.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7274,
+      "contact_balance_score": 0.6551,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.779,
+        "index": 0.769,
+        "middle": 0.759,
+        "ring": 0.6799,
+        "little": 0.6503
+      }
+    },
+    {
+      "time_s": 21.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7452,
+      "contact_balance_score": 0.6841,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7975,
+        "index": 0.7875,
+        "middle": 0.7775,
+        "ring": 0.6969,
+        "little": 0.6666
+      }
+    },
+    {
+      "time_s": 21.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7619,
+      "contact_balance_score": 0.7117,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8149,
+        "index": 0.8049,
+        "middle": 0.7949,
+        "ring": 0.7129,
+        "little": 0.6819
+      }
+    },
+    {
+      "time_s": 21.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7774,
+      "contact_balance_score": 0.738,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.831,
+        "index": 0.821,
+        "middle": 0.811,
+        "ring": 0.7277,
+        "little": 0.6961
+      }
+    },
+    {
+      "time_s": 21.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.7915,
+      "contact_balance_score": 0.7625,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8457,
+        "index": 0.8357,
+        "middle": 0.8257,
+        "ring": 0.7412,
+        "little": 0.709
+      }
+    },
+    {
+      "time_s": 22.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.804,
+      "contact_balance_score": 0.7853,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8587,
+        "index": 0.8487,
+        "middle": 0.8387,
+        "ring": 0.7532,
+        "little": 0.7205
+      }
+    },
+    {
+      "time_s": 22.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8148,
+      "contact_balance_score": 0.8059,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.87,
+        "index": 0.86,
+        "middle": 0.85,
+        "ring": 0.7636,
+        "little": 0.7304
+      }
+    },
+    {
+      "time_s": 22.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8239,
+      "contact_balance_score": 0.8241,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8795,
+        "index": 0.8695,
+        "middle": 0.8595,
+        "ring": 0.7723,
+        "little": 0.7387
+      }
+    },
+    {
+      "time_s": 22.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8309,
+      "contact_balance_score": 0.84,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8868,
+        "index": 0.8768,
+        "middle": 0.8668,
+        "ring": 0.7791,
+        "little": 0.7452
+      }
+    },
+    {
+      "time_s": 22.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8359,
+      "contact_balance_score": 0.8531,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.892,
+        "index": 0.882,
+        "middle": 0.872,
+        "ring": 0.7839,
+        "little": 0.7498
+      }
+    },
+    {
+      "time_s": 22.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8387,
+      "contact_balance_score": 0.8516,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8949,
+        "index": 0.8849,
+        "middle": 0.8749,
+        "ring": 0.7865,
+        "little": 0.7523
+      }
+    },
+    {
+      "time_s": 23.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8391,
+      "contact_balance_score": 0.8446,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8953,
+        "index": 0.8853,
+        "middle": 0.8753,
+        "ring": 0.7869,
+        "little": 0.7527
+      }
+    },
+    {
+      "time_s": 23.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8379,
+      "contact_balance_score": 0.8411,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8941,
+        "index": 0.8841,
+        "middle": 0.8741,
+        "ring": 0.7858,
+        "little": 0.7516
+      }
+    },
+    {
+      "time_s": 23.3333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8373,
+      "contact_balance_score": 0.8393,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8934,
+        "index": 0.8834,
+        "middle": 0.8734,
+        "ring": 0.7852,
+        "little": 0.751
+      }
+    },
+    {
+      "time_s": 23.5,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.837,
+      "contact_balance_score": 0.8385,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8931,
+        "index": 0.8831,
+        "middle": 0.8731,
+        "ring": 0.7849,
+        "little": 0.7507
+      }
+    },
+    {
+      "time_s": 23.6667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8369,
+      "contact_balance_score": 0.838,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.893,
+        "index": 0.883,
+        "middle": 0.873,
+        "ring": 0.7847,
+        "little": 0.7506
+      }
+    },
+    {
+      "time_s": 23.8333,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8368,
+      "contact_balance_score": 0.8378,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8929,
+        "index": 0.8829,
+        "middle": 0.8729,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.0,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8378,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.1667,
+      "stage": "balanced_five_finger_grasp",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 24.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 25.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 26.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 27.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 28.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 29.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 30.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 31.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 32.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 33.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.3333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.5,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.6667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 34.8333,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.0,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.1667,
+      "stage": "in_hand_216_rotation",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 35.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 36.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 37.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8366,
+      "contact_balance_score": 0.8376,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8827,
+        "middle": 0.8728,
+        "ring": 0.7845,
+        "little": 0.7504
+      }
+    },
+    {
+      "time_s": 38.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8375,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8929,
+        "index": 0.8826,
+        "middle": 0.8729,
+        "ring": 0.7845,
+        "little": 0.7504
+      }
+    },
+    {
+      "time_s": 38.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8366,
+      "contact_balance_score": 0.8374,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8929,
+        "index": 0.8824,
+        "middle": 0.8729,
+        "ring": 0.7844,
+        "little": 0.7503
+      }
+    },
+    {
+      "time_s": 38.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8365,
+      "contact_balance_score": 0.8373,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.893,
+        "index": 0.8821,
+        "middle": 0.873,
+        "ring": 0.7843,
+        "little": 0.7503
+      }
+    },
+    {
+      "time_s": 38.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8364,
+      "contact_balance_score": 0.837,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8931,
+        "index": 0.8816,
+        "middle": 0.8731,
+        "ring": 0.7841,
+        "little": 0.7501
+      }
+    },
+    {
+      "time_s": 38.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8363,
+      "contact_balance_score": 0.8367,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8933,
+        "index": 0.881,
+        "middle": 0.8733,
+        "ring": 0.7839,
+        "little": 0.75
+      }
+    },
+    {
+      "time_s": 38.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8361,
+      "contact_balance_score": 0.8362,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8935,
+        "index": 0.8801,
+        "middle": 0.8735,
+        "ring": 0.7835,
+        "little": 0.7497
+      }
+    },
+    {
+      "time_s": 39.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8358,
+      "contact_balance_score": 0.8356,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8938,
+        "index": 0.8789,
+        "middle": 0.8738,
+        "ring": 0.7831,
+        "little": 0.7494
+      }
+    },
+    {
+      "time_s": 39.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8354,
+      "contact_balance_score": 0.8346,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8943,
+        "index": 0.8772,
+        "middle": 0.8743,
+        "ring": 0.7824,
+        "little": 0.7489
+      }
+    },
+    {
+      "time_s": 39.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8349,
+      "contact_balance_score": 0.8334,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8949,
+        "index": 0.8749,
+        "middle": 0.8749,
+        "ring": 0.7815,
+        "little": 0.7483
+      }
+    },
+    {
+      "time_s": 39.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8342,
+      "contact_balance_score": 0.8318,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8957,
+        "index": 0.8718,
+        "middle": 0.8757,
+        "ring": 0.7803,
+        "little": 0.7475
+      }
+    },
+    {
+      "time_s": 39.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8333,
+      "contact_balance_score": 0.8296,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8968,
+        "index": 0.8678,
+        "middle": 0.8768,
+        "ring": 0.7788,
+        "little": 0.7464
+      }
+    },
+    {
+      "time_s": 39.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8322,
+      "contact_balance_score": 0.8269,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8981,
+        "index": 0.8628,
+        "middle": 0.8781,
+        "ring": 0.7768,
+        "little": 0.745
+      }
+    },
+    {
+      "time_s": 40.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8308,
+      "contact_balance_score": 0.8237,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8997,
+        "index": 0.8568,
+        "middle": 0.8797,
+        "ring": 0.7745,
+        "little": 0.7434
+      }
+    },
+    {
+      "time_s": 40.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8293,
+      "contact_balance_score": 0.8199,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9016,
+        "index": 0.8498,
+        "middle": 0.8816,
+        "ring": 0.7718,
+        "little": 0.7415
+      }
+    },
+    {
+      "time_s": 40.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8274,
+      "contact_balance_score": 0.8156,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9037,
+        "index": 0.8418,
+        "middle": 0.8837,
+        "ring": 0.7686,
+        "little": 0.7393
+      }
+    },
+    {
+      "time_s": 40.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8254,
+      "contact_balance_score": 0.8108,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9061,
+        "index": 0.8329,
+        "middle": 0.8861,
+        "ring": 0.7652,
+        "little": 0.7369
+      }
+    },
+    {
+      "time_s": 40.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8232,
+      "contact_balance_score": 0.8056,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9086,
+        "index": 0.8233,
+        "middle": 0.8886,
+        "ring": 0.7615,
+        "little": 0.7342
+      }
+    },
+    {
+      "time_s": 40.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.821,
+      "contact_balance_score": 0.8002,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9113,
+        "index": 0.8132,
+        "middle": 0.8913,
+        "ring": 0.7575,
+        "little": 0.7315
+      }
+    },
+    {
+      "time_s": 41.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8186,
+      "contact_balance_score": 0.7947,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.914,
+        "index": 0.8029,
+        "middle": 0.894,
+        "ring": 0.7536,
+        "little": 0.7287
+      }
+    },
+    {
+      "time_s": 41.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8163,
+      "contact_balance_score": 0.7892,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9167,
+        "index": 0.7927,
+        "middle": 0.8967,
+        "ring": 0.7496,
+        "little": 0.7259
+      }
+    },
+    {
+      "time_s": 41.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8141,
+      "contact_balance_score": 0.7838,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9194,
+        "index": 0.7829,
+        "middle": 0.8994,
+        "ring": 0.7458,
+        "little": 0.7232
+      }
+    },
+    {
+      "time_s": 41.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.812,
+      "contact_balance_score": 0.7789,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9218,
+        "index": 0.7736,
+        "middle": 0.9018,
+        "ring": 0.7422,
+        "little": 0.7207
+      }
+    },
+    {
+      "time_s": 41.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8101,
+      "contact_balance_score": 0.7743,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9241,
+        "index": 0.7652,
+        "middle": 0.9041,
+        "ring": 0.7389,
+        "little": 0.7184
+      }
+    },
+    {
+      "time_s": 41.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8084,
+      "contact_balance_score": 0.7703,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9261,
+        "index": 0.7576,
+        "middle": 0.9061,
+        "ring": 0.736,
+        "little": 0.7164
+      }
+    },
+    {
+      "time_s": 42.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8069,
+      "contact_balance_score": 0.7666,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9279,
+        "index": 0.7507,
+        "middle": 0.9079,
+        "ring": 0.7333,
+        "little": 0.7145
+      }
+    },
+    {
+      "time_s": 42.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8054,
+      "contact_balance_score": 0.7631,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9296,
+        "index": 0.7443,
+        "middle": 0.9096,
+        "ring": 0.7308,
+        "little": 0.7127
+      }
+    },
+    {
+      "time_s": 42.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.804,
+      "contact_balance_score": 0.7597,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9313,
+        "index": 0.7379,
+        "middle": 0.9113,
+        "ring": 0.7283,
+        "little": 0.711
+      }
+    },
+    {
+      "time_s": 42.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8023,
+      "contact_balance_score": 0.7558,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9332,
+        "index": 0.7307,
+        "middle": 0.9132,
+        "ring": 0.7255,
+        "little": 0.709
+      }
+    },
+    {
+      "time_s": 42.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8018,
+      "contact_balance_score": 0.7525,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9356,
+        "index": 0.7256,
+        "middle": 0.9156,
+        "ring": 0.7239,
+        "little": 0.7081
+      }
+    },
+    {
+      "time_s": 42.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8045,
+      "contact_balance_score": 0.7522,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9384,
+        "index": 0.7284,
+        "middle": 0.9184,
+        "ring": 0.7266,
+        "little": 0.7106
+      }
+    },
+    {
+      "time_s": 43.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8079,
+      "contact_balance_score": 0.7518,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.942,
+        "index": 0.732,
+        "middle": 0.922,
+        "ring": 0.7298,
+        "little": 0.7138
+      }
+    },
+    {
+      "time_s": 43.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.812,
+      "contact_balance_score": 0.7512,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9463,
+        "index": 0.7363,
+        "middle": 0.9263,
+        "ring": 0.7338,
+        "little": 0.7175
+      }
+    },
+    {
+      "time_s": 43.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8167,
+      "contact_balance_score": 0.7506,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9512,
+        "index": 0.7412,
+        "middle": 0.9312,
+        "ring": 0.7383,
+        "little": 0.7218
+      }
+    },
+    {
+      "time_s": 43.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8219,
+      "contact_balance_score": 0.75,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9566,
+        "index": 0.7466,
+        "middle": 0.9366,
+        "ring": 0.7432,
+        "little": 0.7266
+      }
+    },
+    {
+      "time_s": 43.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8273,
+      "contact_balance_score": 0.7493,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9622,
+        "index": 0.7522,
+        "middle": 0.9422,
+        "ring": 0.7484,
+        "little": 0.7315
+      }
+    },
+    {
+      "time_s": 43.8333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8328,
+      "contact_balance_score": 0.7487,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9679,
+        "index": 0.7579,
+        "middle": 0.9479,
+        "ring": 0.7537,
+        "little": 0.7366
+      }
+    },
+    {
+      "time_s": 44.0,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8383,
+      "contact_balance_score": 0.7479,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9737,
+        "index": 0.7637,
+        "middle": 0.9537,
+        "ring": 0.759,
+        "little": 0.7416
+      }
+    },
+    {
+      "time_s": 44.1667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8435,
+      "contact_balance_score": 0.7473,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9791,
+        "index": 0.7691,
+        "middle": 0.9591,
+        "ring": 0.764,
+        "little": 0.7464
+      }
+    },
+    {
+      "time_s": 44.3333,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8484,
+      "contact_balance_score": 0.7467,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9842,
+        "index": 0.7742,
+        "middle": 0.9642,
+        "ring": 0.7686,
+        "little": 0.7509
+      }
+    },
+    {
+      "time_s": 44.5,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8526,
+      "contact_balance_score": 0.7462,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9885,
+        "index": 0.7785,
+        "middle": 0.9685,
+        "ring": 0.7726,
+        "little": 0.7547
+      }
+    },
+    {
+      "time_s": 44.6667,
+      "stage": "disturbance_carry",
+      "active_fingers": 5,
+      "mean_contact": 0.8559,
+      "contact_balance_score": 0.7458,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.992,
+        "index": 0.782,
+        "middle": 0.972,
+        "ring": 0.7758,
+        "little": 0.7578
+      }
+    },
+    {
+      "time_s": 44.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8583,
+      "contact_balance_score": 0.7454,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9945,
+        "index": 0.7845,
+        "middle": 0.9745,
+        "ring": 0.7781,
+        "little": 0.7599
+      }
+    },
+    {
+      "time_s": 45.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8597,
+      "contact_balance_score": 0.7454,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9958,
+        "index": 0.7861,
+        "middle": 0.9758,
+        "ring": 0.7795,
+        "little": 0.7612
+      }
+    },
+    {
+      "time_s": 45.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.86,
+      "contact_balance_score": 0.7457,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9959,
+        "index": 0.7869,
+        "middle": 0.9759,
+        "ring": 0.7799,
+        "little": 0.7616
+      }
+    },
+    {
+      "time_s": 45.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8593,
+      "contact_balance_score": 0.7463,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9947,
+        "index": 0.7868,
+        "middle": 0.9747,
+        "ring": 0.7794,
+        "little": 0.761
+      }
+    },
+    {
+      "time_s": 45.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8575,
+      "contact_balance_score": 0.7471,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9923,
+        "index": 0.7857,
+        "middle": 0.9723,
+        "ring": 0.7778,
+        "little": 0.7594
+      }
+    },
+    {
+      "time_s": 45.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8546,
+      "contact_balance_score": 0.7483,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9885,
+        "index": 0.7838,
+        "middle": 0.9685,
+        "ring": 0.7753,
+        "little": 0.7568
+      }
+    },
+    {
+      "time_s": 45.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8508,
+      "contact_balance_score": 0.7497,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9837,
+        "index": 0.7811,
+        "middle": 0.9637,
+        "ring": 0.7719,
+        "little": 0.7534
+      }
+    },
+    {
+      "time_s": 46.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8462,
+      "contact_balance_score": 0.7514,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.978,
+        "index": 0.7778,
+        "middle": 0.958,
+        "ring": 0.7679,
+        "little": 0.7494
+      }
+    },
+    {
+      "time_s": 46.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8413,
+      "contact_balance_score": 0.7532,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9718,
+        "index": 0.7744,
+        "middle": 0.9518,
+        "ring": 0.7635,
+        "little": 0.745
+      }
+    },
+    {
+      "time_s": 46.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8366,
+      "contact_balance_score": 0.7551,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9657,
+        "index": 0.7713,
+        "middle": 0.9457,
+        "ring": 0.7594,
+        "little": 0.7408
+      }
+    },
+    {
+      "time_s": 46.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8327,
+      "contact_balance_score": 0.7571,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9604,
+        "index": 0.7692,
+        "middle": 0.9404,
+        "ring": 0.7562,
+        "little": 0.7375
+      }
+    },
+    {
+      "time_s": 46.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8307,
+      "contact_balance_score": 0.759,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9568,
+        "index": 0.7692,
+        "middle": 0.9368,
+        "ring": 0.7547,
+        "little": 0.7358
+      }
+    },
+    {
+      "time_s": 46.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8313,
+      "contact_balance_score": 0.7606,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9559,
+        "index": 0.7722,
+        "middle": 0.9359,
+        "ring": 0.7558,
+        "little": 0.7365
+      }
+    },
+    {
+      "time_s": 47.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.835,
+      "contact_balance_score": 0.762,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9582,
+        "index": 0.7785,
+        "middle": 0.9382,
+        "ring": 0.7599,
+        "little": 0.7402
+      }
+    },
+    {
+      "time_s": 47.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8418,
+      "contact_balance_score": 0.7629,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9637,
+        "index": 0.7882,
+        "middle": 0.9437,
+        "ring": 0.767,
+        "little": 0.7466
+      }
+    },
+    {
+      "time_s": 47.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8512,
+      "contact_balance_score": 0.7637,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9717,
+        "index": 0.8006,
+        "middle": 0.9517,
+        "ring": 0.7766,
+        "little": 0.7554
+      }
+    },
+    {
+      "time_s": 47.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8623,
+      "contact_balance_score": 0.7644,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9814,
+        "index": 0.8149,
+        "middle": 0.9614,
+        "ring": 0.7878,
+        "little": 0.7658
+      }
+    },
+    {
+      "time_s": 47.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8744,
+      "contact_balance_score": 0.7651,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9921,
+        "index": 0.8304,
+        "middle": 0.9721,
+        "ring": 0.8001,
+        "little": 0.7772
+      }
+    },
+    {
+      "time_s": 47.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8862,
+      "contact_balance_score": 0.7688,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8464,
+        "middle": 0.9831,
+        "ring": 0.8127,
+        "little": 0.7888
+      }
+    },
+    {
+      "time_s": 48.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8963,
+      "contact_balance_score": 0.7803,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8622,
+        "middle": 0.9939,
+        "ring": 0.8251,
+        "little": 0.8003
+      }
+    },
+    {
+      "time_s": 48.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9029,
+      "contact_balance_score": 0.7878,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8735,
+        "middle": 1.0,
+        "ring": 0.8333,
+        "little": 0.8078
+      }
+    },
+    {
+      "time_s": 48.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9049,
+      "contact_balance_score": 0.7899,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8788,
+        "middle": 1.0,
+        "ring": 0.836,
+        "little": 0.8099
+      }
+    },
+    {
+      "time_s": 48.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.907,
+      "contact_balance_score": 0.7921,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8841,
+        "middle": 1.0,
+        "ring": 0.8387,
+        "little": 0.8121
+      }
+    },
+    {
+      "time_s": 48.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.909,
+      "contact_balance_score": 0.7942,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8896,
+        "middle": 1.0,
+        "ring": 0.8414,
+        "little": 0.8142
+      }
+    },
+    {
+      "time_s": 48.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9111,
+      "contact_balance_score": 0.7964,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.8951,
+        "middle": 1.0,
+        "ring": 0.8441,
+        "little": 0.8164
+      }
+    },
+    {
+      "time_s": 49.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9132,
+      "contact_balance_score": 0.7987,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9006,
+        "middle": 1.0,
+        "ring": 0.8469,
+        "little": 0.8187
+      }
+    },
+    {
+      "time_s": 49.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9154,
+      "contact_balance_score": 0.8009,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9062,
+        "middle": 1.0,
+        "ring": 0.8497,
+        "little": 0.8209
+      }
+    },
+    {
+      "time_s": 49.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9175,
+      "contact_balance_score": 0.8031,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9118,
+        "middle": 1.0,
+        "ring": 0.8525,
+        "little": 0.8231
+      }
+    },
+    {
+      "time_s": 49.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9196,
+      "contact_balance_score": 0.8053,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9174,
+        "middle": 1.0,
+        "ring": 0.8553,
+        "little": 0.8253
+      }
+    },
+    {
+      "time_s": 49.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9217,
+      "contact_balance_score": 0.8076,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9229,
+        "middle": 1.0,
+        "ring": 0.8581,
+        "little": 0.8276
+      }
+    },
+    {
+      "time_s": 49.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9238,
+      "contact_balance_score": 0.8098,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9284,
+        "middle": 1.0,
+        "ring": 0.8608,
+        "little": 0.8298
+      }
+    },
+    {
+      "time_s": 50.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9259,
+      "contact_balance_score": 0.812,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9339,
+        "middle": 1.0,
+        "ring": 0.8635,
+        "little": 0.832
+      }
+    },
+    {
+      "time_s": 50.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9225,
+      "contact_balance_score": 0.8079,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 1.0,
+        "index": 0.9322,
+        "middle": 0.9929,
+        "ring": 0.8597,
+        "little": 0.8279
+      }
+    },
+    {
+      "time_s": 50.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9145,
+      "contact_balance_score": 0.7987,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9997,
+        "index": 0.9243,
+        "middle": 0.9797,
+        "ring": 0.8502,
+        "little": 0.8184
+      }
+    },
+    {
+      "time_s": 50.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.9023,
+      "contact_balance_score": 0.8025,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.985,
+        "index": 0.9148,
+        "middle": 0.965,
+        "ring": 0.8393,
+        "little": 0.8075
+      }
+    },
+    {
+      "time_s": 50.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8892,
+      "contact_balance_score": 0.8064,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9693,
+        "index": 0.9042,
+        "middle": 0.9493,
+        "ring": 0.8274,
+        "little": 0.7957
+      }
+    },
+    {
+      "time_s": 50.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8757,
+      "contact_balance_score": 0.8104,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9532,
+        "index": 0.8932,
+        "middle": 0.9332,
+        "ring": 0.8152,
+        "little": 0.7836
+      }
+    },
+    {
+      "time_s": 51.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8628,
+      "contact_balance_score": 0.8142,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9379,
+        "index": 0.8827,
+        "middle": 0.9179,
+        "ring": 0.8035,
+        "little": 0.7721
+      }
+    },
+    {
+      "time_s": 51.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8559,
+      "contact_balance_score": 0.8212,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9252,
+        "index": 0.8839,
+        "middle": 0.9052,
+        "ring": 0.7987,
+        "little": 0.7664
+      }
+    },
+    {
+      "time_s": 51.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8529,
+      "contact_balance_score": 0.8258,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9184,
+        "index": 0.8864,
+        "middle": 0.8984,
+        "ring": 0.7971,
+        "little": 0.7642
+      }
+    },
+    {
+      "time_s": 51.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8546,
+      "contact_balance_score": 0.8264,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9194,
+        "index": 0.8893,
+        "middle": 0.8994,
+        "ring": 0.799,
+        "little": 0.7658
+      }
+    },
+    {
+      "time_s": 51.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8598,
+      "contact_balance_score": 0.8252,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9254,
+        "index": 0.8939,
+        "middle": 0.9054,
+        "ring": 0.8038,
+        "little": 0.7706
+      }
+    },
+    {
+      "time_s": 51.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8667,
+      "contact_balance_score": 0.8237,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9331,
+        "index": 0.9003,
+        "middle": 0.9131,
+        "ring": 0.8102,
+        "little": 0.7768
+      }
+    },
+    {
+      "time_s": 52.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8747,
+      "contact_balance_score": 0.8239,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9404,
+        "index": 0.9103,
+        "middle": 0.9204,
+        "ring": 0.8183,
+        "little": 0.7843
+      }
+    },
+    {
+      "time_s": 52.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8818,
+      "contact_balance_score": 0.8246,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9464,
+        "index": 0.9197,
+        "middle": 0.9264,
+        "ring": 0.8255,
+        "little": 0.791
+      }
+    },
+    {
+      "time_s": 52.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.887,
+      "contact_balance_score": 0.8253,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9506,
+        "index": 0.927,
+        "middle": 0.9306,
+        "ring": 0.831,
+        "little": 0.7959
+      }
+    },
+    {
+      "time_s": 52.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8902,
+      "contact_balance_score": 0.8262,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9528,
+        "index": 0.9321,
+        "middle": 0.9328,
+        "ring": 0.8344,
+        "little": 0.799
+      }
+    },
+    {
+      "time_s": 52.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8915,
+      "contact_balance_score": 0.8272,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9531,
+        "index": 0.9349,
+        "middle": 0.9331,
+        "ring": 0.836,
+        "little": 0.8003
+      }
+    },
+    {
+      "time_s": 52.8333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8909,
+      "contact_balance_score": 0.8282,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9516,
+        "index": 0.9356,
+        "middle": 0.9316,
+        "ring": 0.8357,
+        "little": 0.7998
+      }
+    },
+    {
+      "time_s": 53.0,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8886,
+      "contact_balance_score": 0.8293,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9485,
+        "index": 0.9344,
+        "middle": 0.9285,
+        "ring": 0.8338,
+        "little": 0.7978
+      }
+    },
+    {
+      "time_s": 53.1667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.885,
+      "contact_balance_score": 0.8305,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9441,
+        "index": 0.9316,
+        "middle": 0.9241,
+        "ring": 0.8305,
+        "little": 0.7946
+      }
+    },
+    {
+      "time_s": 53.3333,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8802,
+      "contact_balance_score": 0.8316,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9387,
+        "index": 0.9273,
+        "middle": 0.9187,
+        "ring": 0.8261,
+        "little": 0.7903
+      }
+    },
+    {
+      "time_s": 53.5,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8747,
+      "contact_balance_score": 0.8327,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9326,
+        "index": 0.9221,
+        "middle": 0.9126,
+        "ring": 0.8209,
+        "little": 0.7853
+      }
+    },
+    {
+      "time_s": 53.6667,
+      "stage": "residual_slip_recovery",
+      "active_fingers": 5,
+      "mean_contact": 0.8687,
+      "contact_balance_score": 0.8336,
+      "recovery_window": true,
+      "contacts": {
+        "thumb": 0.9262,
+        "index": 0.9161,
+        "middle": 0.9062,
+        "ring": 0.8153,
+        "little": 0.7798
+      }
+    },
+    {
+      "time_s": 53.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8626,
+      "contact_balance_score": 0.8344,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9198,
+        "index": 0.9098,
+        "middle": 0.8998,
+        "ring": 0.8094,
+        "little": 0.7742
+      }
+    },
+    {
+      "time_s": 54.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8568,
+      "contact_balance_score": 0.8352,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9137,
+        "index": 0.9037,
+        "middle": 0.8937,
+        "ring": 0.8038,
+        "little": 0.7689
+      }
+    },
+    {
+      "time_s": 54.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8515,
+      "contact_balance_score": 0.8358,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9082,
+        "index": 0.8982,
+        "middle": 0.8882,
+        "ring": 0.7987,
+        "little": 0.764
+      }
+    },
+    {
+      "time_s": 54.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8469,
+      "contact_balance_score": 0.8364,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.9034,
+        "index": 0.8934,
+        "middle": 0.8834,
+        "ring": 0.7944,
+        "little": 0.7598
+      }
+    },
+    {
+      "time_s": 54.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8431,
+      "contact_balance_score": 0.8369,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8995,
+        "index": 0.8895,
+        "middle": 0.8795,
+        "ring": 0.7908,
+        "little": 0.7564
+      }
+    },
+    {
+      "time_s": 54.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8403,
+      "contact_balance_score": 0.8372,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8966,
+        "index": 0.8866,
+        "middle": 0.8766,
+        "ring": 0.7881,
+        "little": 0.7538
+      }
+    },
+    {
+      "time_s": 54.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8384,
+      "contact_balance_score": 0.8375,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8946,
+        "index": 0.8846,
+        "middle": 0.8746,
+        "ring": 0.7862,
+        "little": 0.7521
+      }
+    },
+    {
+      "time_s": 55.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8374,
+      "contact_balance_score": 0.8376,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8935,
+        "index": 0.8835,
+        "middle": 0.8735,
+        "ring": 0.7852,
+        "little": 0.7511
+      }
+    },
+    {
+      "time_s": 55.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.837,
+      "contact_balance_score": 0.8376,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8931,
+        "index": 0.8831,
+        "middle": 0.8731,
+        "ring": 0.7848,
+        "little": 0.7507
+      }
+    },
+    {
+      "time_s": 55.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8368,
+      "contact_balance_score": 0.8376,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8929,
+        "index": 0.8829,
+        "middle": 0.8729,
+        "ring": 0.7847,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 55.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 55.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 55.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 56.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 56.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8377,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7505
+      }
+    },
+    {
+      "time_s": 56.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8367,
+      "contact_balance_score": 0.8376,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8928,
+        "index": 0.8828,
+        "middle": 0.8728,
+        "ring": 0.7846,
+        "little": 0.7504
+      }
+    },
+    {
+      "time_s": 56.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.833,
+      "contact_balance_score": 0.8397,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.889,
+        "index": 0.879,
+        "middle": 0.869,
+        "ring": 0.7811,
+        "little": 0.7471
+      }
+    },
+    {
+      "time_s": 56.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8241,
+      "contact_balance_score": 0.8467,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8797,
+        "index": 0.8697,
+        "middle": 0.8597,
+        "ring": 0.7725,
+        "little": 0.7389
+      }
+    },
+    {
+      "time_s": 56.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.8109,
+      "contact_balance_score": 0.8596,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.866,
+        "index": 0.856,
+        "middle": 0.846,
+        "ring": 0.7599,
+        "little": 0.7268
+      }
+    },
+    {
+      "time_s": 57.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.7942,
+      "contact_balance_score": 0.8472,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8486,
+        "index": 0.8386,
+        "middle": 0.8286,
+        "ring": 0.7439,
+        "little": 0.7115
+      }
+    },
+    {
+      "time_s": 57.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.7746,
+      "contact_balance_score": 0.8274,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8281,
+        "index": 0.8181,
+        "middle": 0.8081,
+        "ring": 0.7251,
+        "little": 0.6935
+      }
+    },
+    {
+      "time_s": 57.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.7525,
+      "contact_balance_score": 0.8029,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.8051,
+        "index": 0.7951,
+        "middle": 0.7851,
+        "ring": 0.7039,
+        "little": 0.6733
+      }
+    },
+    {
+      "time_s": 57.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.7283,
+      "contact_balance_score": 0.7743,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7799,
+        "index": 0.7699,
+        "middle": 0.7599,
+        "ring": 0.6807,
+        "little": 0.6511
+      }
+    },
+    {
+      "time_s": 57.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.7026,
+      "contact_balance_score": 0.7421,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7531,
+        "index": 0.7431,
+        "middle": 0.7331,
+        "ring": 0.6561,
+        "little": 0.6275
+      }
+    },
+    {
+      "time_s": 57.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.6757,
+      "contact_balance_score": 0.7071,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.7251,
+        "index": 0.7151,
+        "middle": 0.7051,
+        "ring": 0.6303,
+        "little": 0.6029
+      }
+    },
+    {
+      "time_s": 58.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.6481,
+      "contact_balance_score": 0.6697,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6963,
+        "index": 0.6863,
+        "middle": 0.6763,
+        "ring": 0.6038,
+        "little": 0.5776
+      }
+    },
+    {
+      "time_s": 58.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 5,
+      "mean_contact": 0.6201,
+      "contact_balance_score": 0.6305,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.6672,
+        "index": 0.6572,
+        "middle": 0.6472,
+        "ring": 0.577,
+        "little": 0.5519
+      }
+    },
+    {
+      "time_s": 58.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 3,
+      "mean_contact": 0.4654,
+      "contact_balance_score": 0.8348,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.506,
+        "index": 0.496,
+        "middle": 0.486,
+        "ring": 0.4287,
+        "little": 0.4101
+      }
+    },
+    {
+      "time_s": 58.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.3758,
+      "contact_balance_score": 0.7101,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.4127,
+        "index": 0.4027,
+        "middle": 0.3927,
+        "ring": 0.3429,
+        "little": 0.328
+      }
+    },
+    {
+      "time_s": 58.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.3189,
+      "contact_balance_score": 0.6729,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3534,
+        "index": 0.3434,
+        "middle": 0.3334,
+        "ring": 0.2883,
+        "little": 0.2758
+      }
+    },
+    {
+      "time_s": 58.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.2788,
+      "contact_balance_score": 0.6776,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.3117,
+        "index": 0.3017,
+        "middle": 0.2917,
+        "ring": 0.25,
+        "little": 0.2391
+      }
+    },
+    {
+      "time_s": 59.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.2481,
+      "contact_balance_score": 0.7016,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2797,
+        "index": 0.2697,
+        "middle": 0.2597,
+        "ring": 0.2206,
+        "little": 0.211
+      }
+    },
+    {
+      "time_s": 59.1667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.2233,
+      "contact_balance_score": 0.7332,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2539,
+        "index": 0.2439,
+        "middle": 0.2339,
+        "ring": 0.1968,
+        "little": 0.1882
+      }
+    },
+    {
+      "time_s": 59.3333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.203,
+      "contact_balance_score": 0.7668,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2327,
+        "index": 0.2227,
+        "middle": 0.2127,
+        "ring": 0.1773,
+        "little": 0.1696
+      }
+    },
+    {
+      "time_s": 59.5,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.1865,
+      "contact_balance_score": 0.7987,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2155,
+        "index": 0.2055,
+        "middle": 0.1955,
+        "ring": 0.1615,
+        "little": 0.1544
+      }
+    },
+    {
+      "time_s": 59.6667,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.1738,
+      "contact_balance_score": 0.8272,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.2023,
+        "index": 0.1923,
+        "middle": 0.1823,
+        "ring": 0.1493,
+        "little": 0.1429
+      }
+    },
+    {
+      "time_s": 59.8333,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.1653,
+      "contact_balance_score": 0.8507,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1934,
+        "index": 0.1834,
+        "middle": 0.1734,
+        "ring": 0.1411,
+        "little": 0.135
+      }
+    },
+    {
+      "time_s": 60.0,
+      "stage": "sterile_pod_place",
+      "active_fingers": 0,
+      "mean_contact": 0.161,
+      "contact_balance_score": 0.8684,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1889,
+        "index": 0.1789,
+        "middle": 0.1689,
+        "ring": 0.137,
+        "little": 0.1311
+      }
+    },
+    {
+      "time_s": 60.1667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1614,
+      "contact_balance_score": 0.8793,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1894,
+        "index": 0.1794,
+        "middle": 0.1694,
+        "ring": 0.1374,
+        "little": 0.1315
+      }
+    },
+    {
+      "time_s": 60.3333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1633,
+      "contact_balance_score": 0.8845,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1914,
+        "index": 0.1814,
+        "middle": 0.1714,
+        "ring": 0.1393,
+        "little": 0.1332
+      }
+    },
+    {
+      "time_s": 60.5,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1642,
+      "contact_balance_score": 0.8872,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1923,
+        "index": 0.1823,
+        "middle": 0.1723,
+        "ring": 0.1402,
+        "little": 0.1341
+      }
+    },
+    {
+      "time_s": 60.6667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1647,
+      "contact_balance_score": 0.8884,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1928,
+        "index": 0.1828,
+        "middle": 0.1728,
+        "ring": 0.1406,
+        "little": 0.1345
+      }
+    },
+    {
+      "time_s": 60.8333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.165,
+      "contact_balance_score": 0.889,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1931,
+        "index": 0.1831,
+        "middle": 0.1731,
+        "ring": 0.1408,
+        "little": 0.1347
+      }
+    },
+    {
+      "time_s": 61.0,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1651,
+      "contact_balance_score": 0.8893,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1932,
+        "index": 0.1832,
+        "middle": 0.1732,
+        "ring": 0.1409,
+        "little": 0.1348
+      }
+    },
+    {
+      "time_s": 61.1667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1651,
+      "contact_balance_score": 0.8894,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1932,
+        "index": 0.1832,
+        "middle": 0.1732,
+        "ring": 0.141,
+        "little": 0.1348
+      }
+    },
+    {
+      "time_s": 61.3333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8895,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 61.5,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 61.6667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 61.8333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.0,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.1667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.3333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.5,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.6667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 62.8333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.0,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.1667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.3333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.5,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.6667,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    },
+    {
+      "time_s": 63.8333,
+      "stage": "confirmation_and_export",
+      "active_fingers": 0,
+      "mean_contact": 0.1652,
+      "contact_balance_score": 0.8896,
+      "recovery_window": false,
+      "contacts": {
+        "thumb": 0.1933,
+        "index": 0.1833,
+        "middle": 0.1733,
+        "ring": 0.141,
+        "little": 0.1349
+      }
+    }
+  ]
+}

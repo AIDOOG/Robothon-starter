@@ -1,193 +1,180 @@
-<mujoco model="aidoog_sentinel_sorter">
+<mujoco model="aidoog_precision_capsule_rescue">
   <compiler angle="radian" autolimits="true"/>
-
   <option timestep="0.004" integrator="RK4" gravity="0 0 -9.81" cone="elliptic"/>
-
-  <statistic center="0.05 0 0.18" extent="1.15"/>
+  <statistic center="0.10 0.02 0.18" extent="1.12"/>
 
   <visual>
-    <headlight ambient="0.18 0.18 0.2" diffuse="0.7 0.7 0.74" specular="0.35 0.35 0.35"/>
+    <headlight ambient="0.18 0.18 0.20" diffuse="0.70 0.70 0.74" specular="0.35 0.35 0.35"/>
     <global azimuth="145" elevation="-26" offwidth="960" offheight="544"/>
     <quality shadowsize="2048" offsamples="4"/>
     <rgba haze="0.07 0.08 0.10 1"/>
   </visual>
 
   <default>
-    <joint damping="1.2" armature="0.012" frictionloss="0.02"/>
-    <geom condim="4" friction="1.05 0.015 0.001" solimp="0.92 0.98 0.003" solref="0.012 1"/>
+    <joint damping="1.25" armature="0.012" frictionloss="0.02"/>
+    <geom condim="4" friction="1.08 0.018 0.002" solimp="0.92 0.98 0.003" solref="0.012 1"/>
     <site rgba="0.9 0.95 1 1" size="0.012"/>
     <default class="finger">
-      <geom type="capsule" size="0.012" rgba="0.82 0.86 0.92 1" friction="1.35 0.03 0.003"/>
+      <geom type="capsule" size="0.012" rgba="0.82 0.86 0.92 1" friction="1.45 0.035 0.004"/>
     </default>
-    <default class="bin">
-      <geom type="box" rgba="0.14 0.16 0.19 1" contype="1" conaffinity="1"/>
+    <default class="static_dark">
+      <geom rgba="0.13 0.15 0.18 1" contype="1" conaffinity="1"/>
     </default>
   </default>
 
   <asset>
-    <texture name="floor_grid" type="2d" builtin="checker" rgb1="0.09 0.10 0.12" rgb2="0.13 0.15 0.18" width="256" height="256"/>
+    <texture name="floor_grid" type="2d" builtin="checker" rgb1="0.08 0.09 0.11" rgb2="0.13 0.15 0.18" width="256" height="256"/>
     <material name="floor_grid" texture="floor_grid" texrepeat="6 6" reflectance="0.12"/>
-    <material name="red_part" rgba="0.95 0.16 0.11 1"/>
-    <material name="blue_part" rgba="0.10 0.44 0.95 1"/>
-    <material name="amber" rgba="1.00 0.58 0.12 1"/>
-    <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
-    <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
-    <material name="green_part" rgba="0.12 0.86 0.32 1"/>
+    <material name="capsule_body" rgba="1.00 0.60 0.12 1"/>
+    <material name="rotation_mark" rgba="0.02 0.02 0.02 1"/>
+    <material name="cap_blue" rgba="0.08 0.36 0.95 1"/>
+    <material name="pod_green" rgba="0.10 0.82 0.38 0.84"/>
+    <material name="button_red" rgba="0.95 0.12 0.10 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
-    <material name="palm_dark" rgba="0.12 0.15 0.18 1"/>
+    <material name="palm_dark" rgba="0.11 0.14 0.18 1"/>
   </asset>
 
   <worldbody>
     <camera name="overview" pos="0.92 -0.92 0.68" xyaxes="0.72 0.69 0 -0.34 0.36 0.87"/>
-    <camera name="wrist_cam" mode="track" pos="0.14 -0.08 0.12" xyaxes="0.78 0.62 0 -0.46 0.58 0.68"/>
+    <camera name="rescue_closeup" pos="0.62 -0.72 0.48" xyaxes="0.78 0.62 0 -0.30 0.38 0.88"/>
 
-    <light name="key" pos="-0.6 -0.5 1.2" dir="0.55 0.45 -1" diffuse="0.9 0.9 0.85"/>
-    <light name="rim" pos="0.7 0.5 0.8" dir="-0.5 -0.3 -1" diffuse="0.35 0.45 0.65"/>
+    <light name="key" pos="-0.7 -0.5 1.2" dir="0.55 0.45 -1" diffuse="0.9 0.9 0.85"/>
+    <light name="rim" pos="0.7 0.5 0.9" dir="-0.5 -0.3 -1" diffuse="0.35 0.45 0.65"/>
 
     <geom name="floor" type="plane" material="floor_grid" size="1.2 1.0 0.04"/>
-    <geom name="work_mat" type="box" pos="0.02 0 0.006" size="0.58 0.42 0.006" rgba="0.07 0.08 0.09 1"/>
+    <geom name="work_mat" type="box" pos="0.02 0 0.006" size="0.60 0.42 0.006" rgba="0.065 0.075 0.09 1"/>
 
-    <geom name="distractor_post_a" type="cylinder" pos="-0.02 0.32 0.045" size="0.018 0.045" rgba="0.52 0.56 0.62 1"/>
-    <geom name="distractor_post_b" type="cylinder" pos="0.12 0.32 0.035" size="0.015 0.035" rgba="0.52 0.56 0.62 1"/>
-    <geom name="distractor_block_a" type="box" pos="-0.22 -0.33 0.032" size="0.040 0.030 0.026" rgba="0.46 0.48 0.53 1"/>
-    <geom name="distractor_block_b" type="box" pos="0.04 -0.36 0.024" size="0.032 0.024 0.018" rgba="0.46 0.48 0.53 1"/>
-    <geom name="distractor_hazard_a" type="box" pos="0.16 0.05 0.014" euler="0 0 0.45" size="0.090 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
-    <geom name="distractor_hazard_b" type="box" pos="-0.20 0.05 0.014" euler="0 0 -0.38" size="0.080 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="scan_pad" type="box" pos="-0.42 -0.16 0.012" size="0.12 0.095 0.006" rgba="0.10 0.28 0.55 0.78"/>
+    <geom name="rescue_lane" type="box" pos="0.02 0.02 0.014" euler="0 0 0.22" size="0.31 0.012 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="sterile_pod_floor" type="box" pos="0.45 0.20 0.012" size="0.12 0.095 0.006" material="pod_green"/>
+    <geom name="pod_back" class="static_dark" type="box" pos="0.45 0.095 0.054" size="0.13 0.010 0.044"/>
+    <geom name="pod_front" class="static_dark" type="box" pos="0.45 0.305 0.054" size="0.13 0.010 0.044"/>
+    <geom name="pod_left" class="static_dark" type="box" pos="0.31 0.20 0.054" size="0.010 0.105 0.044"/>
+    <geom name="pod_right" class="static_dark" type="box" pos="0.59 0.20 0.054" size="0.010 0.105 0.044"/>
+    <site name="pod_site" pos="0.45 0.20 0.058" size="0.004" rgba="0.3 1 0.55 0.20"/>
 
-    <geom name="red_pick_pad" type="box" pos="-0.36 -0.18 0.012" size="0.085 0.085 0.006" rgba="0.50 0.10 0.08 0.8"/>
-    <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>
+    <geom name="clutter_block_a" type="box" pos="-0.15 0.31 0.030" size="0.050 0.030 0.024" rgba="0.48 0.50 0.56 1"/>
+    <geom name="clutter_block_b" type="box" pos="0.16 -0.32 0.030" size="0.045 0.030 0.024" rgba="0.48 0.50 0.56 1"/>
+    <geom name="clutter_post_a" type="cylinder" pos="-0.02 0.31 0.045" size="0.018 0.045" rgba="0.55 0.58 0.64 1"/>
+    <geom name="clutter_post_b" type="cylinder" pos="0.22 0.34 0.038" size="0.014 0.038" rgba="0.55 0.58 0.64 1"/>
 
-    <geom name="red_bin_floor" type="box" pos="0.42 -0.23 0.012" size="0.12 0.10 0.006" material="green_goal"/>
-    <geom name="amber_slot_floor" type="box" pos="0.42 0.00 0.012" size="0.10 0.07 0.006" rgba="1.00 0.62 0.12 0.78"/>
-    <geom name="blue_bin_floor" type="box" pos="0.42 0.23 0.012" size="0.12 0.10 0.006" material="green_goal"/>
-    <geom name="green_slot_floor" type="box" pos="0.16 -0.31 0.012" size="0.075 0.055 0.006" rgba="0.10 0.86 0.36 0.78"/>
-    <geom name="red_bin_back" class="bin" pos="0.42 -0.34 0.052" size="0.13 0.01 0.045"/>
-    <geom name="red_bin_front" class="bin" pos="0.42 -0.12 0.052" size="0.13 0.01 0.045"/>
-    <geom name="red_bin_left" class="bin" pos="0.28 -0.23 0.052" size="0.01 0.11 0.045"/>
-    <geom name="red_bin_right" class="bin" pos="0.56 -0.23 0.052" size="0.01 0.11 0.045"/>
-    <geom name="blue_bin_back" class="bin" pos="0.42 0.12 0.052" size="0.13 0.01 0.045"/>
-    <geom name="blue_bin_front" class="bin" pos="0.42 0.34 0.052" size="0.13 0.01 0.045"/>
-    <geom name="blue_bin_left" class="bin" pos="0.28 0.23 0.052" size="0.01 0.11 0.045"/>
-    <geom name="blue_bin_right" class="bin" pos="0.56 0.23 0.052" size="0.01 0.11 0.045"/>
-
-    <body name="red_cube" pos="-0.36 -0.18 0.052">
-      <freejoint name="red_cube_freejoint"/>
-      <geom name="red_cube_geom" type="box" size="0.045 0.045 0.045" material="red_part" mass="0.11"/>
-      <site name="red_cube_center" pos="0 0 0" size="0.006" rgba="1 0.45 0.35 1"/>
+    <body name="capsule" pos="-0.42 -0.16 0.060">
+      <freejoint name="capsule_freejoint"/>
+      <geom name="capsule_geom" type="capsule" size="0.027 0.050" material="capsule_body" mass="0.085"/>
+      <geom name="capsule_rotation_mark" type="box" pos="0.030 0 0.020" size="0.010 0.030 0.009" material="rotation_mark" mass="0.002"/>
+      <site name="capsule_site" pos="0 0 0" size="0.008" rgba="1 0.75 0.25 1"/>
     </body>
 
-    <body name="blue_cylinder" pos="-0.36 0.18 0.052">
-      <freejoint name="blue_cylinder_freejoint"/>
-      <geom name="blue_cylinder_geom" type="cylinder" size="0.043 0.045" material="blue_part" mass="0.10"/>
-      <site name="blue_cylinder_center" pos="0 0 0" size="0.006" rgba="0.35 0.65 1 1"/>
+    <body name="cap_marker" pos="-0.42 -0.16 0.125">
+      <freejoint name="cap_marker_freejoint"/>
+      <geom name="cap_marker_geom" type="cylinder" size="0.030 0.018" material="cap_blue" mass="0.025"/>
+      <geom name="cap_arrow" type="box" pos="0.030 0 0.018" size="0.020 0.006 0.006" material="rotation_mark" mass="0.001"/>
+      <site name="cap_marker_site" pos="0 0 0" size="0.007" rgba="0.35 0.65 1 1"/>
     </body>
 
-    <body name="amber_capsule" pos="-0.12 0 0.052">
-      <freejoint name="amber_capsule_freejoint"/>
-      <geom name="amber_capsule_geom" type="capsule" size="0.026 0.034" material="amber" mass="0.08"/>
-      <geom name="amber_capsule_rotation_mark" type="box" pos="0.026 0 0.018" size="0.006 0.018 0.006" material="cap_mark" mass="0.002"/>
-      <site name="amber_capsule_center" pos="0 0 0" size="0.006" rgba="1 0.72 0.25 1"/>
-    </body>
-
-    <body name="green_sphere" pos="-0.12 -0.31 0.052">
-      <freejoint name="green_sphere_freejoint"/>
-      <geom name="green_sphere_geom" type="sphere" size="0.041" material="green_part" mass="0.075"/>
-      <site name="green_sphere_center" pos="0 0 0" size="0.006" rgba="0.4 1 0.45 1"/>
+    <body name="audit_button" pos="0.68 -0.22 0.030">
+      <joint name="button_slide" type="slide" axis="0 0 1" range="-0.018 0.004"/>
+      <geom name="button_base" type="box" pos="0 0 -0.008" size="0.052 0.052 0.010" rgba="0.72 0.76 0.82 1"/>
+      <geom name="button_cap" type="cylinder" pos="0 0 0.010" size="0.030 0.012" material="button_red" mass="0.020"/>
+      <site name="button_site" pos="0 0 0.026" size="0.012" rgba="1 0.28 0.25 1"/>
     </body>
 
     <body name="cartesian_wrist" pos="0 0 0.19">
-      <joint name="gantry_x" type="slide" axis="1 0 0" range="-0.55 0.58"/>
-      <joint name="gantry_y" type="slide" axis="0 1 0" range="-0.40 0.40"/>
+      <joint name="gantry_x" type="slide" axis="1 0 0" range="-0.60 0.74"/>
+      <joint name="gantry_y" type="slide" axis="0 1 0" range="-0.44 0.42"/>
       <joint name="gantry_z" type="slide" axis="0 0 1" range="0.02 0.36"/>
       <joint name="wrist_yaw" type="hinge" axis="0 0 1" range="-3.14159 3.14159"/>
+      <joint name="wrist_pitch" type="hinge" axis="0 1 0" range="-0.65 0.65"/>
+      <joint name="wrist_roll" type="hinge" axis="1 0 0" range="-0.65 0.65"/>
 
-      <geom name="gantry_crossbar" type="box" pos="0 0 0.22" size="0.62 0.012 0.012" rgba="0.24 0.27 0.31 1" contype="0" conaffinity="0"/>
-      <geom name="wrist_column" type="cylinder" pos="0 0 0.075" size="0.018 0.09" material="robot_shell" contype="0" conaffinity="0"/>
+      <geom name="gantry_crossbar" type="box" pos="0 0 0.22" size="0.66 0.012 0.012" rgba="0.24 0.27 0.31 1" contype="0" conaffinity="0"/>
+      <geom name="wrist_column" type="cylinder" pos="0 0 0.076" size="0.018 0.092" material="robot_shell" contype="0" conaffinity="0"/>
       <geom name="palm" type="box" pos="0 0 0" size="0.065 0.045 0.025" material="palm_dark"/>
-      <site name="wrist_imu" pos="0 0 0.04" size="0.01" rgba="0.2 1 0.55 1"/>
-      <site name="grasp_center" pos="0 0 -0.115" size="0.014" rgba="1 1 1 1"/>
+      <site name="wrist_imu" pos="0 0 0.044" size="0.010" rgba="0.2 1 0.55 1"/>
+      <site name="grasp_center" pos="0 0 -0.112" size="0.014" rgba="1 1 1 1"/>
 
-      <body name="finger_a" pos="0.050 0 0.004" euler="0 0 0">
-        <joint name="finger_a_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+      <body name="finger_thumb" pos="0.050 0 0.004" euler="0 0 0">
+        <joint name="thumb_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.08"/>
         <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_a_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_a_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <body name="thumb_tip" pos="0 0 -0.145">
+          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.7 0.05 0.004"/>
+          <site name="thumb_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
-
-      <body name="finger_b" pos="-0.025 0.043 0.004" euler="0 0 2.094395">
-        <joint name="finger_b_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+      <body name="finger_index" pos="-0.025 0.043 0.004" euler="0 0 2.094395">
+        <joint name="index_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.08"/>
         <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_b_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_b_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <body name="index_tip" pos="0 0 -0.145">
+          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.7 0.05 0.004"/>
+          <site name="index_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
-
-      <body name="finger_c" pos="-0.025 -0.043 0.004" euler="0 0 -2.094395">
-        <joint name="finger_c_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+      <body name="finger_middle" pos="-0.025 -0.043 0.004" euler="0 0 -2.094395">
+        <joint name="middle_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.08"/>
         <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.140"/>
-        <body name="finger_c_tip" pos="0 0 -0.145">
-          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_c_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
+        <body name="middle_tip" pos="0 0 -0.145">
+          <geom type="sphere" size="0.016" rgba="0.95 0.98 1 1" friction="1.7 0.05 0.004"/>
+          <site name="middle_touch" pos="0 0 0" size="0.018" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
-
-      <body name="finger_d" pos="-0.060 0.026 0.004" euler="0 0 2.748894">
-        <joint name="finger_d_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+      <body name="finger_ring" pos="-0.060 0.026 0.004" euler="0 0 2.748894">
+        <joint name="ring_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
         <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
-        <body name="finger_d_tip" pos="0 0 -0.137">
-          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_d_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        <body name="ring_tip" pos="0 0 -0.137">
+          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.7 0.05 0.004"/>
+          <site name="ring_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
-
-      <body name="finger_e" pos="-0.060 -0.026 0.004" euler="0 0 -2.748894">
-        <joint name="finger_e_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
+      <body name="finger_little" pos="-0.060 -0.026 0.004" euler="0 0 -2.748894">
+        <joint name="little_knuckle" type="hinge" axis="0 1 0" range="-0.15 1.05"/>
         <geom class="finger" fromto="0 0 -0.005 0.000 0 -0.132"/>
-        <body name="finger_e_tip" pos="0 0 -0.137">
-          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.6 0.04 0.004"/>
-          <site name="finger_e_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
+        <body name="little_tip" pos="0 0 -0.137">
+          <geom type="sphere" size="0.014" rgba="0.95 0.98 1 1" friction="1.7 0.05 0.004"/>
+          <site name="little_touch" pos="0 0 0" size="0.016" rgba="1 0.8 0.4 1"/>
         </body>
       </body>
     </body>
   </worldbody>
 
   <actuator>
-    <position name="x_position" joint="gantry_x" kp="220" dampratio="0.85" ctrlrange="-0.55 0.58"/>
-    <position name="y_position" joint="gantry_y" kp="220" dampratio="0.85" ctrlrange="-0.40 0.40"/>
-    <position name="z_position" joint="gantry_z" kp="260" dampratio="0.90" ctrlrange="0.02 0.36"/>
-    <position name="yaw_position" joint="wrist_yaw" kp="55" dampratio="0.80" ctrlrange="-3.14159 3.14159"/>
-    <position name="finger_a_position" joint="finger_a_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
-    <position name="finger_b_position" joint="finger_b_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
-    <position name="finger_c_position" joint="finger_c_knuckle" kp="40" dampratio="0.85" ctrlrange="-0.12 1.0"/>
-    <position name="finger_d_position" joint="finger_d_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
-    <position name="finger_e_position" joint="finger_e_knuckle" kp="34" dampratio="0.85" ctrlrange="-0.12 1.0"/>
+    <position name="x_position" joint="gantry_x" kp="230" dampratio="0.86" ctrlrange="-0.60 0.74"/>
+    <position name="y_position" joint="gantry_y" kp="230" dampratio="0.86" ctrlrange="-0.44 0.42"/>
+    <position name="z_position" joint="gantry_z" kp="270" dampratio="0.90" ctrlrange="0.02 0.36"/>
+    <position name="yaw_position" joint="wrist_yaw" kp="60" dampratio="0.80" ctrlrange="-3.14159 3.14159"/>
+    <position name="pitch_position" joint="wrist_pitch" kp="42" dampratio="0.82" ctrlrange="-0.65 0.65"/>
+    <position name="roll_position" joint="wrist_roll" kp="42" dampratio="0.82" ctrlrange="-0.65 0.65"/>
+    <position name="thumb_position" joint="thumb_knuckle" kp="42" dampratio="0.86" ctrlrange="-0.12 1.05"/>
+    <position name="index_position" joint="index_knuckle" kp="42" dampratio="0.86" ctrlrange="-0.12 1.05"/>
+    <position name="middle_position" joint="middle_knuckle" kp="42" dampratio="0.86" ctrlrange="-0.12 1.05"/>
+    <position name="ring_position" joint="ring_knuckle" kp="36" dampratio="0.86" ctrlrange="-0.12 1.0"/>
+    <position name="little_position" joint="little_knuckle" kp="36" dampratio="0.86" ctrlrange="-0.12 1.0"/>
+    <position name="button_position" joint="button_slide" kp="52" dampratio="0.85" ctrlrange="-0.018 0.004"/>
   </actuator>
 
   <sensor>
     <jointpos name="gantry_x_pos" joint="gantry_x"/>
     <jointpos name="gantry_y_pos" joint="gantry_y"/>
     <jointpos name="gantry_z_pos" joint="gantry_z"/>
-    <jointvel name="gantry_x_vel" joint="gantry_x"/>
-    <jointvel name="gantry_y_vel" joint="gantry_y"/>
-    <jointvel name="gantry_z_vel" joint="gantry_z"/>
-    <jointpos name="finger_a_pos" joint="finger_a_knuckle"/>
-    <jointpos name="finger_b_pos" joint="finger_b_knuckle"/>
-    <jointpos name="finger_c_pos" joint="finger_c_knuckle"/>
-    <jointpos name="finger_d_pos" joint="finger_d_knuckle"/>
-    <jointpos name="finger_e_pos" joint="finger_e_knuckle"/>
-    <touch name="finger_a_contact" site="finger_a_touch"/>
-    <touch name="finger_b_contact" site="finger_b_touch"/>
-    <touch name="finger_c_contact" site="finger_c_touch"/>
-    <touch name="finger_d_contact" site="finger_d_touch"/>
-    <touch name="finger_e_contact" site="finger_e_touch"/>
+    <jointpos name="wrist_yaw_pos" joint="wrist_yaw"/>
+    <jointpos name="wrist_pitch_pos" joint="wrist_pitch"/>
+    <jointpos name="wrist_roll_pos" joint="wrist_roll"/>
+    <jointpos name="button_pos" joint="button_slide"/>
+    <jointpos name="thumb_pos" joint="thumb_knuckle"/>
+    <jointpos name="index_pos" joint="index_knuckle"/>
+    <jointpos name="middle_pos" joint="middle_knuckle"/>
+    <jointpos name="ring_pos" joint="ring_knuckle"/>
+    <jointpos name="little_pos" joint="little_knuckle"/>
+    <touch name="thumb_contact" site="thumb_touch"/>
+    <touch name="index_contact" site="index_touch"/>
+    <touch name="middle_contact" site="middle_touch"/>
+    <touch name="ring_contact" site="ring_touch"/>
+    <touch name="little_contact" site="little_touch"/>
     <accelerometer name="wrist_accel" site="wrist_imu"/>
     <gyro name="wrist_gyro" site="wrist_imu"/>
-    <framepos name="red_cube_pos" objtype="body" objname="red_cube"/>
-    <framepos name="blue_cylinder_pos" objtype="body" objname="blue_cylinder"/>
-    <framepos name="amber_capsule_pos" objtype="body" objname="amber_capsule"/>
-    <framepos name="green_sphere_pos" objtype="body" objname="green_sphere"/>
+    <framepos name="capsule_pos" objtype="body" objname="capsule"/>
+    <framepos name="cap_marker_pos" objtype="body" objname="cap_marker"/>
+    <framepos name="button_frame_pos" objtype="body" objname="audit_button"/>
+    <framepos name="wrist_frame_pos" objtype="body" objname="cartesian_wrist"/>
+    <framepos name="pod_target_pos" objtype="site" objname="pod_site"/>
   </sensor>
 </mujoco>
