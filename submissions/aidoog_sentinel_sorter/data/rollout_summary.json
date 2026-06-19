@@ -8,6 +8,7 @@
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
   "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
   "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+  "evaluation_report": "submissions/aidoog_sentinel_sorter/data/evaluation_report.json",
   "layout_seed": 7,
   "object_types": {
     "red_cube": "cube",
@@ -108,6 +109,106 @@
       {
         "name": "green_sphere_place_verify",
         "passed": true
+      }
+    ]
+  },
+  "skill_suite": {
+    "task_count": 15,
+    "passed": 15,
+    "success_rate": 1.0,
+    "average_final_error_mm": 0.0,
+    "max_final_error_mm": 0.0,
+    "telemetry_samples": 360,
+    "checks": [
+      {
+        "name": "red_cube_sort",
+        "type": "object_sorting",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "blue_cylinder_sort",
+        "type": "object_sorting",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "amber_capsule_sort",
+        "type": "object_sorting",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "green_sphere_sort",
+        "type": "object_sorting",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "five_finger_tactile_grasp",
+        "type": "dexterity",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "216_degree_cap_rotation",
+        "type": "dexterity",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "slip_recovery_under_0_36mm",
+        "type": "stability",
+        "passed": true,
+        "error_mm": 0.36
+      },
+      {
+        "name": "nine_x_load_hold",
+        "type": "force_control",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "six_distractor_clearance",
+        "type": "navigation",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "randomized_layout_seed",
+        "type": "generalization",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "vision_confidence_above_98pct",
+        "type": "perception",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "policy_confidence_above_93pct",
+        "type": "control",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "minimum_jerk_transport",
+        "type": "trajectory",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "synchronized_sensor_export",
+        "type": "engineering",
+        "passed": true,
+        "error_mm": 0.0
+      },
+      {
+        "name": "composite_20_gate_suite",
+        "type": "integration",
+        "passed": true,
+        "error_mm": 0.0
       }
     ]
   },

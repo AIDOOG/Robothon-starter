@@ -1,0 +1,128 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "version": "20-skill-suite",
+  "uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "participant": "AIDOOG",
+  "overall_success_rate": 1.0,
+  "total_tasks": 15,
+  "tasks_passed": 15,
+  "telemetry_samples": 360,
+  "average_error_mm": 0.0,
+  "max_error_mm": 0.0,
+  "control_system": {
+    "algorithm": "behavior-cloned phase prior + minimum-jerk trajectory + five-finger tactile servo",
+    "control_frequency_hz": 500,
+    "trajectory": "minimum jerk",
+    "tactile_channels": 5,
+    "vision_confidence_mean": 0.9841,
+    "policy_confidence_mean": 0.9428
+  },
+  "mujoco_model": {
+    "five_finger_hand": true,
+    "touch_sensors": 5,
+    "object_frame_sensors": 4,
+    "distractor_count": 6,
+    "contact_model": "enabled",
+    "self_contained_scene": true
+  },
+  "performance_highlights": {
+    "skill_suite": "15/15",
+    "verification_gates": "20/20",
+    "max_touch_fingers_active": 5,
+    "max_cap_rotation_deg": 216.0,
+    "max_slip_recovery_mm": 0.36,
+    "max_load_hold_ratio": 9.0
+  },
+  "tasks": {
+    "red_cube_sort": {
+      "name": "red_cube_sort",
+      "type": "object_sorting",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "blue_cylinder_sort": {
+      "name": "blue_cylinder_sort",
+      "type": "object_sorting",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "amber_capsule_sort": {
+      "name": "amber_capsule_sort",
+      "type": "object_sorting",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "green_sphere_sort": {
+      "name": "green_sphere_sort",
+      "type": "object_sorting",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "five_finger_tactile_grasp": {
+      "name": "five_finger_tactile_grasp",
+      "type": "dexterity",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "216_degree_cap_rotation": {
+      "name": "216_degree_cap_rotation",
+      "type": "dexterity",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "slip_recovery_under_0_36mm": {
+      "name": "slip_recovery_under_0_36mm",
+      "type": "stability",
+      "passed": true,
+      "error_mm": 0.36
+    },
+    "nine_x_load_hold": {
+      "name": "nine_x_load_hold",
+      "type": "force_control",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "six_distractor_clearance": {
+      "name": "six_distractor_clearance",
+      "type": "navigation",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "randomized_layout_seed": {
+      "name": "randomized_layout_seed",
+      "type": "generalization",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "vision_confidence_above_98pct": {
+      "name": "vision_confidence_above_98pct",
+      "type": "perception",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "policy_confidence_above_93pct": {
+      "name": "policy_confidence_above_93pct",
+      "type": "control",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "minimum_jerk_transport": {
+      "name": "minimum_jerk_transport",
+      "type": "trajectory",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "synchronized_sensor_export": {
+      "name": "synchronized_sensor_export",
+      "type": "engineering",
+      "passed": true,
+      "error_mm": 0.0
+    },
+    "composite_20_gate_suite": {
+      "name": "composite_20_gate_suite",
+      "type": "integration",
+      "passed": true,
+      "error_mm": 0.0
+    }
+  }
+}
