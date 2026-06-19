@@ -1,0 +1,42 @@
+{
+  "project": "AIDOOG Dexterous Triage Lab",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "policy_type": "learned_tactile_residual_grasp_policy",
+  "training_method": "ridge behavioral cloning from generated MuJoCo tactile perturbation labels",
+  "training_samples": 8192,
+  "validation_samples": 1536,
+  "validation": {
+    "mean_absolute_error": 0.0187,
+    "per_output_mae": {
+      "wrist_xy_residual_m": 0.0048,
+      "wrist_z_residual_m": 0.0039,
+      "finger_force_residual": 0.0214,
+      "cap_torque_residual": 0.0472,
+      "recovery_gain": 0.0162
+    }
+  },
+  "feature_names": [
+    "phase_progress",
+    "visual_servo_error_m",
+    "slip_mm",
+    "active_fingers_norm",
+    "load_hold_ratio",
+    "cap_error_rad",
+    "sin_phase",
+    "cos_phase"
+  ],
+  "output_names": [
+    "wrist_xy_residual_m",
+    "wrist_z_residual_m",
+    "finger_force_residual",
+    "cap_torque_residual",
+    "recovery_gain"
+  ],
+  "data_source": "generated MuJoCo tactile perturbation labels from randomized layouts, slip pulses, cap twist offsets, and load-hold phases",
+  "linked_outputs": {
+    "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
+    "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
+    "stress_eval": "submissions/aidoog_sentinel_sorter/data/stress_eval.json",
+    "learned_policy_weights": "submissions/aidoog_sentinel_sorter/learned_policy_weights.json"
+  }
+}
