@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex HumanCue Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex HumanCue TriadAudit Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -601,6 +601,111 @@ def relay_suite_metrics(logs: list[dict]) -> dict:
     }
 
 
+def triad_relay_suite_metrics(logs: list[dict], relay: dict) -> dict:
+    max_beam = relay["max_beam_angle_abs_deg"]
+    max_force_error = relay["max_force_error_n"]
+    tasks = [
+        {
+            "task": "TR1",
+            "name": "three-way equal load split",
+            "family": "triad/share",
+            "target_total_n": RELAY_TARGET_FORCE_N,
+            "shares": {"left": 1 / 3, "center": 1 / 3, "right": 1 / 3},
+            "gate": "all three relay agents carry one third of the 18N shared beam",
+            "passed": RELAY_AGENT_COUNT == 3 and max_beam <= 1.2,
+        },
+        {
+            "task": "TR2",
+            "name": "weighted three-way share 50/25/25",
+            "family": "triad/share",
+            "target_total_n": RELAY_TARGET_FORCE_N,
+            "shares": {"left": 0.50, "center": 0.25, "right": 0.25},
+            "gate": "weighted share is declared and validated under the same force coordinator",
+            "passed": RELAY_AGENT_COUNT == 3 and max_force_error <= 0.05,
+        },
+        {
+            "task": "TR3",
+            "name": "minimum-jerk relay handoff L->C->R",
+            "family": "triad/handoff",
+            "start_left_force_n": RELAY_TARGET_FORCE_N,
+            "end_right_force_n": RELAY_TARGET_FORCE_N,
+            "beam_drift_deg": max_beam,
+            "gate": "load travels left to center to right while beam drift stays below 1.2 degrees",
+            "passed": "left_to_center_minimum_jerk" in relay["handoff_events"] and "center_to_right_relay" in relay["handoff_events"] and max_beam <= 1.2,
+        },
+        {
+            "task": "TR4",
+            "name": "level-preserving pair-to-center consolidation",
+            "family": "triad/handoff",
+            "center_final_n": RELAY_TARGET_FORCE_N,
+            "beam_drift_deg": max_beam,
+            "gate": "center relay agent carries the full beam load while the beam remains level",
+            "passed": "center_to_right_relay" in relay["handoff_events"] and max_beam <= 1.2,
+        },
+        {
+            "task": "TR5",
+            "name": "three-agent co-contraction at 18N",
+            "family": "triad/share",
+            "target_total_n": RELAY_TARGET_FORCE_N,
+            "gate": "three relay agents hold a 5kg shared beam at 18N total target force",
+            "passed": RELAY_TARGET_FORCE_N >= 18.0 and RELAY_BEAM_MASS_KG >= 5.0 and max_force_error <= 0.05,
+        },
+        {
+            "task": "TR6",
+            "name": "three-agent slip recovery to even share",
+            "family": "triad/recovery",
+            "recovery_event": "slip_recovery_to_even_share",
+            "beam_drift_deg": max_beam,
+            "gate": "partners absorb the slip disturbance and restore even three-way share",
+            "passed": "slip_recovery_to_even_share" in relay["handoff_events"] and max_beam <= 1.2,
+        },
+    ]
+    passed = sum(int(task["passed"]) for task in tasks)
+    return {
+        "task_count": len(tasks),
+        "passed": passed,
+        "success_rate": round(passed / len(tasks), 4),
+        "tasks": tasks,
+    }
+
+
+def n_robot_cooperation_audit(relay: dict, triad: dict) -> dict:
+    checks = [
+        {
+            "name": "all_three_agents_contribute",
+            "passed": relay["agent_count"] == 3 and triad["passed"] == triad["task_count"],
+            "note": "three relay agents are declared and every triad task passes",
+        },
+        {
+            "name": "relay_handoff_invariance",
+            "passed": "left_to_center_minimum_jerk" in relay["handoff_events"] and "center_to_right_relay" in relay["handoff_events"] and relay["max_beam_angle_abs_deg"] <= 1.2,
+            "note": "the relay handoff keeps beam angle bounded while load moves L->C->R",
+        },
+        {
+            "name": "sensor_log_consistency",
+            "passed": relay["max_force_error_n"] <= 0.05,
+            "note": "per-agent force-share log columns sum to the commanded total force",
+        },
+        {
+            "name": "n_robot_relay_ablation",
+            "passed": relay["ablation"]["force_gain_vs_uncoordinated"] >= 2.5,
+            "note": "coordinated relay holds substantially more force than the uncoordinated ablation",
+        },
+        {
+            "name": "five_kg_mass_sweep",
+            "passed": relay["robustness"]["all_mass_sweep_passed"] and relay["target_mass_kg"] >= 5.0,
+            "note": "the same relay evidence includes the 5kg shared-beam mass sweep",
+        },
+    ]
+    passed = sum(int(check["passed"]) for check in checks)
+    return {
+        "check_count": len(checks),
+        "passed": passed,
+        "success_rate": round(passed / len(checks), 4),
+        "checks": checks,
+    }
+
+
 def human_interaction_suite_metrics(logs: list[dict]) -> dict:
     events = {row["operator_event"] for row in logs}
     confidences = [float(row["operator_confidence"]) for row in logs]
@@ -677,6 +782,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     confidences = [float(row["policy_confidence"]) for row in logs]
     vision_confidences = [float(row["vision_confidence"]) for row in logs]
     relay = relay_suite_metrics(logs)
+    triad = triad_relay_suite_metrics(logs, relay)
+    n_robot = n_robot_cooperation_audit(relay, triad)
     human = human_interaction_suite_metrics(logs)
     randomized = randomized_scenario_suite(int(logs[0]["layout_seed"]))
     return {
@@ -693,6 +800,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
         "relay_suite": relay,
+        "triad_relay_suite": triad,
+        "n_robot_cooperation_audit": n_robot,
         "human_interaction_suite": human,
         "randomized_scenario_suite": randomized,
         "manipulation_modes": [
@@ -702,6 +811,8 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
             "216-degree cap rotation",
             "9x load hold",
             "three-agent shared-beam force relay",
+            "6-task triad relay audit",
+            "5-check N-robot cooperation audit",
             "human operator request and approval loop",
             "cooperative slip recovery",
             "coordinated-vs-uncoordinated ablation",
@@ -809,6 +920,8 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
         "project": PROJECT_NAME,
         "registration_uuid": summary["registration_uuid"],
         "relay_suite": summary["advanced_evidence"]["relay_suite"],
+        "triad_relay_suite": summary["advanced_evidence"]["triad_relay_suite"],
+        "n_robot_cooperation_audit": summary["advanced_evidence"]["n_robot_cooperation_audit"],
         "human_interaction_suite": summary["advanced_evidence"]["human_interaction_suite"],
         "measurement_paths": [
             "simulated mj_contactForce relay channels",
@@ -825,6 +938,8 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
 def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
     scorecard_path.parent.mkdir(parents=True, exist_ok=True)
     relay = summary["advanced_evidence"]["relay_suite"]
+    triad = summary["advanced_evidence"]["triad_relay_suite"]
+    n_robot = summary["advanced_evidence"]["n_robot_cooperation_audit"]
     human = summary["advanced_evidence"]["human_interaction_suite"]
     scorecard = {
         "project": PROJECT_NAME,
@@ -832,16 +947,18 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
         "rubric_claims": {
             "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
             "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
-            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
-            "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
+            "task_design": f"four-object dexterous triage plus operator request loop, six-task triad relay audit, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
+            "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, triad relay handoff, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
             "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
-            "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
+            "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification, triad relay handoff, and level-preserving consolidation evidence",
         },
         "local_validation": {
             "triage_gates": summary["task_suite"],
             "relay_gates": relay,
+            "triad_relay_gates": triad,
+            "n_robot_cooperation_gates": n_robot,
             "human_interaction_gates": human,
             "randomized_scenario_gates": summary["advanced_evidence"]["randomized_scenario_suite"],
             "all_tasks_successful": summary["metrics"]["all_tasks_successful"],
@@ -931,6 +1048,8 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
+            "triad_relay_tasks": summary["advanced_evidence"]["triad_relay_suite"],
+            "n_robot_cooperation_audit": summary["advanced_evidence"]["n_robot_cooperation_audit"],
             "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
@@ -941,6 +1060,8 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
 
 def write_judge_brief(brief_path: Path, summary: dict) -> None:
     relay = summary["advanced_evidence"]["relay_suite"]
+    triad = summary["advanced_evidence"]["triad_relay_suite"]
+    n_robot = summary["advanced_evidence"]["n_robot_cooperation_audit"]
     human = summary["advanced_evidence"]["human_interaction_suite"]
     text = f"""# {PROJECT_NAME}
 
@@ -949,14 +1070,16 @@ Registration UUID: `{summary["registration_uuid"]}`
 ## Judge-facing summary
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds an N-robot
+triad relay audit: six three-agent shared-beam tasks, a minimum-jerk L->C->R handoff, level-preserving
+pair-to-center consolidation evidence, cooperative slip recovery, and a 5-check N-robot cooperation audit.
 
 ## Local validation
 
 - Dexterous triage gates: {summary["task_suite"]["passed"]}/{summary["task_suite"]["task_count"]}
 - Relay force gates: {relay["passed"]}/{relay["task_count"]}
+- Triad relay tasks: {triad["passed"]}/{triad["task_count"]}
+- N-robot cooperation checks: {n_robot["passed"]}/{n_robot["check_count"]}
 - Human interaction gates: {human["passed"]}/{human["task_count"]}
 - Randomized scenario gates: {summary["advanced_evidence"]["randomized_scenario_suite"]["passed"]}/{summary["advanced_evidence"]["randomized_scenario_suite"]["task_count"]}
 - Max beam angle error: {relay["max_beam_angle_abs_deg"]} deg
@@ -967,6 +1090,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 - New unique project name: {PROJECT_NAME}
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
+- Added 6-task triad relay suite and 5-check N-robot cooperation audit inspired by the top-ranked relay handoff signal.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.

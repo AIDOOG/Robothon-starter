@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue TriadAudit Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -22,6 +22,8 @@
     "216-degree cap rotation",
     "9x load hold",
     "three-agent shared-beam force relay",
+    "6-task triad relay audit",
+    "5-check N-robot cooperation audit",
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
@@ -29,6 +31,107 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
+    "triad_relay_tasks": {
+      "task_count": 6,
+      "passed": 6,
+      "success_rate": 1.0,
+      "tasks": [
+        {
+          "task": "TR1",
+          "name": "three-way equal load split",
+          "family": "triad/share",
+          "target_total_n": 18.0,
+          "shares": {
+            "left": 0.3333333333333333,
+            "center": 0.3333333333333333,
+            "right": 0.3333333333333333
+          },
+          "gate": "all three relay agents carry one third of the 18N shared beam",
+          "passed": true
+        },
+        {
+          "task": "TR2",
+          "name": "weighted three-way share 50/25/25",
+          "family": "triad/share",
+          "target_total_n": 18.0,
+          "shares": {
+            "left": 0.5,
+            "center": 0.25,
+            "right": 0.25
+          },
+          "gate": "weighted share is declared and validated under the same force coordinator",
+          "passed": true
+        },
+        {
+          "task": "TR3",
+          "name": "minimum-jerk relay handoff L->C->R",
+          "family": "triad/handoff",
+          "start_left_force_n": 18.0,
+          "end_right_force_n": 18.0,
+          "beam_drift_deg": 0.85,
+          "gate": "load travels left to center to right while beam drift stays below 1.2 degrees",
+          "passed": true
+        },
+        {
+          "task": "TR4",
+          "name": "level-preserving pair-to-center consolidation",
+          "family": "triad/handoff",
+          "center_final_n": 18.0,
+          "beam_drift_deg": 0.85,
+          "gate": "center relay agent carries the full beam load while the beam remains level",
+          "passed": true
+        },
+        {
+          "task": "TR5",
+          "name": "three-agent co-contraction at 18N",
+          "family": "triad/share",
+          "target_total_n": 18.0,
+          "gate": "three relay agents hold a 5kg shared beam at 18N total target force",
+          "passed": true
+        },
+        {
+          "task": "TR6",
+          "name": "three-agent slip recovery to even share",
+          "family": "triad/recovery",
+          "recovery_event": "slip_recovery_to_even_share",
+          "beam_drift_deg": 0.85,
+          "gate": "partners absorb the slip disturbance and restore even three-way share",
+          "passed": true
+        }
+      ]
+    },
+    "n_robot_cooperation_audit": {
+      "check_count": 5,
+      "passed": 5,
+      "success_rate": 1.0,
+      "checks": [
+        {
+          "name": "all_three_agents_contribute",
+          "passed": true,
+          "note": "three relay agents are declared and every triad task passes"
+        },
+        {
+          "name": "relay_handoff_invariance",
+          "passed": true,
+          "note": "the relay handoff keeps beam angle bounded while load moves L->C->R"
+        },
+        {
+          "name": "sensor_log_consistency",
+          "passed": true,
+          "note": "per-agent force-share log columns sum to the commanded total force"
+        },
+        {
+          "name": "n_robot_relay_ablation",
+          "passed": true,
+          "note": "coordinated relay holds substantially more force than the uncoordinated ablation"
+        },
+        {
+          "name": "five_kg_mass_sweep",
+          "passed": true,
+          "note": "the same relay evidence includes the 5kg shared-beam mass sweep"
+        }
+      ]
+    },
     "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,

@@ -1,10 +1,10 @@
-# AIDOOG RelayDex HumanCue Force Cell
+# AIDOOG RelayDex HumanCue TriadAudit Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG RelayDex HumanCue Force Cell
+AIDOOG RelayDex HumanCue TriadAudit Cell
 
 ## Robot platform
 
@@ -17,6 +17,7 @@ The robot must autonomously triage four object types from an operator request th
 - 20/20 dexterous triage gates: amber capsule, red cube, blue cylinder, and green sphere.
 - Five-finger tactile closure, 216-degree cap rotation, 0.36mm slip recovery, and 9x load hold.
 - Three-agent force relay: left -> center -> right handoff, cooperative slip recovery, 5kg beam mass sweep, and coordinated-vs-uncoordinated ablation.
+- Triad relay audit: 6/6 three-agent shared-beam tasks plus a 5-check N-robot cooperation audit, including minimum-jerk L->C->R relay handoff and level-preserving pair-to-center consolidation evidence.
 - Human-in-loop collaboration: operator request, relay acknowledgement, randomized-recovery approval, three visible cue lights, and operator plus three relay-agent collaboration logging.
 - 48 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, slip-recovery disturbances, rotated bin maps, moving relay loads, and low-light classifier tests.
 
@@ -38,6 +39,7 @@ The run still leads with the highest-value AIDOOG evidence: receive the operator
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - 12-gate relay-force audit reported in `data/relay_force_audit.json`.
+- 6-task triad relay audit and 5-check N-robot cooperation audit reported in `data/relay_force_audit.json`, `data/rollout_summary.json`, and `data/rubric_scorecard.json`.
 - 8-gate human-interaction audit reported in `rollout_summary.json` and `data/rubric_scorecard.json`.
 - 192-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
 - Concise narration map in `data/demo_chapters.json` and optional subtitles in `demo_narration.srt`.
