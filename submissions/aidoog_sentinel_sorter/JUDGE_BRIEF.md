@@ -15,6 +15,8 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 - Relay force gates: 12/12
 - Human interaction gates: 8/8
 - Randomized scenario gates: 504/504
+- Scene variation gates: 288/288
+- Behavior policy complexity gates: 10/10
 - Max beam angle error: 0.85 deg
 - Max force error: 0.0 N
 - Demo duration: 36.0s at 12 fps
@@ -24,7 +26,9 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 - Kept the proven project name: AIDOOG RelayDex HumanCue Force Cell
 - Kept the proven 36-second HumanCue video structure and three large cue lights.
 - Explicitly separated vision confidence from policy/tactile confidence.
+- Added a 12-mode hierarchical behavior policy complexity audit.
 - Expanded to 72 randomized scenario variants with same-policy validation.
+- Added a 96-variant scene variation matrix for lighting, bin maps, camera lanes, decoys, and operator overrides.
 - Added stress fields for occlusion bands, ambiguous decoys, lighting drop, operator override, and recovery policy switching.
 - Preserved the default demo as a 36-second spotlight reel with single-line key-action labels.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.

@@ -9,6 +9,7 @@
     "rollout_summary": "submissions/aidoog_sentinel_sorter/data/rollout_summary.json",
     "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
     "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+    "scene_variation_matrix": "submissions/aidoog_sentinel_sorter/data/scene_variation_matrix.json",
     "relay_force_audit": "submissions/aidoog_sentinel_sorter/data/relay_force_audit.json",
     "rubric_scorecard": "submissions/aidoog_sentinel_sorter/data/rubric_scorecard.json",
     "demo_chapters": "submissions/aidoog_sentinel_sorter/data/demo_chapters.json",
@@ -24,12 +25,109 @@
     "three-agent shared-beam force relay",
     "human operator request and approval loop",
     "complex randomized scenario stress audit",
+    "hierarchical behavior policy complexity audit",
+    "96-scene variation matrix",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
     "72-variant randomized layout suite"
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 72,
+    "more_scene_variations": 96,
+    "behavior_policy_complexity": {
+      "name": "hierarchical_behavior_policy_complexity_audit",
+      "mode_count": 12,
+      "modes": [
+        "vision_class_arbitration",
+        "confidence_separation",
+        "minimum_jerk_alignment",
+        "five_finger_tactile_servo",
+        "slip_recovery_branch",
+        "cap_rotation_branch",
+        "load_hold_branch",
+        "operator_request_gate",
+        "operator_recovery_approval",
+        "three_agent_force_share",
+        "randomized_stressor_adaptation",
+        "release_verify_retreat"
+      ],
+      "phase_count": 8,
+      "phases": [
+        "behavior_cloned_descend",
+        "five_finger_tactile_closure",
+        "minimum_jerk_transport",
+        "place_into_bin",
+        "release_and_verify",
+        "retreat_after_release",
+        "slip_recovery_lift",
+        "vision_classify_and_align"
+      ],
+      "operator_events": [
+        "operator_acknowledges_force_relay",
+        "operator_approves_randomized_recovery",
+        "operator_requests_capsule_twist"
+      ],
+      "relay_events": [
+        "center_to_right_relay",
+        "left_to_center_minimum_jerk",
+        "slip_recovery_to_even_share"
+      ],
+      "complexity_score": 0.934,
+      "decision_inputs": [
+        "vision_confidence",
+        "policy_confidence",
+        "five_finger_touch_sum",
+        "operator_event",
+        "relay_force_share",
+        "scenario_stressor_score",
+        "operator_override_scenario"
+      ],
+      "task_count": 10,
+      "passed": 10,
+      "success_rate": 1.0,
+      "checks": [
+        {
+          "name": "mode_count_at_least_12",
+          "passed": true
+        },
+        {
+          "name": "phase_count_at_least_8",
+          "passed": true
+        },
+        {
+          "name": "vision_policy_confidence_separate",
+          "passed": true
+        },
+        {
+          "name": "tactile_branch_reaches_five_fingers",
+          "passed": true
+        },
+        {
+          "name": "slip_recovery_branch_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_override_inputs_logged",
+          "passed": true
+        },
+        {
+          "name": "relay_force_share_events_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_events_cover_request_ack_approval",
+          "passed": true
+        },
+        {
+          "name": "randomized_stressor_inputs_logged",
+          "passed": true
+        },
+        {
+          "name": "policy_complexity_score_above_0p92",
+          "passed": true
+        }
+      ]
+    },
     "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,

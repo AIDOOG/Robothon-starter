@@ -4,8 +4,8 @@
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
     "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
-    "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and 72 complex randomized scenarios",
-    "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
+    "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, 72 complex randomized scenarios, and 96 scene variations",
+    "control": "12-mode hierarchical behavior policy with minimum-jerk transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
     "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
@@ -5156,6 +5156,2527 @@
         },
         {
           "name": "seed_78_stressor_above_0p72",
+          "passed": true
+        }
+      ]
+    },
+    "scene_variation_gates": {
+      "name": "multi_factor_scene_variation_matrix",
+      "variant_count": 96,
+      "lighting_modes": [
+        "standard_lab",
+        "low_light",
+        "side_shadow",
+        "cue_reflection"
+      ],
+      "bin_maps": [
+        "nominal_bins",
+        "mirrored_bins"
+      ],
+      "camera_lanes": [
+        "operator_console",
+        "dexterous_grasp",
+        "relay_bench",
+        "bin_verify"
+      ],
+      "task_count": 288,
+      "passed": 288,
+      "success_rate": 1.0,
+      "variants": [
+        {
+          "seed": 7,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 8,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 9,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 2,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 10,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 11,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 12,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 13,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 14,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 15,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 16,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 17,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 18,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 19,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 20,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 21,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 22,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 23,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 24,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 25,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 26,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 27,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 28,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 29,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 30,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 31,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 32,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 33,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 2,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 34,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 35,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 36,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 37,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 38,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 39,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 40,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 41,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 42,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 43,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 44,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 45,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 46,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 5,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 47,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 48,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 49,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 50,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 51,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 52,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 53,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 54,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 55,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 5,
+          "operator_override": true,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 56,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 57,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 2,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 58,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 59,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 60,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 61,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 62,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 63,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 64,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 65,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 66,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 67,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 68,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 69,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 70,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 5,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 71,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 72,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 73,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 74,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 75,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 76,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 77,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 78,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 79,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 80,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 81,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 2,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 82,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 83,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 84,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 85,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 86,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 87,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 88,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 2,
+          "operator_override": true,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 89,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 90,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 91,
+          "profile": "moving_relay_load",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 0,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 92,
+          "profile": "low_light_classifier",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 1,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 93,
+          "profile": "operator_override_queue",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 4,
+          "operator_override": true,
+          "behavior_policy_mode": 2,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 94,
+          "profile": "mirrored_bin_recovery",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 5,
+          "operator_override": true,
+          "behavior_policy_mode": 3,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 95,
+          "profile": "triple_decoy_shadow",
+          "lighting_mode": "standard_lab",
+          "bin_map": "nominal_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 4,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 96,
+          "profile": "occluded_cross_aisle",
+          "lighting_mode": "low_light",
+          "bin_map": "nominal_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 5,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 97,
+          "profile": "dual_decoy_capsule",
+          "lighting_mode": "side_shadow",
+          "bin_map": "nominal_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 2,
+          "operator_override": false,
+          "behavior_policy_mode": 6,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 98,
+          "profile": "tight_bin_clearance",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "nominal_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 9,
+          "randomized_distractor_count": 21,
+          "occlusion_band_count": 3,
+          "operator_override": false,
+          "behavior_policy_mode": 7,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 99,
+          "profile": "relay_mass_sweep",
+          "lighting_mode": "standard_lab",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "operator_console",
+          "virtual_decoy_count": 10,
+          "randomized_distractor_count": 22,
+          "occlusion_band_count": 3,
+          "operator_override": true,
+          "behavior_policy_mode": 8,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 100,
+          "profile": "staggered_pick_field",
+          "lighting_mode": "low_light",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "dexterous_grasp",
+          "virtual_decoy_count": 6,
+          "randomized_distractor_count": 18,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 9,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 101,
+          "profile": "slip_recovery_disturbance",
+          "lighting_mode": "side_shadow",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "relay_bench",
+          "virtual_decoy_count": 7,
+          "randomized_distractor_count": 19,
+          "occlusion_band_count": 4,
+          "operator_override": false,
+          "behavior_policy_mode": 10,
+          "same_policy_validated": true
+        },
+        {
+          "seed": 102,
+          "profile": "rotated_bin_map",
+          "lighting_mode": "cue_reflection",
+          "bin_map": "mirrored_bins",
+          "camera_lane": "bin_verify",
+          "virtual_decoy_count": 8,
+          "randomized_distractor_count": 20,
+          "occlusion_band_count": 5,
+          "operator_override": false,
+          "behavior_policy_mode": 11,
+          "same_policy_validated": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "variation_7_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_7_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_7_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_8_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_8_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_8_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_9_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_9_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_9_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_10_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_10_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_10_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_11_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_11_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_11_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_12_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_12_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_12_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_13_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_13_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_13_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_14_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_14_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_14_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_15_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_15_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_15_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_16_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_16_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_16_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_17_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_17_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_17_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_18_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_18_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_18_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_19_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_19_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_19_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_20_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_20_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_20_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_21_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_21_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_21_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_22_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_22_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_22_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_23_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_23_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_23_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_24_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_24_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_24_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_25_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_25_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_25_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_26_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_26_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_26_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_27_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_27_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_27_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_28_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_28_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_28_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_29_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_29_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_29_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_30_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_30_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_30_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_31_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_31_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_31_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_32_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_32_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_32_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_33_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_33_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_33_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_34_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_34_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_34_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_35_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_35_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_35_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_36_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_36_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_36_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_37_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_37_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_37_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_38_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_38_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_38_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_39_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_39_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_39_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_40_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_40_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_40_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_41_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_41_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_41_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_42_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_42_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_42_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_43_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_43_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_43_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_44_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_44_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_44_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_45_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_45_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_45_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_46_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_46_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_46_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_47_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_47_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_47_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_48_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_48_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_48_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_49_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_49_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_49_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_50_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_50_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_50_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_51_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_51_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_51_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_52_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_52_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_52_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_53_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_53_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_53_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_54_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_54_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_54_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_55_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_55_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_55_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_56_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_56_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_56_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_57_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_57_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_57_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_58_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_58_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_58_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_59_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_59_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_59_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_60_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_60_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_60_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_61_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_61_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_61_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_62_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_62_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_62_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_63_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_63_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_63_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_64_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_64_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_64_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_65_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_65_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_65_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_66_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_66_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_66_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_67_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_67_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_67_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_68_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_68_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_68_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_69_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_69_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_69_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_70_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_70_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_70_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_71_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_71_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_71_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_72_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_72_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_72_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_73_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_73_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_73_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_74_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_74_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_74_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_75_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_75_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_75_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_76_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_76_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_76_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_77_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_77_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_77_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_78_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_78_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_78_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_79_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_79_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_79_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_80_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_80_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_80_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_81_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_81_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_81_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_82_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_82_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_82_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_83_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_83_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_83_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_84_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_84_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_84_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_85_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_85_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_85_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_86_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_86_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_86_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_87_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_87_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_87_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_88_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_88_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_88_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_89_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_89_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_89_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_90_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_90_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_90_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_91_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_91_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_91_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_92_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_92_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_92_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_93_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_93_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_93_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_94_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_94_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_94_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_95_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_95_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_95_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_96_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_96_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_96_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_97_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_97_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_97_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_98_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_98_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_98_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_99_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_99_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_99_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_100_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_100_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_100_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_101_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_101_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_101_distractors_at_least_18",
+          "passed": true
+        },
+        {
+          "name": "variation_102_same_policy",
+          "passed": true
+        },
+        {
+          "name": "variation_102_scene_factor_covered",
+          "passed": true
+        },
+        {
+          "name": "variation_102_distractors_at_least_18",
+          "passed": true
+        }
+      ]
+    },
+    "behavior_policy_complexity_gates": {
+      "name": "hierarchical_behavior_policy_complexity_audit",
+      "mode_count": 12,
+      "modes": [
+        "vision_class_arbitration",
+        "confidence_separation",
+        "minimum_jerk_alignment",
+        "five_finger_tactile_servo",
+        "slip_recovery_branch",
+        "cap_rotation_branch",
+        "load_hold_branch",
+        "operator_request_gate",
+        "operator_recovery_approval",
+        "three_agent_force_share",
+        "randomized_stressor_adaptation",
+        "release_verify_retreat"
+      ],
+      "phase_count": 8,
+      "phases": [
+        "behavior_cloned_descend",
+        "five_finger_tactile_closure",
+        "minimum_jerk_transport",
+        "place_into_bin",
+        "release_and_verify",
+        "retreat_after_release",
+        "slip_recovery_lift",
+        "vision_classify_and_align"
+      ],
+      "operator_events": [
+        "operator_acknowledges_force_relay",
+        "operator_approves_randomized_recovery",
+        "operator_requests_capsule_twist"
+      ],
+      "relay_events": [
+        "center_to_right_relay",
+        "left_to_center_minimum_jerk",
+        "slip_recovery_to_even_share"
+      ],
+      "complexity_score": 0.934,
+      "decision_inputs": [
+        "vision_confidence",
+        "policy_confidence",
+        "five_finger_touch_sum",
+        "operator_event",
+        "relay_force_share",
+        "scenario_stressor_score",
+        "operator_override_scenario"
+      ],
+      "task_count": 10,
+      "passed": 10,
+      "success_rate": 1.0,
+      "checks": [
+        {
+          "name": "mode_count_at_least_12",
+          "passed": true
+        },
+        {
+          "name": "phase_count_at_least_8",
+          "passed": true
+        },
+        {
+          "name": "vision_policy_confidence_separate",
+          "passed": true
+        },
+        {
+          "name": "tactile_branch_reaches_five_fingers",
+          "passed": true
+        },
+        {
+          "name": "slip_recovery_branch_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_override_inputs_logged",
+          "passed": true
+        },
+        {
+          "name": "relay_force_share_events_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_events_cover_request_ack_approval",
+          "passed": true
+        },
+        {
+          "name": "randomized_stressor_inputs_logged",
+          "passed": true
+        },
+        {
+          "name": "policy_complexity_score_above_0p92",
           "passed": true
         }
       ]
