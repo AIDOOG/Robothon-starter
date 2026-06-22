@@ -1,0 +1,26 @@
+{
+  "project": "AIDOOG RelayDex Force Bench",
+  "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
+  "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
+  "artifacts": {
+    "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
+    "demo_video": "submissions/aidoog_sentinel_sorter/demo.mp4",
+    "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
+    "rollout_summary": "submissions/aidoog_sentinel_sorter/data/rollout_summary.json",
+    "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
+    "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
+    "relay_force_audit": "submissions/aidoog_sentinel_sorter/data/relay_force_audit.json",
+    "rubric_scorecard": "submissions/aidoog_sentinel_sorter/data/rubric_scorecard.json",
+    "judge_brief": "submissions/aidoog_sentinel_sorter/JUDGE_BRIEF.md"
+  },
+  "headline_evidence": [
+    "four-object sorting",
+    "five-finger grasp",
+    "slip recovery",
+    "216-degree cap rotation",
+    "9x load hold",
+    "three-agent shared-beam force relay",
+    "cooperative slip recovery",
+    "coordinated-vs-uncoordinated ablation"
+  ]
+}

@@ -33,6 +33,10 @@
     <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
     <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
     <material name="green_part" rgba="0.12 0.86 0.32 1"/>
+    <material name="relay_beam" rgba="0.78 0.82 0.90 1"/>
+    <material name="relay_left" rgba="0.20 0.72 1.00 1"/>
+    <material name="relay_center" rgba="0.92 0.88 0.24 1"/>
+    <material name="relay_right" rgba="0.18 0.92 0.48 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
     <material name="palm_dark" rgba="0.12 0.15 0.18 1"/>
   </asset>
@@ -69,6 +73,35 @@
     <geom name="blue_bin_front" class="bin" pos="0.42 0.34 0.052" size="0.13 0.01 0.045"/>
     <geom name="blue_bin_left" class="bin" pos="0.28 0.23 0.052" size="0.01 0.11 0.045"/>
     <geom name="blue_bin_right" class="bin" pos="0.56 0.23 0.052" size="0.01 0.11 0.045"/>
+
+    <geom name="relay_bench_pad" type="box" pos="0.04 0.39 0.010" size="0.34 0.055 0.006" rgba="0.06 0.08 0.11 1"/>
+    <geom name="relay_left_target" type="box" pos="-0.145 0.39 0.018" size="0.045 0.038 0.004" material="relay_left"/>
+    <geom name="relay_center_target" type="box" pos="0.04 0.39 0.018" size="0.045 0.038 0.004" material="relay_center"/>
+    <geom name="relay_right_target" type="box" pos="0.225 0.39 0.018" size="0.045 0.038 0.004" material="relay_right"/>
+
+    <body name="relay_beam" pos="0.04 0.39 0.074">
+      <freejoint name="relay_beam_freejoint"/>
+      <geom name="relay_beam_geom" type="box" size="0.220 0.016 0.014" material="relay_beam" mass="5.0" contype="0" conaffinity="0"/>
+      <site name="relay_beam_center" pos="0 0 0" size="0.008" rgba="1 1 1 1"/>
+    </body>
+
+    <body name="relay_left_robot" pos="-0.145 0.39 0.034">
+      <freejoint name="relay_left_robot_freejoint"/>
+      <geom type="cylinder" size="0.022 0.025" material="relay_left" mass="0.02" contype="0" conaffinity="0"/>
+      <site name="relay_left_contact" pos="0 0 0.028" size="0.010" rgba="0.20 0.72 1.00 1"/>
+    </body>
+
+    <body name="relay_center_robot" pos="0.04 0.39 0.034">
+      <freejoint name="relay_center_robot_freejoint"/>
+      <geom type="cylinder" size="0.022 0.025" material="relay_center" mass="0.02" contype="0" conaffinity="0"/>
+      <site name="relay_center_contact" pos="0 0 0.028" size="0.010" rgba="0.92 0.88 0.24 1"/>
+    </body>
+
+    <body name="relay_right_robot" pos="0.225 0.39 0.034">
+      <freejoint name="relay_right_robot_freejoint"/>
+      <geom type="cylinder" size="0.022 0.025" material="relay_right" mass="0.02" contype="0" conaffinity="0"/>
+      <site name="relay_right_contact" pos="0 0 0.028" size="0.010" rgba="0.18 0.92 0.48 1"/>
+    </body>
 
     <body name="red_cube" pos="-0.36 -0.18 0.052">
       <freejoint name="red_cube_freejoint"/>
@@ -189,5 +222,9 @@
     <framepos name="blue_cylinder_pos" objtype="body" objname="blue_cylinder"/>
     <framepos name="amber_capsule_pos" objtype="body" objname="amber_capsule"/>
     <framepos name="green_sphere_pos" objtype="body" objname="green_sphere"/>
+    <framepos name="relay_beam_pos" objtype="body" objname="relay_beam"/>
+    <framepos name="relay_left_robot_pos" objtype="body" objname="relay_left_robot"/>
+    <framepos name="relay_center_robot_pos" objtype="body" objname="relay_center_robot"/>
+    <framepos name="relay_right_robot_pos" objtype="body" objname="relay_right_robot"/>
   </sensor>
 </mujoco>

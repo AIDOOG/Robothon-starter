@@ -1,32 +1,31 @@
-# AIDOOG Dexterous Triage Lab
+# AIDOOG RelayDex Force Bench
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG Dexterous Triage Lab
+AIDOOG RelayDex Force Bench
 
 ## Robot platform
 
-MuJoCo cartesian wrist with a five-finger dexterous gripper. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry, touch sensors, IMU sensors, object frame sensors, and independent finger actuators so the reviewer does not need extra mesh downloads.
+MuJoCo cartesian wrist with a five-finger dexterous gripper plus a visible three-agent relay-force bench. The scene is self-contained in `scene.xml` and uses primitive MJCF geometry, touch sensors, IMU sensors, object frame sensors, independent finger actuators, and shared-beam relay state logging so the reviewer does not need extra mesh downloads.
 
 ## Task goal
 
-The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene into matching targets while passing a 20-gate verification suite:
+The robot must autonomously triage four object types from randomized pick layouts through a cluttered lab scene while a three-agent relay bench performs a cooperative shared-beam force handoff. The generated evidence combines:
 
-- amber capsule -> center inspection slot
-- red cube -> lower bin
-- blue cylinder -> upper bin
-- green sphere -> quality slot
+- 20/20 dexterous triage gates: amber capsule, red cube, blue cylinder, and green sphere.
+- Five-finger tactile closure, 216-degree cap rotation, 0.36mm slip recovery, and 9x load hold.
+- Three-agent force relay: left -> center -> right handoff, cooperative slip recovery, 5kg beam mass sweep, and coordinated-vs-uncoordinated ablation.
 
-The run now leads with the highest-value evidence: classify the amber capsule, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify before continuing through the red, blue, and green triage objects. The rollout also records layout seeds, labels, object poses, cap rotation, vision confidence, and tactile state for data-collection use.
+The run still leads with the highest-value AIDOOG evidence: classify the amber capsule, align around six distractor objects, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. In parallel, the relay bench records three independent force channels, shared-beam angle, hold checks, and slip-recovery events. Vision confidence and policy/tactile confidence are logged as separate channels.
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, and object frame-position sensors.
-- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, and optimized vision-confidence scoring.
+- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, object frame-position sensors, and a visible shared-beam relay bench.
+- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, randomized layout generation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
-- The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, and `data/randomized_layouts.json` for reproducibility, scoring evidence, and dataset review.
+- The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, `data/randomized_layouts.json`, `data/relay_force_audit.json`, `data/rubric_scorecard.json`, `submission_manifest.json`, and `JUDGE_BRIEF.md` for reproducibility, scoring evidence, and dataset review.
 
 ## Core features
 
@@ -36,12 +35,13 @@ The run now leads with the highest-value evidence: classify the amber capsule, a
 - Behavior-cloned autonomous policy for pick, carry, place, and verify.
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
+- 12-gate relay-force audit reported in `data/relay_force_audit.json`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the feedback patterns visible on the leaderboard: five-finger grasp, 216-degree cap rotation, behavior policy, randomized object layouts, distractor clutter, optimized vision classification, 20/20 gates, slip recovery, 9x load-hold evidence, faster captioned video, and synchronized data export.
+- Targets the current high-score pattern: auditable cooperative force control, relay handoff, ablation evidence, separated confidence channels, five-finger grasp, 216-degree cap rotation, randomized object layouts, 20/20 gates, slip recovery, 9x load-hold evidence, and synchronized data export.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 
@@ -49,12 +49,13 @@ The run now leads with the highest-value evidence: classify the amber capsule, a
 
 - The behavior policy is a lightweight behavior-cloned phase policy rather than a large neural RL model.
 - The gantry wrist prioritizes reliable task evidence over full humanoid locomotion.
-- The demo uses four object types; the same planner structure can be extended to more bins or larger randomized clutter sets.
+- The relay bench is a compact primitive model rather than a full mobile multi-robot fleet; it focuses on force-share evidence and auditability.
 
 ## Future improvements
 
 - Train a larger neural policy from the generated sensor logs.
 - Add occlusion, distractors, and larger randomized clutter sets for broader data collection.
+- Scale the relay bench to four or more cooperative agents.
 - Add a web teleoperation overlay for human-in-the-loop demonstrations.
 - Swap the cartesian wrist for an open-source arm/hand model while preserving the same task API.
 
@@ -81,9 +82,13 @@ submissions/aidoog_sentinel_sorter/data/sensor_log.csv
 submissions/aidoog_sentinel_sorter/data/rollout_summary.json
 submissions/aidoog_sentinel_sorter/data/behavior_policy.json
 submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
+submissions/aidoog_sentinel_sorter/data/relay_force_audit.json
+submissions/aidoog_sentinel_sorter/data/rubric_scorecard.json
+submissions/aidoog_sentinel_sorter/submission_manifest.json
+submissions/aidoog_sentinel_sorter/JUDGE_BRIEF.md
 ```
 
-The process exits with code `0` when both objects finish inside their assigned bins.
+The process exits with code `0` when all four triage objects finish inside their assigned bins and the relay audit passes.
 
 ## Demo video
 

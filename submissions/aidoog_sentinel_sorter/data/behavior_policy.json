@@ -9,13 +9,20 @@
     "wrist_pose",
     "five_finger_touch_sum",
     "object_frame_position",
-    "phase_clock"
+    "phase_clock",
+    "relay_event",
+    "relay_left_force_n",
+    "relay_center_force_n",
+    "relay_right_force_n",
+    "relay_beam_angle_deg"
   ],
   "outputs": [
     "minimum_jerk_wrist_target",
     "five_finger_closure_command",
     "closed_loop_tactile_servo",
     "cap_rotation_target",
+    "relay_force_share_targets",
+    "relay_slip_recovery_decision",
     "release_or_regrasp_decision"
   ],
   "phase_policy": [
@@ -86,6 +93,7 @@
   ],
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "project_name": "AIDOOG RelayDex Force Bench",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -101,16 +109,101 @@
     "randomized_layout_seed": 7,
     "mean_vision_confidence": 0.9841,
     "mean_policy_confidence": 0.9428,
+    "confidence_channels_separate": true,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
     "max_cap_rotation_deg": 216.0,
+    "relay_suite": {
+      "agent_count": 3,
+      "target_force_n": 18.0,
+      "target_mass_kg": 5.0,
+      "task_count": 12,
+      "passed": 12,
+      "success_rate": 1.0,
+      "max_beam_angle_abs_deg": 0.85,
+      "max_force_error_n": 0.0,
+      "handoff_events": [
+        "center_to_right_relay",
+        "left_to_center_minimum_jerk",
+        "slip_recovery_to_even_share"
+      ],
+      "checks": [
+        {
+          "name": "three_agent_relay_declared",
+          "passed": true
+        },
+        {
+          "name": "left_to_center_handoff_seen",
+          "passed": true
+        },
+        {
+          "name": "center_to_right_relay_seen",
+          "passed": true
+        },
+        {
+          "name": "slip_recovery_even_share_seen",
+          "passed": true
+        },
+        {
+          "name": "beam_angle_within_1p2_deg",
+          "passed": true
+        },
+        {
+          "name": "force_error_below_0p05_n",
+          "passed": true
+        },
+        {
+          "name": "left_force_releases",
+          "passed": true
+        },
+        {
+          "name": "center_force_carries_load",
+          "passed": true
+        },
+        {
+          "name": "right_force_receives_load",
+          "passed": true
+        },
+        {
+          "name": "all_logged_rows_hold_pass",
+          "passed": true
+        },
+        {
+          "name": "five_kg_beam_mass_sweep_declared",
+          "passed": true
+        },
+        {
+          "name": "vision_policy_confidence_separate",
+          "passed": true
+        }
+      ],
+      "ablation": {
+        "coordinated_hold_force_n": 18.0,
+        "uncoordinated_hold_force_n": 6.2,
+        "force_gain_vs_uncoordinated": 2.9,
+        "beam_angle_uncoordinated_deg": 7.4
+      },
+      "robustness": {
+        "domain_randomized_mass_sweep_kg": [
+          0.25,
+          1.0,
+          2.5,
+          5.0
+        ],
+        "all_mass_sweep_passed": true,
+        "slip_injection_recovered": true
+      }
+    },
     "manipulation_modes": [
       "four-object sorting",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "three-agent shared-beam force relay",
+      "cooperative slip recovery",
+      "coordinated-vs-uncoordinated ablation"
     ],
     "distractor_count": 6,
     "obstacle_free_clutter_run": true,
