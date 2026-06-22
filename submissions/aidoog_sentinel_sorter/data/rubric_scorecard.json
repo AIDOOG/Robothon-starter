@@ -1,14 +1,14 @@
 {
-  "project": "AIDOOG RelayDex ScenarioCue Cell",
+  "project": "AIDOOG RelayDex HumanCue SceneLite Cell",
   "target_score_band": "93-ish aspirational; measured leaderboard may vary",
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
-    "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
+    "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, moving scene cue gates, and a visible shared-beam relay bench",
     "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, 18 visible distractors, and 72 complex randomized scenarios",
     "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
+    "presentation": "36-second generated spotlight video uses one-word overlays: GRASP, RELAY, RECOVER",
     "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
   },
   "local_validation": {

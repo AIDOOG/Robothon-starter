@@ -70,6 +70,19 @@
     <geom name="distractor_scenario_e" type="cylinder" pos="0.36 0.35 0.024" size="0.014 0.022" rgba="0.54 0.59 0.66 0.95"/>
     <geom name="distractor_scenario_f" type="box" pos="0.06 -0.43 0.018" euler="0 0 -0.48" size="0.046 0.008 0.006" rgba="0.95 0.82 0.16 0.70"/>
 
+    <body name="scenario_gate_a" pos="-0.30 0.30 0.030">
+      <freejoint name="scenario_gate_a_freejoint"/>
+      <geom name="scenario_cue_gate_a" type="box" size="0.055 0.007 0.010" rgba="0.20 0.82 1.00 0.78" mass="0.01" contype="0" conaffinity="0"/>
+    </body>
+    <body name="scenario_gate_b" pos="-0.02 0.31 0.030">
+      <freejoint name="scenario_gate_b_freejoint"/>
+      <geom name="scenario_cue_gate_b" type="box" size="0.055 0.007 0.010" rgba="1.00 0.92 0.18 0.78" mass="0.01" contype="0" conaffinity="0"/>
+    </body>
+    <body name="scenario_gate_c" pos="0.26 0.30 0.030">
+      <freejoint name="scenario_gate_c_freejoint"/>
+      <geom name="scenario_cue_gate_c" type="box" size="0.055 0.007 0.010" rgba="0.18 1.00 0.48 0.78" mass="0.01" contype="0" conaffinity="0"/>
+    </body>
+
     <geom name="operator_console_base" type="box" pos="-0.46 -0.43 0.024" size="0.130 0.055 0.012" rgba="0.10 0.13 0.16 1"/>
     <geom name="operator_console_screen" type="box" pos="-0.46 -0.475 0.060" euler="0.70 0 0" size="0.105 0.006 0.040" rgba="0.08 0.20 0.26 1" contype="0" conaffinity="0"/>
     <geom name="operator_request_button" type="cylinder" pos="-0.525 -0.425 0.043" size="0.018 0.006" rgba="0.20 0.72 1.00 1"/>

@@ -1,25 +1,25 @@
 {
-  "project": "AIDOOG RelayDex ScenarioCue Cell",
+  "project": "AIDOOG RelayDex HumanCue SceneLite Cell",
   "purpose": "Concise narration map for judges reviewing demo.mp4",
   "caption_style": "one-line video overlay plus optional SRT narration",
   "chapters": [
     {
       "start_s": 0.0,
       "end_s": 12.0,
-      "title": "grasp plus twist",
-      "caption": "Operator request, five-finger grasp, 216-degree cap rotation."
+      "title": "grasp",
+      "caption": "Operator cue, five-finger grasp, 216-degree twist."
     },
     {
       "start_s": 12.0,
       "end_s": 24.0,
-      "title": "force relay",
-      "caption": "Three relay agents hand off the 5kg shared beam."
+      "title": "relay",
+      "caption": "Three agents hand off the 5kg beam."
     },
     {
       "start_s": 24.0,
       "end_s": 36.0,
-      "title": "scene recovery",
-      "caption": "72 randomized layouts, 18 visible distractors, profile moving_relay_load."
+      "title": "recover",
+      "caption": "72 layouts, 18 distractors, 3 moving scene cues."
     }
   ]
 }

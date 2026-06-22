@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex ScenarioCue Cell",
+  "project": "AIDOOG RelayDex HumanCue SceneLite Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -26,13 +26,15 @@
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
     "72-variant randomized layout suite",
-    "18 visible physical distractors plus randomized virtual decoys"
+    "18 visible physical distractors plus randomized virtual decoys",
+    "3 moving scene-change cue gates"
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 72,
     "visible_physical_distractors": 18,
     "scene_distractor_geoms_verified": 18,
-    "clearer_demo_editing": "36-second spotlight video with three short overlays: GRASP + TWIST, FORCE RELAY, SCENE RECOVERY",
+    "moving_scene_change_cues": 3,
+    "clearer_demo_editing": "36-second spotlight video with three one-word overlays: GRASP, RELAY, RECOVER",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,

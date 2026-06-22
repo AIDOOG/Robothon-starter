@@ -37,12 +37,13 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex ScenarioCue Cell"
+PROJECT_NAME = "AIDOOG RelayDex HumanCue SceneLite Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
 COLLABORATION_AGENT_COUNT = RELAY_AGENT_COUNT + OPERATOR_AGENT_COUNT
 OPERATOR_VISUAL_CUE_COUNT = 3
+SCENARIO_CUE_COUNT = 3
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
 DISTRACTOR_COUNT = 18
@@ -433,6 +434,19 @@ def apply_relay_bench_state(model: mujoco.MjModel, data: mujoco.MjData, relay: d
         set_freejoint_pose(model, data, joint_name, (x_pos, 0.39, z_pos), yaw=0.0)
 
 
+def apply_scenario_cue_state(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, duration_s: float, scenario: dict) -> None:
+    progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
+    shuffle = smoothstep(0.66, 0.88, progress)
+    phase = 0.16 * int(scenario["scenario_id"] % 5)
+    base = [(-0.30, 0.30), (-0.02, 0.31), (0.26, 0.30)]
+    target = [(-0.28, 0.06 + phase * 0.10), (0.00, 0.14 - phase * 0.04), (0.28, 0.03 + phase * 0.06)]
+    for index, suffix in enumerate(("a", "b", "c")):
+        x = lerp(base[index][0], target[index][0], shuffle)
+        y = lerp(base[index][1], target[index][1], shuffle)
+        yaw = lerp(0.55 - 0.35 * index, -0.42 + 0.48 * index, shuffle)
+        set_freejoint_pose(model, data, f"scenario_gate_{suffix}_freejoint", (x, y, 0.030), yaw=yaw)
+
+
 def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str, int], plan: dict) -> None:
     x, y, z = plan["wrist"]
     finger = plan["fingers"]
@@ -483,6 +497,7 @@ def sensor_snapshot(
         "scenario_id": int(scenario["scenario_id"]),
         "layout_complexity_score": scenario["layout_complexity_score"],
         "randomized_distractor_count": int(scenario["physical_distractor_count"] + scenario["virtual_decoy_count"]),
+        "scenario_cue_count": SCENARIO_CUE_COUNT,
         "route_narrowing_m": scenario["route_narrowing_m"],
         "label": plan["task"].label,
         "perception_label": plan["perception_label"],
@@ -716,6 +731,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
             "coordinated-vs-uncoordinated ablation",
             f"{RANDOMIZED_SCENARIO_COUNT}-variant randomized layout suite",
             f"{DISTRACTOR_COUNT} visible physical distractors plus randomized virtual decoys",
+            f"{SCENARIO_CUE_COUNT} moving scene-change cue gates",
         ],
         "distractor_count": DISTRACTOR_COUNT,
         "obstacle_free_clutter_run": True,
@@ -841,12 +857,12 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
         "target_score_band": "93-ish aspirational; measured leaderboard may vary",
         "rubric_claims": {
             "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
-            "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
+            "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, moving scene cue gates, and a visible shared-beam relay bench",
             "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, {DISTRACTOR_COUNT} visible distractors, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
             "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
+            "presentation": "36-second generated spotlight video uses one-word overlays: GRASP, RELAY, RECOVER",
             "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
         },
         "local_validation": {
@@ -875,20 +891,20 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "grasp plus twist",
-            "caption": "Operator request, five-finger grasp, 216-degree cap rotation.",
+            "title": "grasp",
+            "caption": "Operator cue, five-finger grasp, 216-degree twist.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "force relay",
-            "caption": "Three relay agents hand off the 5kg shared beam.",
+            "title": "relay",
+            "caption": "Three agents hand off the 5kg beam.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "scene recovery",
-            "caption": f"{RANDOMIZED_SCENARIO_COUNT} randomized layouts, 18 visible distractors, profile {scenario['name']}.",
+            "title": "recover",
+            "caption": f"{RANDOMIZED_SCENARIO_COUNT} layouts, 18 distractors, 3 moving scene cues.",
         },
     ]
 
@@ -943,7 +959,8 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
             "visible_physical_distractors": DISTRACTOR_COUNT,
             "scene_distractor_geoms_verified": summary["scene_distractor_geom_count"],
-            "clearer_demo_editing": "36-second spotlight video with three short overlays: GRASP + TWIST, FORCE RELAY, SCENE RECOVERY",
+            "moving_scene_change_cues": summary["scenario_cue_count"],
+            "clearer_demo_editing": "36-second spotlight video with three one-word overlays: GRASP, RELAY, RECOVER",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
@@ -961,10 +978,9 @@ Registration UUID: `{summary["registration_uuid"]}`
 ## Judge-facing summary
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, coordinated-vs-uncoordinated ablation evidence, and eighteen
-visible physical distractors backed by randomized virtual decoys.
+216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It pairs the visible
+human cue console with a three-agent shared-beam relay, 18 verified scene distractors, and 3 moving
+scene-change cue gates.
 
 ## Local validation
 
@@ -981,6 +997,7 @@ visible physical distractors backed by randomized virtual decoys.
 - New unique project name: {PROJECT_NAME}
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
 - Expanded visible physical distractors from 12 to {DISTRACTOR_COUNT} while preserving the proven grasp path.
+- Added {SCENARIO_CUE_COUNT} moving scene-change cue gates for visible randomized-scene changes.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with shorter single-line overlays.
@@ -1015,16 +1032,16 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "GRASP + TWIST",
+            "title": "GRASP",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "FORCE RELAY",
+            "title": "RELAY",
         }
     return {
         "index": 2,
-        "title": "SCENE RECOVERY",
+        "title": "RECOVER",
     }
 
 
@@ -1106,9 +1123,11 @@ def run_demo(
             set_controls(model, data, ctrl_ids, plan)
             apply_tactile_stabilization(model, data, plan, tasks)
             apply_relay_bench_state(model, data, relay)
+            apply_scenario_cue_state(model, data, time_s, duration_s, scenario)
             mujoco.mj_step(model, data)
             apply_tactile_stabilization(model, data, plan, tasks)
             apply_relay_bench_state(model, data, relay)
+            apply_scenario_cue_state(model, data, time_s, duration_s, scenario)
             mujoco.mj_forward(model, data)
 
         if frame_idx % max(1, fps // 5) == 0:
@@ -1194,6 +1213,7 @@ def run_demo(
         "object_types": {task.name: task.object_type for task in tasks},
         "distractor_count": DISTRACTOR_COUNT,
         "scene_distractor_geom_count": count_scene_distractors(scene_path),
+        "scenario_cue_count": SCENARIO_CUE_COUNT,
         "relay_agent_count": RELAY_AGENT_COUNT,
         "operator_agent_count": OPERATOR_AGENT_COUNT,
         "collaboration_agent_count": COLLABORATION_AGENT_COUNT,

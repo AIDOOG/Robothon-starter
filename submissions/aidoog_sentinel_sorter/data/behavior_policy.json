@@ -101,7 +101,7 @@
   ],
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex ScenarioCue Cell",
+    "project_name": "AIDOOG RelayDex HumanCue SceneLite Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -3816,7 +3816,8 @@
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",
       "72-variant randomized layout suite",
-      "18 visible physical distractors plus randomized virtual decoys"
+      "18 visible physical distractors plus randomized virtual decoys",
+      "3 moving scene-change cue gates"
     ],
     "distractor_count": 18,
     "obstacle_free_clutter_run": true,

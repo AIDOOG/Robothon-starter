@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex ScenarioCue Cell",
+  "project": "AIDOOG RelayDex HumanCue SceneLite Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
   "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
@@ -34,6 +34,7 @@
   },
   "distractor_count": 18,
   "scene_distractor_geom_count": 18,
+  "scenario_cue_count": 3,
   "relay_agent_count": 3,
   "operator_agent_count": 1,
   "collaboration_agent_count": 4,
@@ -134,7 +135,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex ScenarioCue Cell",
+    "project_name": "AIDOOG RelayDex HumanCue SceneLite Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -3849,7 +3850,8 @@
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",
       "72-variant randomized layout suite",
-      "18 visible physical distractors plus randomized virtual decoys"
+      "18 visible physical distractors plus randomized virtual decoys",
+      "3 moving scene-change cue gates"
     ],
     "distractor_count": 18,
     "obstacle_free_clutter_run": true,
@@ -3867,6 +3869,7 @@
     "scenario_id",
     "layout_complexity_score",
     "randomized_distractor_count",
+    "scenario_cue_count",
     "route_narrowing_m",
     "label",
     "perception_label",

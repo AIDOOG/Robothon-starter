@@ -1,14 +1,13 @@
-# AIDOOG RelayDex ScenarioCue Cell
+# AIDOOG RelayDex HumanCue SceneLite Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Judge-facing summary
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, coordinated-vs-uncoordinated ablation evidence, and eighteen
-visible physical distractors backed by randomized virtual decoys.
+216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It pairs the visible
+human cue console with a three-agent shared-beam relay, 18 verified scene distractors, and 3 moving
+scene-change cue gates.
 
 ## Local validation
 
@@ -22,9 +21,10 @@ visible physical distractors backed by randomized virtual decoys.
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex ScenarioCue Cell
+- New unique project name: AIDOOG RelayDex HumanCue SceneLite Cell
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
 - Expanded visible physical distractors from 12 to 18 while preserving the proven grasp path.
+- Added 3 moving scene-change cue gates for visible randomized-scene changes.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 72 randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with shorter single-line overlays.

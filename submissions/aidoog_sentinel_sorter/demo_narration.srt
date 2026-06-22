@@ -1,11 +1,11 @@
 1
 00:00:00,000 --> 00:00:12,000
-grasp plus twist: Operator request, five-finger grasp, 216-degree cap rotation.
+grasp: Operator cue, five-finger grasp, 216-degree twist.
 
 2
 00:00:12,000 --> 00:00:24,000
-force relay: Three relay agents hand off the 5kg shared beam.
+relay: Three agents hand off the 5kg beam.
 
 3
 00:00:24,000 --> 00:00:36,000
-scene recovery: 72 randomized layouts, 18 visible distractors, profile moving_relay_load.
+recover: 72 layouts, 18 distractors, 3 moving scene cues.
