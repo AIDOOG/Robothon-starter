@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Neural Focus Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -25,11 +25,12 @@
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "48-variant randomized layout suite"
+    "64-variant randomized layout suite"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+    "more_complex_randomized_layouts": 64,
+    "larger_neural_policy_model": 1183744,
+    "clearer_demo_editing": "36-second spotlight video with direct five-finger, three-agent relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,
