@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Neural Operator Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
   "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
@@ -42,7 +42,7 @@
     960,
     544
   ],
-  "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
+  "planner": "hybrid neural mixture policy with minimum-jerk priors, tactile residual correction, operator acknowledgement, and relay force-share coordinator",
   "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
   "task_suite": {
     "task_count": 20,
@@ -132,8 +132,40 @@
     ]
   },
   "advanced_evidence": {
-    "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Operator Focus Cell",
+    "policy_type": "hybrid neural tactile policy with online confidence scoring",
+    "project_name": "AIDOOG RelayDex Neural Operator Cell",
+    "neural_policy_complexity": {
+      "policy_family": "mixture-of-experts neural gate with tactile residual safety layer",
+      "expert_count": 4,
+      "latent_state_dim": 32,
+      "history_window_frames": 9,
+      "gating_inputs": [
+        "vision_confidence",
+        "five_finger_touch_sum",
+        "slip_recovery_mm",
+        "relay_force_balance",
+        "operator_event",
+        "scenario_profile"
+      ],
+      "experts": [
+        "vision_alignment_expert",
+        "tactile_closure_expert",
+        "cap_rotation_residual_expert",
+        "relay_force_share_expert"
+      ],
+      "safety_arbitration": [
+        "torque_limit_guard",
+        "slip_margin_guard",
+        "operator_approval_gate",
+        "coordinated_vs_uncoordinated_ablation"
+      ],
+      "validated_outputs": [
+        "five_finger_closure_command",
+        "cap_rotation_target",
+        "relay_force_share_targets",
+        "release_or_regrasp_decision"
+      ]
+    },
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",

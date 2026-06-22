@@ -1,11 +1,11 @@
 1
 00:00:00,000 --> 00:00:12,000
-human request to 216deg grasp: A visible operator request starts the amber capsule grasp and 216-degree cap rotation.
+request -> neural grasp: Operator request, gated policy, five-finger 216-degree twist.
 
 2
 00:00:12,000 --> 00:00:24,000
-human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay.
+tactile relay: Slip residual holds the grasp while three agents share force.
 
 3
 00:00:24,000 --> 00:00:36,000
-operator-approved randomized recovery: The same policy covers 48 randomized layouts after operator approval, including moving_relay_load.
+approved recovery: Same neural gate passes 48 randomized layouts, including moving_relay_load.

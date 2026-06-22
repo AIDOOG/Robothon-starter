@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Neural Operator Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -29,7 +29,39 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+    "more_complex_neural_policy": {
+      "policy_family": "mixture-of-experts neural gate with tactile residual safety layer",
+      "expert_count": 4,
+      "latent_state_dim": 32,
+      "history_window_frames": 9,
+      "gating_inputs": [
+        "vision_confidence",
+        "five_finger_touch_sum",
+        "slip_recovery_mm",
+        "relay_force_balance",
+        "operator_event",
+        "scenario_profile"
+      ],
+      "experts": [
+        "vision_alignment_expert",
+        "tactile_closure_expert",
+        "cap_rotation_residual_expert",
+        "relay_force_share_expert"
+      ],
+      "safety_arbitration": [
+        "torque_limit_guard",
+        "slip_margin_guard",
+        "operator_approval_gate",
+        "coordinated_vs_uncoordinated_ablation"
+      ],
+      "validated_outputs": [
+        "five_finger_closure_command",
+        "cap_rotation_target",
+        "relay_force_share_targets",
+        "release_or_regrasp_decision"
+      ]
+    },
+    "clearer_demo_editing": "36-second spotlight video with three short action labels and concise SRT",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,

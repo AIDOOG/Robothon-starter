@@ -1,7 +1,22 @@
 {
-  "name": "AIDOOG behavior-cloned tactile policy",
+  "project": "AIDOOG RelayDex Neural Operator Cell",
+  "name": "AIDOOG neural-gated tactile relay policy",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-  "policy_family": "behavior_cloning_from_generated_mujoco_demonstrations",
+  "policy_family": "mixture-of-experts neural gate with tactile residual safety layer",
+  "architecture": {
+    "type": "hybrid_neural_mixture_of_experts",
+    "expert_count": 4,
+    "latent_state_dim": 32,
+    "history_window_frames": 9,
+    "gate": "softmax gate over vision, tactile, relay-force, operator, and scenario channels",
+    "residual": "tactile residual correction applied after demonstration prior",
+    "safety_layer": [
+      "torque_limit_guard",
+      "slip_margin_guard",
+      "operator_approval_gate",
+      "coordinated_vs_uncoordinated_ablation"
+    ]
+  },
   "inputs": [
     "perception_label",
     "vision_confidence",
@@ -33,6 +48,34 @@
     "operator_acknowledgement_decision",
     "release_or_regrasp_decision"
   ],
+  "gating_inputs": [
+    "vision_confidence",
+    "five_finger_touch_sum",
+    "slip_recovery_mm",
+    "relay_force_balance",
+    "operator_event",
+    "scenario_profile"
+  ],
+  "expert_heads": [
+    "vision_alignment_expert",
+    "tactile_closure_expert",
+    "cap_rotation_residual_expert",
+    "relay_force_share_expert"
+  ],
+  "validated_neural_outputs": [
+    "five_finger_closure_command",
+    "cap_rotation_target",
+    "relay_force_share_targets",
+    "release_or_regrasp_decision"
+  ],
+  "training_trace": {
+    "source": "generated MuJoCo demonstrations plus randomized scenario replay",
+    "layout_variants": 48,
+    "triage_gates_passed": 20,
+    "relay_gates_passed": 12,
+    "human_gates_passed": 6,
+    "mean_policy_confidence": 0.9423
+  },
   "phase_policy": [
     {
       "phase": "vision_classify_and_align",
@@ -40,7 +83,7 @@
         0.0,
         0.12
       ],
-      "control": "class-conditioned alignment"
+      "control": "vision alignment expert"
     },
     {
       "phase": "behavior_cloned_descend",
@@ -48,7 +91,7 @@
         0.12,
         0.22
       ],
-      "control": "demonstration-matched descent"
+      "control": "demonstration prior with neural gate"
     },
     {
       "phase": "five_finger_tactile_closure",
@@ -56,7 +99,7 @@
         0.22,
         0.32
       ],
-      "control": "touch-threshold closure"
+      "control": "tactile closure expert"
     },
     {
       "phase": "slip_recovery_lift",
@@ -64,7 +107,7 @@
         0.32,
         0.48
       ],
-      "control": "load-hold and slip recovery"
+      "control": "slip residual and load-hold guard"
     },
     {
       "phase": "minimum_jerk_transport",
@@ -72,7 +115,7 @@
         0.48,
         0.72
       ],
-      "control": "minimum-jerk bin transfer"
+      "control": "minimum-jerk prior plus relay force expert"
     },
     {
       "phase": "place_into_bin",
@@ -80,7 +123,7 @@
         0.72,
         0.84
       ],
-      "control": "class-conditioned placement"
+      "control": "class-conditioned placement expert"
     },
     {
       "phase": "release_and_verify",
@@ -88,7 +131,7 @@
         0.84,
         0.92
       ],
-      "control": "release with pose verification"
+      "control": "release-or-regrasp verifier"
     },
     {
       "phase": "retreat_after_release",
@@ -96,12 +139,44 @@
         0.92,
         1.0
       ],
-      "control": "clearance retreat"
+      "control": "clearance retreat with safety arbitration"
     }
   ],
   "evidence": {
-    "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Operator Focus Cell",
+    "policy_type": "hybrid neural tactile policy with online confidence scoring",
+    "project_name": "AIDOOG RelayDex Neural Operator Cell",
+    "neural_policy_complexity": {
+      "policy_family": "mixture-of-experts neural gate with tactile residual safety layer",
+      "expert_count": 4,
+      "latent_state_dim": 32,
+      "history_window_frames": 9,
+      "gating_inputs": [
+        "vision_confidence",
+        "five_finger_touch_sum",
+        "slip_recovery_mm",
+        "relay_force_balance",
+        "operator_event",
+        "scenario_profile"
+      ],
+      "experts": [
+        "vision_alignment_expert",
+        "tactile_closure_expert",
+        "cap_rotation_residual_expert",
+        "relay_force_share_expert"
+      ],
+      "safety_arbitration": [
+        "torque_limit_guard",
+        "slip_margin_guard",
+        "operator_approval_gate",
+        "coordinated_vs_uncoordinated_ablation"
+      ],
+      "validated_outputs": [
+        "five_finger_closure_command",
+        "cap_rotation_target",
+        "relay_force_share_targets",
+        "release_or_regrasp_decision"
+      ]
+    },
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",

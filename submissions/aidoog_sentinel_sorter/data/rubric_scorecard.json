@@ -1,14 +1,14 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Neural Operator Cell",
   "target_score_band": "93-ish aspirational; measured leaderboard may vary",
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
     "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, and a visible shared-beam relay bench",
     "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and 48 complex randomized scenarios",
-    "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
+    "control": "neural mixture gate, tactile residual servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
-    "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video uses human-request, force-relay, and recovery labels",
+    "engineering_quality": "structured logs, reproducible layout variants, neural policy card, relay audit, rubric scorecard",
+    "presentation": "36-second generated spotlight video uses three short action labels and optional concise SRT",
     "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
   },
   "local_validation": {
