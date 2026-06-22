@@ -1,4 +1,4 @@
-# AIDOOG RelayDex Operator Force Cell
+# AIDOOG RelayDex LiveOperator Force Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
@@ -21,8 +21,8 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex Operator Force Cell
-- Added visible operator request, relay acknowledgement, and recovery approval states.
+- New unique project name: AIDOOG RelayDex LiveOperator Force Cell
+- Added animated operator request, relay acknowledgement, and recovery approval button states.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 48 randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.

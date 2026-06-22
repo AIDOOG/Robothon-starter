@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Force Cell",
+  "project": "AIDOOG RelayDex LiveOperator Force Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "relay_suite": {
     "agent_count": 3,
@@ -83,7 +83,7 @@
     }
   },
   "human_interaction_suite": {
-    "agent_count": 4,
+    "collaboration_count": 4,
     "operator_agent_count": 1,
     "robot_agent_count": 3,
     "task_count": 6,
@@ -117,7 +117,7 @@
         "passed": true
       },
       {
-        "name": "four_agent_collaboration_declared",
+        "name": "operator_plus_three_relay_agents_declared",
         "passed": true
       }
     ]

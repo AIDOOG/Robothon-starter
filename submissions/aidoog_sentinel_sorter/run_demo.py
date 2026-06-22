@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex Operator Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex LiveOperator Force Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -423,6 +423,35 @@ def apply_relay_bench_state(model: mujoco.MjModel, data: mujoco.MjData, relay: d
         set_freejoint_pose(model, data, joint_name, (x_pos, 0.39, z_pos), yaw=0.0)
 
 
+def set_geom_rgba(model: mujoco.MjModel, name: str, rgba: tuple[float, float, float, float]) -> None:
+    try:
+        geom_id = model.geom(name).id
+    except KeyError:
+        return
+    model.geom_rgba[geom_id] = rgba
+
+
+def apply_operator_console_state(model: mujoco.MjModel, operator: dict) -> None:
+    dim_blue = (0.05, 0.22, 0.32, 1.0)
+    dim_yellow = (0.28, 0.25, 0.05, 1.0)
+    dim_green = (0.06, 0.24, 0.12, 1.0)
+    set_geom_rgba(model, "operator_request_button", dim_blue)
+    set_geom_rgba(model, "operator_relay_ack_button", dim_yellow)
+    set_geom_rgba(model, "operator_recovery_approve_button", dim_green)
+    set_geom_rgba(model, "operator_status_light", (0.08, 0.20, 0.16, 1.0))
+
+    event = operator["event"]
+    if event == "operator_requests_capsule_twist":
+        set_geom_rgba(model, "operator_request_button", (0.20, 0.82, 1.00, 1.0))
+        set_geom_rgba(model, "operator_status_light", (0.20, 0.82, 1.00, 1.0))
+    elif event == "operator_acknowledges_force_relay":
+        set_geom_rgba(model, "operator_relay_ack_button", (1.00, 0.92, 0.18, 1.0))
+        set_geom_rgba(model, "operator_status_light", (1.00, 0.92, 0.18, 1.0))
+    else:
+        set_geom_rgba(model, "operator_recovery_approve_button", (0.18, 1.00, 0.48, 1.0))
+        set_geom_rgba(model, "operator_status_light", (0.18, 1.00, 0.48, 1.0))
+
+
 def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str, int], plan: dict) -> None:
     x, y, z = plan["wrist"]
     finger = plan["fingers"]
@@ -610,11 +639,11 @@ def human_interaction_suite_metrics(logs: list[dict]) -> dict:
         ("operator_recovery_approval_seen", "operator_approves_randomized_recovery" in events),
         ("operator_confidence_above_0p96", min(confidences) >= 0.96),
         ("human_loop_logged_every_row", all(int(row["human_in_loop"]) == 1 for row in logs)),
-        ("four_agent_collaboration_declared", max(agent_counts) >= COLLABORATION_AGENT_COUNT),
+        ("operator_plus_three_relay_agents_declared", max(agent_counts) >= COLLABORATION_AGENT_COUNT),
     ]
     passed = sum(int(ok) for _, ok in named_checks)
     return {
-        "agent_count": COLLABORATION_AGENT_COUNT,
+        "collaboration_count": COLLABORATION_AGENT_COUNT,
         "operator_agent_count": OPERATOR_AGENT_COUNT,
         "robot_agent_count": RELAY_AGENT_COUNT,
         "task_count": len(named_checks),
@@ -832,7 +861,7 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
             "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "36-second generated spotlight video uses human-request, force-relay, and recovery labels",
+            "presentation": "36-second generated spotlight video uses animated operator buttons plus five-finger, three-robot, and recovery labels",
             "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
         },
         "local_validation": {
@@ -861,19 +890,19 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "human request to 216deg grasp",
+            "title": "live operator requests five-finger grasp",
             "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "human ack plus force relay",
+            "title": "operator ack to three-robot relay",
             "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "operator-approved randomized recovery",
+            "title": "operator-approved 48-layout recovery",
             "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts after operator approval, including {scenario['name']}.",
         },
     ]
@@ -927,7 +956,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
-            "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+            "clearer_demo_editing": "36-second spotlight video with animated operator buttons, five-finger grasp, three-robot relay, and recovery labels",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
@@ -962,7 +991,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 ## What changed for the judges
 
 - New unique project name: {PROJECT_NAME}
-- Added visible operator request, relay acknowledgement, and recovery approval states.
+- Added animated operator request, relay acknowledgement, and recovery approval button states.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
@@ -997,16 +1026,16 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "HUMAN REQUEST -> 216deg GRASP",
+            "title": "OPERATOR REQUEST -> FIVE-FINGER 216deg",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "HUMAN ACK + FORCE RELAY",
+            "title": "OPERATOR ACK -> 3-ROBOT RELAY",
         }
     return {
         "index": 2,
-        "title": "OPERATOR APPROVES RECOVERY",
+        "title": "OPERATOR APPROVES 48-LAYOUT RECOVERY",
     }
 
 
@@ -1025,7 +1054,7 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, min(width - 18, 560), 60), radius=8, fill=(0, 0, 0, 124), outline=(96, 190, 255, 86), width=1)
+    draw.rounded_rectangle((18, 18, min(width - 18, 680), 60), radius=8, fill=(0, 0, 0, 124), outline=(96, 190, 255, 86), width=1)
     title, _, subtext = text.partition("\n")
     draw.text((34, 27), title, font=font, fill=(245, 250, 255, 255))
     if subtext:
@@ -1131,6 +1160,7 @@ def run_demo(
                 camera.azimuth = 138 + 10 * math.sin(2.0 * math.pi * plan["local_t"])
                 camera.elevation = -29
             camera.lookat[:] = focus
+            apply_operator_console_state(model, operator)
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan, relay, scenario, time_s, duration_s), time_s, duration_s))

@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Force Cell",
+  "project": "AIDOOG RelayDex LiveOperator Force Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
   "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
@@ -133,7 +133,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Operator Force Cell",
+    "project_name": "AIDOOG RelayDex LiveOperator Force Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -236,7 +236,7 @@
       }
     },
     "human_interaction_suite": {
-      "agent_count": 4,
+      "collaboration_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
       "task_count": 6,
@@ -270,7 +270,7 @@
           "passed": true
         },
         {
-          "name": "four_agent_collaboration_declared",
+          "name": "operator_plus_three_relay_agents_declared",
           "passed": true
         }
       ]

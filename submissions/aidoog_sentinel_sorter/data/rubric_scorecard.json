@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Force Cell",
+  "project": "AIDOOG RelayDex LiveOperator Force Cell",
   "target_score_band": "93-ish aspirational; measured leaderboard may vary",
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
@@ -8,7 +8,7 @@
     "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video uses human-request, force-relay, and recovery labels",
+    "presentation": "36-second generated spotlight video uses animated operator buttons plus five-finger, three-robot, and recovery labels",
     "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
   },
   "local_validation": {
@@ -181,7 +181,7 @@
       }
     },
     "human_interaction_gates": {
-      "agent_count": 4,
+      "collaboration_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
       "task_count": 6,
@@ -215,7 +215,7 @@
           "passed": true
         },
         {
-          "name": "four_agent_collaboration_declared",
+          "name": "operator_plus_three_relay_agents_declared",
           "passed": true
         }
       ]

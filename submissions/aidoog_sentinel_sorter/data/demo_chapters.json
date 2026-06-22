@@ -1,24 +1,24 @@
 {
-  "project": "AIDOOG RelayDex Operator Force Cell",
+  "project": "AIDOOG RelayDex LiveOperator Force Cell",
   "purpose": "Concise narration map for judges reviewing demo.mp4",
   "caption_style": "one-line video overlay plus optional SRT narration",
   "chapters": [
     {
       "start_s": 0.0,
       "end_s": 12.0,
-      "title": "human request to 216deg grasp",
+      "title": "live operator requests five-finger grasp",
       "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation."
     },
     {
       "start_s": 12.0,
       "end_s": 24.0,
-      "title": "human ack plus force relay",
+      "title": "operator ack to three-robot relay",
       "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay."
     },
     {
       "start_s": 24.0,
       "end_s": 36.0,
-      "title": "operator-approved randomized recovery",
+      "title": "operator-approved 48-layout recovery",
       "caption": "The same policy covers 48 randomized layouts after operator approval, including moving_relay_load."
     }
   ]
