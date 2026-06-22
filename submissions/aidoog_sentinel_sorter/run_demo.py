@@ -884,7 +884,7 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
             "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
+            "presentation": "36-second generated spotlight video keeps three large cue lights while surfacing 216-degree grasp, L->C->R 18N relay, and 504/504 scenario gates as short synced labels",
             "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
         },
         "local_validation": {
@@ -909,24 +909,31 @@ def srt_timestamp(seconds: float) -> str:
 
 def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
     third = duration_s / 3.0
+    scenario_label = str(scenario["name"]).replace("_", " ")
     return [
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "human request to 216deg grasp",
-            "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation.",
+            "title": "human cue plus 216deg grasp",
+            "caption": "Operator cue; five-finger grasp, 216deg cap, 9x hold.",
+            "overlay_title": "HUMAN CUE + 216deg GRASP",
+            "overlay_subtitle": "five-finger tactile servo | 9x hold",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "human ack plus force relay",
-            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
+            "title": "L->C->R 18N force relay",
+            "caption": "Operator ack; three agents relay the 18N shared beam.",
+            "overlay_title": "RELAY HANDOFF: L->C->R 18N",
+            "overlay_subtitle": "three agents | 12/12 force gates",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "operator-approved randomized recovery",
-            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts after operator approval, including {scenario['name']}.",
+            "title": "72 scenarios 504/504",
+            "caption": f"Same policy passes 504 stress gates in {scenario_label}.",
+            "overlay_title": f"{RANDOMIZED_SCENARIO_COUNT} SCENARIOS: 504/504",
+            "overlay_subtitle": "operator-approved recovery | same policy",
         },
     ]
 
@@ -937,7 +944,7 @@ def write_demo_chapters(chapter_path: Path, narration_path: Path, summary: dict)
     chapter_payload = {
         "project": PROJECT_NAME,
         "purpose": "Concise narration map for judges reviewing demo.mp4",
-        "caption_style": "one-line video overlay plus optional SRT narration",
+        "caption_style": "three short synced evidence overlays plus optional SRT narration",
         "chapters": chapters,
     }
     chapter_path.parent.mkdir(parents=True, exist_ok=True)
@@ -979,7 +986,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
-            "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+            "clearer_demo_editing": "36-second spotlight video with three short synced labels for human cue, L->C->R relay, and 504/504 scenario gates",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
@@ -1015,10 +1022,11 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 - Kept the proven project name: {PROJECT_NAME}
 - Kept the proven 36-second HumanCue video structure and three large cue lights.
+- Reworded the original three overlays/SRT cues into shorter synced evidence labels: 216deg grasp, L->C->R 18N relay, and 504/504 scenario gates.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Added stress fields for occlusion bands, ambiguous decoys, lighting drop, operator override, and recovery policy switching.
-- Preserved the default demo as a 36-second spotlight reel with single-line key-action labels.
+- Preserved the default demo as a 36-second spotlight reel with three short key-action labels.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.
@@ -1050,22 +1058,25 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "HUMAN REQUEST -> 216deg GRASP",
+            "title": "HUMAN CUE + 216deg GRASP",
+            "subtitle": "five-finger tactile servo | 9x hold",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "HUMAN ACK + FORCE RELAY",
+            "title": "RELAY HANDOFF: L->C->R 18N",
+            "subtitle": "three agents | 12/12 force gates",
         }
     return {
         "index": 2,
-        "title": "OPERATOR APPROVES RECOVERY",
+        "title": f"{RANDOMIZED_SCENARIO_COUNT} SCENARIOS: 504/504",
+        "subtitle": "operator-approved recovery | same policy",
     }
 
 
 def caption_for_plan(plan: dict, relay: dict, scenario: dict, time_s: float, duration_s: float) -> str:
     chapter = video_chapter(time_s, duration_s)
-    return chapter["title"]
+    return f"{chapter['title']}\n{chapter['subtitle']}"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -1073,16 +1084,16 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
     try:
-        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 24)
+        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 22)
         small = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 14)
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, min(width - 18, 560), 60), radius=8, fill=(0, 0, 0, 124), outline=(96, 190, 255, 86), width=1)
+    draw.rounded_rectangle((18, 18, min(width - 18, 585), 76), radius=8, fill=(0, 0, 0, 124), outline=(96, 190, 255, 86), width=1)
     title, _, subtext = text.partition("\n")
-    draw.text((34, 27), title, font=font, fill=(245, 250, 255, 255))
+    draw.text((34, 25), title, font=font, fill=(245, 250, 255, 255))
     if subtext:
-        draw.text((34, 50), subtext, font=small, fill=(210, 235, 255, 222))
+        draw.text((34, 53), subtext, font=small, fill=(210, 235, 255, 222))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
     bar_w = int((width - 68) * progress)
     draw.rectangle((34, height - 22, 34 + bar_w, height - 19), fill=(64, 235, 145, 214))
@@ -1167,13 +1178,13 @@ def run_demo(
                 camera.elevation = -32
             elif chapter["index"] == 1:
                 focus = (
-                    lerp(task_focus[0], relay_focus[0], 0.86),
-                    lerp(task_focus[1], relay_focus[1], 0.86),
-                    0.13,
+                    lerp(task_focus[0], relay_focus[0], 0.94),
+                    lerp(task_focus[1], relay_focus[1], 0.94),
+                    0.12,
                 )
-                camera.distance = 0.68
-                camera.azimuth = 118 + 6 * math.sin(2.0 * math.pi * plan["local_t"])
-                camera.elevation = -36
+                camera.distance = 0.62
+                camera.azimuth = 116 + 5 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -34
             else:
                 focus = (
                     lerp(relay_focus[0], operator_focus[0], 0.34),

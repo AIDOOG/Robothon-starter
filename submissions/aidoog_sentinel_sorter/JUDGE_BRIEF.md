@@ -23,10 +23,11 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 - Kept the proven project name: AIDOOG RelayDex HumanCue Force Cell
 - Kept the proven 36-second HumanCue video structure and three large cue lights.
+- Reworded the original three overlays/SRT cues into shorter synced evidence labels: 216deg grasp, L->C->R 18N relay, and 504/504 scenario gates.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 72 randomized scenario variants with same-policy validation.
 - Added stress fields for occlusion bands, ambiguous decoys, lighting drop, operator override, and recovery policy switching.
-- Preserved the default demo as a 36-second spotlight reel with single-line key-action labels.
+- Preserved the default demo as a 36-second spotlight reel with three short key-action labels.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.

@@ -8,7 +8,7 @@
     "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
+    "presentation": "36-second generated spotlight video keeps three large cue lights while surfacing 216-degree grasp, L->C->R 18N relay, and 504/504 scenario gates as short synced labels",
     "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
   },
   "local_validation": {

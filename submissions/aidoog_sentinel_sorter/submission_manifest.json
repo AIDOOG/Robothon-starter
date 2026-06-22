@@ -30,7 +30,7 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 72,
-    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+    "clearer_demo_editing": "36-second spotlight video with three short synced labels for human cue, L->C->R relay, and 504/504 scenario gates",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,
