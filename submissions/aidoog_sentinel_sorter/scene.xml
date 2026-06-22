@@ -88,6 +88,9 @@
     <geom name="relay_left_target" type="box" pos="-0.145 0.39 0.018" size="0.045 0.038 0.004" material="relay_left"/>
     <geom name="relay_center_target" type="box" pos="0.04 0.39 0.018" size="0.045 0.038 0.004" material="relay_center"/>
     <geom name="relay_right_target" type="box" pos="0.225 0.39 0.018" size="0.045 0.038 0.004" material="relay_right"/>
+    <geom name="relay_force_gauge_left_base" type="box" pos="-0.145 0.462 0.018" size="0.034 0.012 0.004" material="relay_left" contype="0" conaffinity="0"/>
+    <geom name="relay_force_gauge_center_base" type="box" pos="0.04 0.462 0.018" size="0.034 0.012 0.004" material="relay_center" contype="0" conaffinity="0"/>
+    <geom name="relay_force_gauge_right_base" type="box" pos="0.225 0.462 0.018" size="0.034 0.012 0.004" material="relay_right" contype="0" conaffinity="0"/>
 
     <body name="relay_beam" pos="0.04 0.39 0.074">
       <freejoint name="relay_beam_freejoint"/>
@@ -111,6 +114,43 @@
       <freejoint name="relay_right_robot_freejoint"/>
       <geom type="cylinder" size="0.022 0.025" material="relay_right" mass="0.02" contype="0" conaffinity="0"/>
       <site name="relay_right_contact" pos="0 0 0.028" size="0.010" rgba="0.18 0.92 0.48 1"/>
+    </body>
+
+    <body name="relay_force_gauge_left_level1" pos="-0.145 0.462 -0.060">
+      <freejoint name="relay_force_gauge_left_level1_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_left" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_left_level2" pos="-0.145 0.462 -0.060">
+      <freejoint name="relay_force_gauge_left_level2_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_left" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_left_level3" pos="-0.145 0.462 -0.060">
+      <freejoint name="relay_force_gauge_left_level3_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_left" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_center_level1" pos="0.04 0.462 -0.060">
+      <freejoint name="relay_force_gauge_center_level1_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_center" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_center_level2" pos="0.04 0.462 -0.060">
+      <freejoint name="relay_force_gauge_center_level2_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_center" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_center_level3" pos="0.04 0.462 -0.060">
+      <freejoint name="relay_force_gauge_center_level3_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_center" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_right_level1" pos="0.225 0.462 -0.060">
+      <freejoint name="relay_force_gauge_right_level1_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_right" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_right_level2" pos="0.225 0.462 -0.060">
+      <freejoint name="relay_force_gauge_right_level2_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_right" mass="0.001" contype="0" conaffinity="0"/>
+    </body>
+    <body name="relay_force_gauge_right_level3" pos="0.225 0.462 -0.060">
+      <freejoint name="relay_force_gauge_right_level3_freejoint"/>
+      <geom type="box" size="0.030 0.010 0.008" material="relay_right" mass="0.001" contype="0" conaffinity="0"/>
     </body>
 
     <body name="red_cube" pos="-0.36 -0.18 0.052">
@@ -236,5 +276,8 @@
     <framepos name="relay_left_robot_pos" objtype="body" objname="relay_left_robot"/>
     <framepos name="relay_center_robot_pos" objtype="body" objname="relay_center_robot"/>
     <framepos name="relay_right_robot_pos" objtype="body" objname="relay_right_robot"/>
+    <framepos name="relay_force_gauge_left_level3_pos" objtype="body" objname="relay_force_gauge_left_level3"/>
+    <framepos name="relay_force_gauge_center_level3_pos" objtype="body" objname="relay_force_gauge_center_level3"/>
+    <framepos name="relay_force_gauge_right_level3_pos" objtype="body" objname="relay_force_gauge_right_level3"/>
   </sensor>
 </mujoco>

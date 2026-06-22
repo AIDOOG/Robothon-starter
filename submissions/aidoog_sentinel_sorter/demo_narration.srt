@@ -4,7 +4,7 @@ human request to 216deg grasp: A visible operator request starts the amber capsu
 
 2
 00:00:12,000 --> 00:00:24,000
-human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay.
+human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay with visible force gauges.
 
 3
 00:00:24,000 --> 00:00:36,000

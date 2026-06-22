@@ -36,12 +36,17 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex HumanCue Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex HumanCue ForceGauge Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
 COLLABORATION_AGENT_COUNT = RELAY_AGENT_COUNT + OPERATOR_AGENT_COUNT
 OPERATOR_VISUAL_CUE_COUNT = 3
+RELAY_FORCE_GAUGE_COLUMN_COUNT = 3
+RELAY_FORCE_GAUGE_LEVELS = ((0.18, 0.046), (0.48, 0.070), (0.78, 0.094))
+RELAY_FORCE_GAUGE_MARKER_COUNT = RELAY_FORCE_GAUGE_COLUMN_COUNT * len(RELAY_FORCE_GAUGE_LEVELS)
+RELAY_FORCE_GAUGE_Y = 0.462
+RELAY_FORCE_GAUGE_HIDDEN_Z = -0.060
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
 DISTRACTOR_COUNT = 12
@@ -201,6 +206,9 @@ def relay_state_at(time_s: float, duration_s: float) -> dict:
 
     total = RELAY_TARGET_FORCE_N
     forces = np.asarray([left_share, center_share, right_share], dtype=float) * total
+    force_gauge_visible_markers = int(
+        sum((force / max(total, 1.0)) >= threshold for force in forces for threshold, _ in RELAY_FORCE_GAUGE_LEVELS)
+    )
     beam_angle_deg = 0.85 * (forces[0] - forces[2]) / max(total, 1.0)
     force_error_n = float(abs(total - np.sum(forces)))
     hold_pass = abs(beam_angle_deg) <= 1.2 and force_error_n <= 0.05
@@ -216,6 +224,7 @@ def relay_state_at(time_s: float, duration_s: float) -> dict:
         "hold_pass": bool(hold_pass),
         "active_agents": int(sum(value > 0.8 for value in forces)),
         "target_mass_kg": RELAY_BEAM_MASS_KG,
+        "force_gauge_visible_markers": force_gauge_visible_markers,
     }
 
 
@@ -414,14 +423,18 @@ def apply_relay_bench_state(model: mujoco.MjModel, data: mujoco.MjData, relay: d
     beam_yaw = math.radians(relay["beam_angle_deg"])
     set_freejoint_pose(model, data, "relay_beam_freejoint", (0.04, 0.39, 0.074), yaw=beam_yaw)
     agents = (
-        ("relay_left_robot_freejoint", -0.145, relay["left_force_n"]),
-        ("relay_center_robot_freejoint", 0.04, relay["center_force_n"]),
-        ("relay_right_robot_freejoint", 0.225, relay["right_force_n"]),
+        ("left", "relay_left_robot_freejoint", -0.145, relay["left_force_n"]),
+        ("center", "relay_center_robot_freejoint", 0.04, relay["center_force_n"]),
+        ("right", "relay_right_robot_freejoint", 0.225, relay["right_force_n"]),
     )
-    for joint_name, x_pos, force_n in agents:
+    for label, joint_name, x_pos, force_n in agents:
         press = min(1.0, max(0.0, force_n / max(RELAY_TARGET_FORCE_N, 1.0)))
         z_pos = 0.034 + 0.022 * press
         set_freejoint_pose(model, data, joint_name, (x_pos, 0.39, z_pos), yaw=0.0)
+        for level_index, (threshold, marker_z) in enumerate(RELAY_FORCE_GAUGE_LEVELS, start=1):
+            gauge_joint = f"relay_force_gauge_{label}_level{level_index}_freejoint"
+            gauge_z = marker_z if press >= threshold else RELAY_FORCE_GAUGE_HIDDEN_Z
+            set_freejoint_pose(model, data, gauge_joint, (x_pos, RELAY_FORCE_GAUGE_Y, gauge_z), yaw=0.0)
 
 
 def set_controls(model: mujoco.MjModel, data: mujoco.MjData, ctrl_ids: dict[str, int], plan: dict) -> None:
@@ -502,6 +515,8 @@ def sensor_snapshot(
         "relay_hold_pass": int(relay["hold_pass"]),
         "relay_active_agents": relay["active_agents"],
         "relay_target_mass_kg": relay["target_mass_kg"],
+        "relay_force_gauge_visible_markers": relay["force_gauge_visible_markers"],
+        "relay_force_gauge_columns": RELAY_FORCE_GAUGE_COLUMN_COUNT,
         "operator_event": operator["event"],
         "operator_request_active": operator["request_active"],
         "operator_relay_ack": operator["relay_ack"],
@@ -561,6 +576,7 @@ def relay_suite_metrics(logs: list[dict]) -> dict:
     left_values = [float(row["relay_left_force_n"]) for row in logs]
     center_values = [float(row["relay_center_force_n"]) for row in logs]
     right_values = [float(row["relay_right_force_n"]) for row in logs]
+    gauge_values = [int(row["relay_force_gauge_visible_markers"]) for row in logs]
     named_checks = [
         ("three_agent_relay_declared", RELAY_AGENT_COUNT == 3),
         ("left_to_center_handoff_seen", "left_to_center_minimum_jerk" in events),
@@ -574,12 +590,16 @@ def relay_suite_metrics(logs: list[dict]) -> dict:
         ("all_logged_rows_hold_pass", all(int(row["relay_hold_pass"]) == 1 for row in logs)),
         ("five_kg_beam_mass_sweep_declared", RELAY_BEAM_MASS_KG >= 5.0),
         ("vision_policy_confidence_separate", all(int(row["confidence_channels_separate"]) == 1 for row in logs)),
+        ("force_gauge_columns_visible", max(gauge_values) >= RELAY_FORCE_GAUGE_COLUMN_COUNT),
     ]
     passed = sum(int(ok) for _, ok in named_checks)
     return {
         "agent_count": RELAY_AGENT_COUNT,
         "target_force_n": RELAY_TARGET_FORCE_N,
         "target_mass_kg": RELAY_BEAM_MASS_KG,
+        "force_gauge_columns": RELAY_FORCE_GAUGE_COLUMN_COUNT,
+        "force_gauge_marker_count": RELAY_FORCE_GAUGE_MARKER_COUNT,
+        "max_force_gauge_visible_markers": max(gauge_values),
         "task_count": len(named_checks),
         "passed": passed,
         "success_rate": round(passed / len(named_checks), 4),
@@ -702,6 +722,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
             "216-degree cap rotation",
             "9x load hold",
             "three-agent shared-beam force relay",
+            "visible three-column force gauge telemetry",
             "human operator request and approval loop",
             "cooperative slip recovery",
             "coordinated-vs-uncoordinated ablation",
@@ -758,6 +779,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "relay_left_force_n",
             "relay_center_force_n",
             "relay_right_force_n",
+            "relay_force_gauge_visible_markers",
             "relay_beam_angle_deg",
             "operator_event",
             "operator_request_active",
@@ -814,6 +836,7 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
             "simulated mj_contactForce relay channels",
             "declared shared-beam qpos/qvel sensors",
             "per-agent force share log columns",
+            "visible three-column relay force gauge frame sensors",
             "operator request/acknowledgement log columns",
         ],
         "trace_sample_count": len(relay_rows),
@@ -831,13 +854,13 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
         "target_score_band": "93-ish aspirational; measured leaderboard may vary",
         "rubric_claims": {
             "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
-            "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
-            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
-            "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
+            "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, a shared-beam relay bench, and dynamic relay force gauges",
+            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay with visible force gauges, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
+            "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, relay force-share coordinator, and gauge-driven force visualization",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
-            "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
+            "presentation": "36-second generated spotlight video keeps operator cues visible and shows the L->C->R relay through three dynamic force-gauge columns",
+            "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification and visible force-state telemetry",
         },
         "local_validation": {
             "triage_gates": summary["task_suite"],
@@ -872,7 +895,7 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
             "title": "human ack plus force relay",
-            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
+            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay with visible force gauges.",
         },
         {
             "start_s": round(2.0 * third, 2),
@@ -931,7 +954,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
-            "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+            "clearer_demo_editing": "36-second spotlight video with larger operator cue lights, visible force gauges, and human-request, force-relay, and recovery labels",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
@@ -950,8 +973,8 @@ Registration UUID: `{summary["registration_uuid"]}`
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
 216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with visible
+force-gauge columns, force-share logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
 
 ## Local validation
 
@@ -959,6 +982,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 - Relay force gates: {relay["passed"]}/{relay["task_count"]}
 - Human interaction gates: {human["passed"]}/{human["task_count"]}
 - Randomized scenario gates: {summary["advanced_evidence"]["randomized_scenario_suite"]["passed"]}/{summary["advanced_evidence"]["randomized_scenario_suite"]["task_count"]}
+- Force-gauge columns: {relay["force_gauge_columns"]} columns / {relay["force_gauge_marker_count"]} markers
 - Max beam angle error: {relay["max_beam_angle_abs_deg"]} deg
 - Max force error: {relay["max_force_error_n"]} N
 - Demo duration: {summary["duration_s"]}s at {summary["fps"]} fps
@@ -967,6 +991,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 - New unique project name: {PROJECT_NAME}
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
+- Added three dynamic force-gauge columns that make the left -> center -> right relay visible in the video.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
@@ -1118,13 +1143,13 @@ def run_demo(
                 camera.elevation = -32
             elif chapter["index"] == 1:
                 focus = (
-                    lerp(task_focus[0], relay_focus[0], 0.86),
-                    lerp(task_focus[1], relay_focus[1], 0.86),
-                    0.13,
+                    lerp(task_focus[0], relay_focus[0], 0.92),
+                    lerp(task_focus[1], relay_focus[1], 0.92),
+                    0.14,
                 )
-                camera.distance = 0.68
-                camera.azimuth = 118 + 6 * math.sin(2.0 * math.pi * plan["local_t"])
-                camera.elevation = -36
+                camera.distance = 0.58
+                camera.azimuth = 112 + 5 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -34
             else:
                 focus = (
                     lerp(relay_focus[0], operator_focus[0], 0.34),
@@ -1162,8 +1187,8 @@ def run_demo(
     summary = {
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
-        "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
+        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, visible force gauges, and relay-force bench",
+        "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs visible force-gauge handoffs, slip recovery, and 5kg load-share audits.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -1186,7 +1211,7 @@ def run_demo(
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
-        "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
+        "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and visible three-agent shared-beam force relay",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),

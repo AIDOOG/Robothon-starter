@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue ForceGauge Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -22,6 +22,7 @@
     "216-degree cap rotation",
     "9x load hold",
     "three-agent shared-beam force relay",
+    "visible three-column force gauge telemetry",
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
@@ -29,7 +30,7 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights, visible force gauges, and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,

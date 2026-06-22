@@ -1,8 +1,8 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue ForceGauge Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-  "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
-  "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
+  "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, visible force gauges, and relay-force bench",
+  "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs visible force-gauge handoffs, slip recovery, and 5kg load-share audits.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -43,7 +43,7 @@
     544
   ],
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
-  "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
+  "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and visible three-agent shared-beam force relay",
   "task_suite": {
     "task_count": 20,
     "passed": 20,
@@ -133,7 +133,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex HumanCue Force Cell",
+    "project_name": "AIDOOG RelayDex HumanCue ForceGauge Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -158,8 +158,11 @@
       "agent_count": 3,
       "target_force_n": 18.0,
       "target_mass_kg": 5.0,
-      "task_count": 12,
-      "passed": 12,
+      "force_gauge_columns": 3,
+      "force_gauge_marker_count": 9,
+      "max_force_gauge_visible_markers": 4,
+      "task_count": 13,
+      "passed": 13,
       "success_rate": 1.0,
       "max_beam_angle_abs_deg": 0.85,
       "max_force_error_n": 0.0,
@@ -215,6 +218,10 @@
         },
         {
           "name": "vision_policy_confidence_separate",
+          "passed": true
+        },
+        {
+          "name": "force_gauge_columns_visible",
           "passed": true
         }
       ],
@@ -2665,6 +2672,7 @@
       "216-degree cap rotation",
       "9x load hold",
       "three-agent shared-beam force relay",
+      "visible three-column force gauge telemetry",
       "human operator request and approval loop",
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",
@@ -2714,6 +2722,8 @@
     "relay_hold_pass",
     "relay_active_agents",
     "relay_target_mass_kg",
+    "relay_force_gauge_visible_markers",
+    "relay_force_gauge_columns",
     "operator_event",
     "operator_request_active",
     "operator_relay_ack",

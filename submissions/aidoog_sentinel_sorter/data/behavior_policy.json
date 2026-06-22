@@ -17,6 +17,7 @@
     "relay_left_force_n",
     "relay_center_force_n",
     "relay_right_force_n",
+    "relay_force_gauge_visible_markers",
     "relay_beam_angle_deg",
     "operator_event",
     "operator_request_active",
@@ -101,7 +102,7 @@
   ],
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex HumanCue Force Cell",
+    "project_name": "AIDOOG RelayDex HumanCue ForceGauge Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -126,8 +127,11 @@
       "agent_count": 3,
       "target_force_n": 18.0,
       "target_mass_kg": 5.0,
-      "task_count": 12,
-      "passed": 12,
+      "force_gauge_columns": 3,
+      "force_gauge_marker_count": 9,
+      "max_force_gauge_visible_markers": 4,
+      "task_count": 13,
+      "passed": 13,
       "success_rate": 1.0,
       "max_beam_angle_abs_deg": 0.85,
       "max_force_error_n": 0.0,
@@ -183,6 +187,10 @@
         },
         {
           "name": "vision_policy_confidence_separate",
+          "passed": true
+        },
+        {
+          "name": "force_gauge_columns_visible",
           "passed": true
         }
       ],
@@ -2633,6 +2641,7 @@
       "216-degree cap rotation",
       "9x load hold",
       "three-agent shared-beam force relay",
+      "visible three-column force gauge telemetry",
       "human operator request and approval loop",
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",

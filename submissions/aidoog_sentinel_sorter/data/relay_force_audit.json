@@ -1,12 +1,15 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue ForceGauge Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "relay_suite": {
     "agent_count": 3,
     "target_force_n": 18.0,
     "target_mass_kg": 5.0,
-    "task_count": 12,
-    "passed": 12,
+    "force_gauge_columns": 3,
+    "force_gauge_marker_count": 9,
+    "max_force_gauge_visible_markers": 4,
+    "task_count": 13,
+    "passed": 13,
     "success_rate": 1.0,
     "max_beam_angle_abs_deg": 0.85,
     "max_force_error_n": 0.0,
@@ -62,6 +65,10 @@
       },
       {
         "name": "vision_policy_confidence_separate",
+        "passed": true
+      },
+      {
+        "name": "force_gauge_columns_visible",
         "passed": true
       }
     ],
@@ -135,6 +142,7 @@
     "simulated mj_contactForce relay channels",
     "declared shared-beam qpos/qvel sensors",
     "per-agent force share log columns",
+    "visible three-column relay force gauge frame sensors",
     "operator request/acknowledgement log columns"
   ],
   "trace_sample_count": 216,

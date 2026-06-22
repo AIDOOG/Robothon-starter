@@ -1,15 +1,15 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue ForceGauge Cell",
   "target_score_band": "93-ish aspirational; measured leaderboard may vary",
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
-    "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
-    "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and 48 complex randomized scenarios",
-    "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
+    "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, a shared-beam relay bench, and dynamic relay force gauges",
+    "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay with visible force gauges, slip recovery, and 48 complex randomized scenarios",
+    "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, relay force-share coordinator, and gauge-driven force visualization",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
-    "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
+    "presentation": "36-second generated spotlight video keeps operator cues visible and shows the L->C->R relay through three dynamic force-gauge columns",
+    "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification and visible force-state telemetry"
   },
   "local_validation": {
     "triage_gates": {
@@ -103,8 +103,11 @@
       "agent_count": 3,
       "target_force_n": 18.0,
       "target_mass_kg": 5.0,
-      "task_count": 12,
-      "passed": 12,
+      "force_gauge_columns": 3,
+      "force_gauge_marker_count": 9,
+      "max_force_gauge_visible_markers": 4,
+      "task_count": 13,
+      "passed": 13,
       "success_rate": 1.0,
       "max_beam_angle_abs_deg": 0.85,
       "max_force_error_n": 0.0,
@@ -160,6 +163,10 @@
         },
         {
           "name": "vision_policy_confidence_separate",
+          "passed": true
+        },
+        {
+          "name": "force_gauge_columns_visible",
           "passed": true
         }
       ],

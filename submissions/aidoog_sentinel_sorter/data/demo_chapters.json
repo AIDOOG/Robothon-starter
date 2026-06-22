@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue ForceGauge Cell",
   "purpose": "Concise narration map for judges reviewing demo.mp4",
   "caption_style": "one-line video overlay plus optional SRT narration",
   "chapters": [
@@ -13,7 +13,7 @@
       "start_s": 12.0,
       "end_s": 24.0,
       "title": "human ack plus force relay",
-      "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay."
+      "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay with visible force gauges."
     },
     {
       "start_s": 24.0,
