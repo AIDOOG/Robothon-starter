@@ -22,27 +22,35 @@
     "216-degree cap rotation",
     "9x load hold",
     "three-agent shared-beam force relay",
+    "dynamic three-cue operator staging",
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "48-variant randomized layout suite"
+    "60-variant randomized layout suite"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+    "more_complex_randomized_layouts": 60,
+    "clearer_demo_editing": "36-second spotlight video with dynamically staged operator cue lights and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
       "visual_cue_count": 3,
-      "task_count": 8,
-      "passed": 8,
+      "signal_stage_count": 3,
+      "task_count": 10,
+      "passed": 10,
       "success_rate": 1.0,
       "operator_events": [
         "operator_acknowledges_force_relay",
         "operator_approves_randomized_recovery",
         "operator_requests_capsule_twist"
       ],
+      "operator_signal_stages": [
+        "request",
+        "request_ack",
+        "request_ack_recovery"
+      ],
+      "max_visual_cues_lit": 3,
       "min_operator_confidence": 0.965,
       "checks": [
         {
@@ -76,6 +84,14 @@
         {
           "name": "operator_relay_recovery_story_complete",
           "passed": true
+        },
+        {
+          "name": "dynamic_cue_stages_complete",
+          "passed": true
+        },
+        {
+          "name": "cue_lights_progress_1_to_3",
+          "passed": true
         }
       ]
     },
@@ -88,7 +104,10 @@
       "slip_recovery_disturbance",
       "rotated_bin_map",
       "moving_relay_load",
-      "low_light_classifier"
+      "low_light_classifier",
+      "operator_override_queue",
+      "mirrored_bin_recovery",
+      "triple_decoy_shadow"
     ]
   }
 }

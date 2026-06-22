@@ -1,7 +1,7 @@
 {
   "name": "AIDOOG RelayDex complex randomized layout validation set",
   "layout_seed_used_for_demo": 7,
-  "variant_count": 48,
+  "variant_count": 60,
   "jitter_range_m": [
     -0.032,
     0.032
@@ -15,13 +15,16 @@
     "slip_recovery_disturbance",
     "rotated_bin_map",
     "moving_relay_load",
-    "low_light_classifier"
+    "low_light_classifier",
+    "operator_override_queue",
+    "mirrored_bin_recovery",
+    "triple_decoy_shadow"
   ],
   "scenario_suite": {
-    "variant_count": 48,
-    "profile_count": 9,
-    "task_count": 192,
-    "passed": 192,
+    "variant_count": 60,
+    "profile_count": 12,
+    "task_count": 240,
+    "passed": 240,
     "success_rate": 1.0,
     "profiles": [
       "occluded_cross_aisle",
@@ -32,7 +35,10 @@
       "slip_recovery_disturbance",
       "rotated_bin_map",
       "moving_relay_load",
-      "low_light_classifier"
+      "low_light_classifier",
+      "operator_override_queue",
+      "mirrored_bin_recovery",
+      "triple_decoy_shadow"
     ],
     "checks": [
       {
@@ -802,6 +808,198 @@
       {
         "name": "seed_54_decoys_at_least_10",
         "passed": true
+      },
+      {
+        "name": "seed_55_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_55_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_55_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_55_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_56_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_56_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_56_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_56_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_57_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_57_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_57_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_57_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_58_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_58_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_58_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_58_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_59_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_59_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_59_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_59_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_60_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_60_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_60_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_60_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_61_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_61_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_61_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_61_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_62_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_62_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_62_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_62_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_63_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_63_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_63_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_63_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_64_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_64_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_64_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_64_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_65_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_65_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_65_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_65_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_66_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_66_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_66_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_66_decoys_at_least_10",
+        "passed": true
       }
     ]
   },
@@ -930,7 +1128,7 @@
     },
     {
       "seed": 9,
-      "profile": "occluded_cross_aisle",
+      "profile": "operator_override_queue",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -991,7 +1189,7 @@
     },
     {
       "seed": 10,
-      "profile": "dual_decoy_capsule",
+      "profile": "mirrored_bin_recovery",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1052,7 +1250,7 @@
     },
     {
       "seed": 11,
-      "profile": "tight_bin_clearance",
+      "profile": "triple_decoy_shadow",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -1113,7 +1311,7 @@
     },
     {
       "seed": 12,
-      "profile": "relay_mass_sweep",
+      "profile": "occluded_cross_aisle",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -1174,7 +1372,7 @@
     },
     {
       "seed": 13,
-      "profile": "staggered_pick_field",
+      "profile": "dual_decoy_capsule",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1235,7 +1433,7 @@
     },
     {
       "seed": 14,
-      "profile": "slip_recovery_disturbance",
+      "profile": "tight_bin_clearance",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -1296,7 +1494,7 @@
     },
     {
       "seed": 15,
-      "profile": "rotated_bin_map",
+      "profile": "relay_mass_sweep",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -1357,7 +1555,7 @@
     },
     {
       "seed": 16,
-      "profile": "moving_relay_load",
+      "profile": "staggered_pick_field",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1418,7 +1616,7 @@
     },
     {
       "seed": 17,
-      "profile": "low_light_classifier",
+      "profile": "slip_recovery_disturbance",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -1479,7 +1677,7 @@
     },
     {
       "seed": 18,
-      "profile": "occluded_cross_aisle",
+      "profile": "rotated_bin_map",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -1540,7 +1738,7 @@
     },
     {
       "seed": 19,
-      "profile": "dual_decoy_capsule",
+      "profile": "moving_relay_load",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1601,7 +1799,7 @@
     },
     {
       "seed": 20,
-      "profile": "tight_bin_clearance",
+      "profile": "low_light_classifier",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -1662,7 +1860,7 @@
     },
     {
       "seed": 21,
-      "profile": "relay_mass_sweep",
+      "profile": "operator_override_queue",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -1723,7 +1921,7 @@
     },
     {
       "seed": 22,
-      "profile": "staggered_pick_field",
+      "profile": "mirrored_bin_recovery",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1784,7 +1982,7 @@
     },
     {
       "seed": 23,
-      "profile": "slip_recovery_disturbance",
+      "profile": "triple_decoy_shadow",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -1845,7 +2043,7 @@
     },
     {
       "seed": 24,
-      "profile": "rotated_bin_map",
+      "profile": "occluded_cross_aisle",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -1906,7 +2104,7 @@
     },
     {
       "seed": 25,
-      "profile": "moving_relay_load",
+      "profile": "dual_decoy_capsule",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -1967,7 +2165,7 @@
     },
     {
       "seed": 26,
-      "profile": "low_light_classifier",
+      "profile": "tight_bin_clearance",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -2028,7 +2226,7 @@
     },
     {
       "seed": 27,
-      "profile": "occluded_cross_aisle",
+      "profile": "relay_mass_sweep",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -2089,7 +2287,7 @@
     },
     {
       "seed": 28,
-      "profile": "dual_decoy_capsule",
+      "profile": "staggered_pick_field",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -2150,7 +2348,7 @@
     },
     {
       "seed": 29,
-      "profile": "tight_bin_clearance",
+      "profile": "slip_recovery_disturbance",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -2211,7 +2409,7 @@
     },
     {
       "seed": 30,
-      "profile": "relay_mass_sweep",
+      "profile": "rotated_bin_map",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -2272,7 +2470,7 @@
     },
     {
       "seed": 31,
-      "profile": "staggered_pick_field",
+      "profile": "moving_relay_load",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -2333,7 +2531,7 @@
     },
     {
       "seed": 32,
-      "profile": "slip_recovery_disturbance",
+      "profile": "low_light_classifier",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -2394,7 +2592,7 @@
     },
     {
       "seed": 33,
-      "profile": "rotated_bin_map",
+      "profile": "operator_override_queue",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -2455,7 +2653,7 @@
     },
     {
       "seed": 34,
-      "profile": "moving_relay_load",
+      "profile": "mirrored_bin_recovery",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -2516,7 +2714,7 @@
     },
     {
       "seed": 35,
-      "profile": "low_light_classifier",
+      "profile": "triple_decoy_shadow",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -3126,7 +3324,7 @@
     },
     {
       "seed": 45,
-      "profile": "occluded_cross_aisle",
+      "profile": "operator_override_queue",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -3187,7 +3385,7 @@
     },
     {
       "seed": 46,
-      "profile": "dual_decoy_capsule",
+      "profile": "mirrored_bin_recovery",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -3248,7 +3446,7 @@
     },
     {
       "seed": 47,
-      "profile": "tight_bin_clearance",
+      "profile": "triple_decoy_shadow",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -3309,7 +3507,7 @@
     },
     {
       "seed": 48,
-      "profile": "relay_mass_sweep",
+      "profile": "occluded_cross_aisle",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -3370,7 +3568,7 @@
     },
     {
       "seed": 49,
-      "profile": "staggered_pick_field",
+      "profile": "dual_decoy_capsule",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -3431,7 +3629,7 @@
     },
     {
       "seed": 50,
-      "profile": "slip_recovery_disturbance",
+      "profile": "tight_bin_clearance",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -3492,7 +3690,7 @@
     },
     {
       "seed": 51,
-      "profile": "rotated_bin_map",
+      "profile": "relay_mass_sweep",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -3553,7 +3751,7 @@
     },
     {
       "seed": 52,
-      "profile": "moving_relay_load",
+      "profile": "staggered_pick_field",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 17,
@@ -3614,7 +3812,7 @@
     },
     {
       "seed": 53,
-      "profile": "low_light_classifier",
+      "profile": "slip_recovery_disturbance",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 18,
@@ -3675,7 +3873,7 @@
     },
     {
       "seed": 54,
-      "profile": "occluded_cross_aisle",
+      "profile": "rotated_bin_map",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 16,
@@ -3701,6 +3899,738 @@
         "green_sphere": [
           -0.1093,
           -0.3038,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 55,
+      "profile": "moving_relay_load",
+      "layout_complexity_score": 0.91,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 17,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.0987,
+          0.0057,
+          0.052
+        ],
+        "red_cube": [
+          -0.378,
+          -0.1793,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3605,
+          0.1782,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1069,
+          -0.2634,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 56,
+      "profile": "low_light_classifier",
+      "layout_complexity_score": 0.82,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 18,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.1055,
+          -0.0519,
+          0.052
+        ],
+        "red_cube": [
+          -0.3292,
+          -0.1446,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3572,
+          0.1421,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1132,
+          -0.298,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 57,
+      "profile": "operator_override_queue",
+      "layout_complexity_score": 0.835,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 16,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.1082,
+          -0.026,
+          0.052
+        ],
+        "red_cube": [
+          -0.3382,
+          -0.1662,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3668,
+          0.134,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1245,
+          -0.2715,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 58,
+      "profile": "mirrored_bin_recovery",
+      "layout_complexity_score": 0.85,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 17,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.027,
+      "min_clearance_m": 0.033,
+      "starts": {
+        "amber_capsule": [
+          -0.1322,
+          -0.0027,
+          0.052
+        ],
+        "red_cube": [
+          -0.3764,
+          -0.1717,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3379,
+          0.13,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1325,
+          -0.3061,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 59,
+      "profile": "triple_decoy_shadow",
+      "layout_complexity_score": 0.865,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 18,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.03,
+      "min_clearance_m": 0.03,
+      "starts": {
+        "amber_capsule": [
+          -0.1144,
+          -0.0091,
+          0.052
+        ],
+        "red_cube": [
+          -0.3845,
+          -0.1578,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3801,
+          0.1283,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1516,
+          -0.2498,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 60,
+      "profile": "occluded_cross_aisle",
+      "layout_complexity_score": 0.88,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 16,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.1312,
+          -0.0483,
+          0.052
+        ],
+        "red_cube": [
+          -0.3885,
+          -0.1306,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3367,
+          0.1652,
+          0.052
+        ],
+        "green_sphere": [
+          -0.09,
+          -0.2605,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 61,
+      "profile": "dual_decoy_capsule",
+      "layout_complexity_score": 0.895,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 17,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.128,
+          -0.0036,
+          0.052
+        ],
+        "red_cube": [
+          -0.349,
+          -0.1456,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3642,
+          0.1908,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0881,
+          -0.2603,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 62,
+      "profile": "tight_bin_clearance",
+      "layout_complexity_score": 0.91,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 18,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.113,
+          -0.0081,
+          0.052
+        ],
+        "red_cube": [
+          -0.342,
+          -0.1696,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3476,
+          0.1833,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1191,
+          -0.2621,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 63,
+      "profile": "relay_mass_sweep",
+      "layout_complexity_score": 0.82,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 16,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.027,
+      "min_clearance_m": 0.033,
+      "starts": {
+        "amber_capsule": [
+          -0.1162,
+          0.0045,
+          0.052
+        ],
+        "red_cube": [
+          -0.3794,
+          -0.1527,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3792,
+          0.132,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1285,
+          -0.2966,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 64,
+      "profile": "staggered_pick_field",
+      "layout_complexity_score": 0.835,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 17,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.03,
+      "min_clearance_m": 0.03,
+      "starts": {
+        "amber_capsule": [
+          -0.0916,
+          -0.0285,
+          0.052
+        ],
+        "red_cube": [
+          -0.3878,
+          -0.1616,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3371,
+          0.1234,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0889,
+          -0.272,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 65,
+      "profile": "slip_recovery_disturbance",
+      "layout_complexity_score": 0.85,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 18,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.149,
+          -0.0168,
+          0.052
+        ],
+        "red_cube": [
+          -0.368,
+          -0.1794,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3317,
+          0.168,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1342,
+          -0.3212,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 66,
+      "profile": "rotated_bin_map",
+      "layout_complexity_score": 0.865,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 16,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.0929,
+          -0.0087,
+          0.052
+        ],
+        "red_cube": [
+          -0.3873,
+          -0.151,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3618,
+          0.1813,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1454,
+          -0.293,
           0.052
         ]
       },
