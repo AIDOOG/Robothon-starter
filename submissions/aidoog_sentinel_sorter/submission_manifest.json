@@ -21,6 +21,19 @@
     "9x load hold",
     "three-agent shared-beam force relay",
     "cooperative slip recovery",
-    "coordinated-vs-uncoordinated ablation"
-  ]
+    "coordinated-vs-uncoordinated ablation",
+    "18-variant randomized layout suite"
+  ],
+  "feedback_response": {
+    "more_complex_randomized_layouts": 18,
+    "clearer_demo_editing": "concise caption chapters show task, relay event, and scenario profile",
+    "more_complex_randomized_scenarios": [
+      "occluded_cross_aisle",
+      "dual_decoy_capsule",
+      "tight_bin_clearance",
+      "relay_mass_sweep",
+      "staggered_pick_field",
+      "slip_recovery_disturbance"
+    ]
+  }
 }

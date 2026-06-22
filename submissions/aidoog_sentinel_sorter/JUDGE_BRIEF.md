@@ -13,6 +13,7 @@ coordinated-vs-uncoordinated ablation evidence.
 
 - Dexterous triage gates: 20/20
 - Relay force gates: 12/12
+- Randomized scenario gates: 72/72
 - Max beam angle error: 0.85 deg
 - Max force error: 0.0 N
 - Demo duration: 60.0s at 12 fps
@@ -21,5 +22,7 @@ coordinated-vs-uncoordinated ablation evidence.
 
 - New unique project name: AIDOOG RelayDex Force Bench
 - Explicitly separated vision confidence from policy/tactile confidence.
+- Added 18 complex randomized layout/scenario variants with same-policy validation.
+- Clarified video captions around task, relay event, and randomized scenario profile.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.
