@@ -1,10 +1,10 @@
-# AIDOOG RelayDex HumanCue Force Cell
+# AIDOOG RelayDex HumanCue Spotlight Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG RelayDex HumanCue Force Cell
+AIDOOG RelayDex HumanCue Spotlight Cell
 
 ## Robot platform
 
