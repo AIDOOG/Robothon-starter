@@ -17,14 +17,14 @@ The robot must autonomously triage four object types from randomized pick layout
 - 20/20 dexterous triage gates: amber capsule, red cube, blue cylinder, and green sphere.
 - Five-finger tactile closure, 216-degree cap rotation, 0.36mm slip recovery, and 9x load hold.
 - Three-agent force relay: left -> center -> right handoff, cooperative slip recovery, 5kg beam mass sweep, and coordinated-vs-uncoordinated ablation.
-- 18 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, and slip-recovery disturbances.
+- 36 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, slip-recovery disturbances, rotated bin maps, moving relay loads, and low-light classifier tests.
 
 The run still leads with the highest-value AIDOOG evidence: classify the amber capsule, align through a randomized scenario profile, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. In parallel, the relay bench records three independent force channels, shared-beam angle, hold checks, and slip-recovery events. Vision confidence and policy/tactile confidence are logged as separate channels.
 
 ## Technical approach
 
 - `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, object frame-position sensors, and a visible shared-beam relay bench.
-- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, 18-profile randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
+- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, 36-scenario randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, `data/randomized_layouts.json`, `data/relay_force_audit.json`, `data/rubric_scorecard.json`, `submission_manifest.json`, and `JUDGE_BRIEF.md` for reproducibility, scoring evidence, and dataset review.
 
@@ -37,7 +37,8 @@ The run still leads with the highest-value AIDOOG evidence: classify the amber c
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - 12-gate relay-force audit reported in `data/relay_force_audit.json`.
-- 72-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
+- 144-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
+- Concise narration map in `data/demo_chapters.json` and optional subtitles in `demo_narration.srt`.
 - Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
@@ -86,6 +87,8 @@ submissions/aidoog_sentinel_sorter/data/behavior_policy.json
 submissions/aidoog_sentinel_sorter/data/randomized_layouts.json
 submissions/aidoog_sentinel_sorter/data/relay_force_audit.json
 submissions/aidoog_sentinel_sorter/data/rubric_scorecard.json
+submissions/aidoog_sentinel_sorter/data/demo_chapters.json
+submissions/aidoog_sentinel_sorter/demo_narration.srt
 submissions/aidoog_sentinel_sorter/submission_manifest.json
 submissions/aidoog_sentinel_sorter/JUDGE_BRIEF.md
 ```

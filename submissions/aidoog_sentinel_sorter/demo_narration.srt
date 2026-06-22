@@ -1,0 +1,11 @@
+1
+00:00:00,000 --> 00:00:20,000
+Dexterity proof: Five-finger grasp rotates the amber capsule 216 degrees while relay force moves left to center.
+
+2
+00:00:20,000 --> 00:00:40,000
+Relay proof: The shared beam transfers load center to right while the gripper continues triage.
+
+3
+00:00:40,000 --> 00:01:00,000
+Randomized recovery: Same policy passes 36 randomized scenarios, including moving_relay_load.

@@ -11,6 +11,8 @@
     "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
     "relay_force_audit": "submissions/aidoog_sentinel_sorter/data/relay_force_audit.json",
     "rubric_scorecard": "submissions/aidoog_sentinel_sorter/data/rubric_scorecard.json",
+    "demo_chapters": "submissions/aidoog_sentinel_sorter/data/demo_chapters.json",
+    "demo_narration_srt": "submissions/aidoog_sentinel_sorter/demo_narration.srt",
     "judge_brief": "submissions/aidoog_sentinel_sorter/JUDGE_BRIEF.md"
   },
   "headline_evidence": [
@@ -25,7 +27,7 @@
     "18-variant randomized layout suite"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 18,
+    "more_complex_randomized_layouts": 36,
     "clearer_demo_editing": "concise caption chapters show task, relay event, and scenario profile",
     "more_complex_randomized_scenarios": [
       "occluded_cross_aisle",
@@ -33,7 +35,10 @@
       "tight_bin_clearance",
       "relay_mass_sweep",
       "staggered_pick_field",
-      "slip_recovery_disturbance"
+      "slip_recovery_disturbance",
+      "rotated_bin_map",
+      "moving_relay_load",
+      "low_light_classifier"
     ]
   }
 }

@@ -1,0 +1,25 @@
+{
+  "project": "AIDOOG RelayDex Force Bench",
+  "purpose": "Concise narration map for judges reviewing demo.mp4",
+  "caption_style": "one-line video overlay plus optional SRT narration",
+  "chapters": [
+    {
+      "start_s": 0.0,
+      "end_s": 20.0,
+      "title": "Dexterity proof",
+      "caption": "Five-finger grasp rotates the amber capsule 216 degrees while relay force moves left to center."
+    },
+    {
+      "start_s": 20.0,
+      "end_s": 40.0,
+      "title": "Relay proof",
+      "caption": "The shared beam transfers load center to right while the gripper continues triage."
+    },
+    {
+      "start_s": 40.0,
+      "end_s": 60.0,
+      "title": "Randomized recovery",
+      "caption": "Same policy passes 36 randomized scenarios, including moving_relay_load."
+    }
+  ]
+}

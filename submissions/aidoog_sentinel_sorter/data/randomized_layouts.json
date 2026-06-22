@@ -1,7 +1,7 @@
 {
   "name": "AIDOOG RelayDex complex randomized layout validation set",
   "layout_seed_used_for_demo": 7,
-  "variant_count": 18,
+  "variant_count": 36,
   "jitter_range_m": [
     -0.032,
     0.032
@@ -12,13 +12,16 @@
     "tight_bin_clearance",
     "relay_mass_sweep",
     "staggered_pick_field",
-    "slip_recovery_disturbance"
+    "slip_recovery_disturbance",
+    "rotated_bin_map",
+    "moving_relay_load",
+    "low_light_classifier"
   ],
   "scenario_suite": {
-    "variant_count": 18,
-    "profile_count": 6,
-    "task_count": 72,
-    "passed": 72,
+    "variant_count": 36,
+    "profile_count": 9,
+    "task_count": 144,
+    "passed": 144,
     "success_rate": 1.0,
     "profiles": [
       "occluded_cross_aisle",
@@ -26,7 +29,10 @@
       "tight_bin_clearance",
       "relay_mass_sweep",
       "staggered_pick_field",
-      "slip_recovery_disturbance"
+      "slip_recovery_disturbance",
+      "rotated_bin_map",
+      "moving_relay_load",
+      "low_light_classifier"
     ],
     "checks": [
       {
@@ -316,13 +322,301 @@
       {
         "name": "seed_24_decoys_at_least_10",
         "passed": true
+      },
+      {
+        "name": "seed_25_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_25_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_25_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_25_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_26_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_26_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_26_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_26_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_27_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_27_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_27_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_27_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_28_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_28_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_28_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_28_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_29_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_29_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_29_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_29_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_30_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_30_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_30_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_30_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_31_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_31_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_31_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_31_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_32_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_32_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_32_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_32_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_33_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_33_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_33_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_33_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_34_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_34_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_34_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_34_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_35_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_35_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_35_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_35_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_36_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_36_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_36_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_36_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_37_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_37_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_37_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_37_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_38_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_38_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_38_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_38_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_39_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_39_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_39_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_39_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_40_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_40_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_40_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_40_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_41_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_41_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_41_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_41_decoys_at_least_10",
+        "passed": true
+      },
+      {
+        "name": "seed_42_same_policy",
+        "passed": true
+      },
+      {
+        "name": "seed_42_complexity_above_0p82",
+        "passed": true
+      },
+      {
+        "name": "seed_42_clearance_positive",
+        "passed": true
+      },
+      {
+        "name": "seed_42_decoys_at_least_10",
+        "passed": true
       }
     ]
   },
   "variants": [
     {
       "seed": 7,
-      "profile": "dual_decoy_capsule",
+      "profile": "moving_relay_load",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 11,
@@ -383,7 +677,7 @@
     },
     {
       "seed": 8,
-      "profile": "tight_bin_clearance",
+      "profile": "low_light_classifier",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 12,
@@ -444,7 +738,7 @@
     },
     {
       "seed": 9,
-      "profile": "relay_mass_sweep",
+      "profile": "occluded_cross_aisle",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 10,
@@ -505,7 +799,7 @@
     },
     {
       "seed": 10,
-      "profile": "staggered_pick_field",
+      "profile": "dual_decoy_capsule",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 11,
@@ -566,7 +860,7 @@
     },
     {
       "seed": 11,
-      "profile": "slip_recovery_disturbance",
+      "profile": "tight_bin_clearance",
       "layout_complexity_score": 0.88,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 12,
@@ -627,7 +921,7 @@
     },
     {
       "seed": 12,
-      "profile": "occluded_cross_aisle",
+      "profile": "relay_mass_sweep",
       "layout_complexity_score": 0.895,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 10,
@@ -688,7 +982,7 @@
     },
     {
       "seed": 13,
-      "profile": "dual_decoy_capsule",
+      "profile": "staggered_pick_field",
       "layout_complexity_score": 0.91,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 11,
@@ -749,7 +1043,7 @@
     },
     {
       "seed": 14,
-      "profile": "tight_bin_clearance",
+      "profile": "slip_recovery_disturbance",
       "layout_complexity_score": 0.82,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 12,
@@ -810,7 +1104,7 @@
     },
     {
       "seed": 15,
-      "profile": "relay_mass_sweep",
+      "profile": "rotated_bin_map",
       "layout_complexity_score": 0.835,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 10,
@@ -871,7 +1165,7 @@
     },
     {
       "seed": 16,
-      "profile": "staggered_pick_field",
+      "profile": "moving_relay_load",
       "layout_complexity_score": 0.85,
       "virtual_decoy_count": 5,
       "randomized_distractor_count": 11,
@@ -932,7 +1226,7 @@
     },
     {
       "seed": 17,
-      "profile": "slip_recovery_disturbance",
+      "profile": "low_light_classifier",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 6,
       "randomized_distractor_count": 12,
@@ -1359,7 +1653,7 @@
     },
     {
       "seed": 24,
-      "profile": "occluded_cross_aisle",
+      "profile": "rotated_bin_map",
       "layout_complexity_score": 0.865,
       "virtual_decoy_count": 4,
       "randomized_distractor_count": 10,
@@ -1385,6 +1679,1104 @@
         "green_sphere": [
           -0.0961,
           -0.3065,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 25,
+      "profile": "moving_relay_load",
+      "layout_complexity_score": 0.88,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.1417,
+          -0.05,
+          0.052
+        ],
+        "red_cube": [
+          -0.3781,
+          -0.1704,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3919,
+          0.1424,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0886,
+          -0.2736,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 26,
+      "profile": "low_light_classifier",
+      "layout_complexity_score": 0.895,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.1205,
+          -0.038,
+          0.052
+        ],
+        "red_cube": [
+          -0.3877,
+          -0.1454,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.34,
+          0.1621,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1114,
+          -0.3102,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 27,
+      "profile": "occluded_cross_aisle",
+      "layout_complexity_score": 0.91,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.1073,
+          -0.0359,
+          0.052
+        ],
+        "red_cube": [
+          -0.3842,
+          -0.1673,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3324,
+          0.1745,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1514,
+          -0.3053,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 28,
+      "profile": "dual_decoy_capsule",
+      "layout_complexity_score": 0.82,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.027,
+      "min_clearance_m": 0.033,
+      "starts": {
+        "amber_capsule": [
+          -0.0975,
+          -0.0024,
+          0.052
+        ],
+        "red_cube": [
+          -0.343,
+          -0.1829,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3888,
+          0.1421,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0959,
+          -0.2541,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 29,
+      "profile": "tight_bin_clearance",
+      "layout_complexity_score": 0.835,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.03,
+      "min_clearance_m": 0.03,
+      "starts": {
+        "amber_capsule": [
+          -0.1488,
+          -0.0296,
+          0.052
+        ],
+        "red_cube": [
+          -0.3588,
+          -0.165,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3837,
+          0.1193,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1268,
+          -0.2877,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 30,
+      "profile": "relay_mass_sweep",
+      "layout_complexity_score": 0.85,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.1369,
+          -0.0225,
+          0.052
+        ],
+        "red_cube": [
+          -0.3861,
+          -0.1561,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3419,
+          0.1855,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1311,
+          -0.317,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 31,
+      "profile": "staggered_pick_field",
+      "layout_complexity_score": 0.865,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.0942,
+          -0.0487,
+          0.052
+        ],
+        "red_cube": [
+          -0.3489,
+          -0.1608,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3486,
+          0.1295,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1487,
+          -0.3097,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 32,
+      "profile": "slip_recovery_disturbance",
+      "layout_complexity_score": 0.88,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.1417,
+          -0.0194,
+          0.052
+        ],
+        "red_cube": [
+          -0.3679,
+          -0.1673,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3481,
+          0.1862,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0901,
+          -0.275,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 33,
+      "profile": "rotated_bin_map",
+      "layout_complexity_score": 0.895,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.027,
+      "min_clearance_m": 0.033,
+      "starts": {
+        "amber_capsule": [
+          -0.1236,
+          -0.0226,
+          0.052
+        ],
+        "red_cube": [
+          -0.3339,
+          -0.1687,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3543,
+          0.144,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1036,
+          -0.2802,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 34,
+      "profile": "moving_relay_load",
+      "layout_complexity_score": 0.91,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.03,
+      "min_clearance_m": 0.03,
+      "starts": {
+        "amber_capsule": [
+          -0.1517,
+          -0.0062,
+          0.052
+        ],
+        "red_cube": [
+          -0.3765,
+          -0.1403,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.361,
+          0.1685,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0956,
+          -0.2544,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 35,
+      "profile": "low_light_classifier",
+      "layout_complexity_score": 0.82,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.1304,
+          -0.0207,
+          0.052
+        ],
+        "red_cube": [
+          -0.3322,
+          -0.1334,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3858,
+          0.1301,
+          0.052
+        ],
+        "green_sphere": [
+          -0.123,
+          -0.2659,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 36,
+      "profile": "occluded_cross_aisle",
+      "layout_complexity_score": 0.835,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.1404,
+          -0.0275,
+          0.052
+        ],
+        "red_cube": [
+          -0.3348,
+          -0.1652,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3483,
+          0.1597,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1177,
+          -0.265,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 37,
+      "profile": "dual_decoy_capsule",
+      "layout_complexity_score": 0.85,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.1069,
+          -0.0137,
+          0.052
+        ],
+        "red_cube": [
+          -0.3876,
+          -0.143,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3716,
+          0.1528,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0892,
+          -0.3139,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 38,
+      "profile": "tight_bin_clearance",
+      "layout_complexity_score": 0.865,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.027,
+      "min_clearance_m": 0.033,
+      "starts": {
+        "amber_capsule": [
+          -0.1209,
+          -0.043,
+          0.052
+        ],
+        "red_cube": [
+          -0.3459,
+          -0.1444,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3323,
+          0.1235,
+          0.052
+        ],
+        "green_sphere": [
+          -0.0986,
+          -0.2832,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 39,
+      "profile": "relay_mass_sweep",
+      "layout_complexity_score": 0.88,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 5.0,
+      "route_narrowing_m": 0.03,
+      "min_clearance_m": 0.03,
+      "starts": {
+        "amber_capsule": [
+          -0.1199,
+          -0.0275,
+          0.052
+        ],
+        "red_cube": [
+          -0.3833,
+          -0.1624,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3549,
+          0.1686,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1423,
+          -0.2973,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 40,
+      "profile": "staggered_pick_field",
+      "layout_complexity_score": 0.895,
+      "virtual_decoy_count": 5,
+      "randomized_distractor_count": 11,
+      "relay_mass_kg": 0.25,
+      "route_narrowing_m": 0.018,
+      "min_clearance_m": 0.042,
+      "starts": {
+        "amber_capsule": [
+          -0.1053,
+          -0.0056,
+          0.052
+        ],
+        "red_cube": [
+          -0.3317,
+          -0.1902,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3478,
+          0.189,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1216,
+          -0.3023,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 41,
+      "profile": "slip_recovery_disturbance",
+      "layout_complexity_score": 0.91,
+      "virtual_decoy_count": 6,
+      "randomized_distractor_count": 12,
+      "relay_mass_kg": 1.0,
+      "route_narrowing_m": 0.021,
+      "min_clearance_m": 0.039,
+      "starts": {
+        "amber_capsule": [
+          -0.0909,
+          -0.0039,
+          0.052
+        ],
+        "red_cube": [
+          -0.3839,
+          -0.1381,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.3377,
+          0.1494,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1193,
+          -0.2824,
+          0.052
+        ]
+      },
+      "validated_with_same_policy": true,
+      "object_types": {
+        "amber_capsule": "capsule",
+        "red_cube": "cube",
+        "blue_cylinder": "cylinder",
+        "green_sphere": "sphere"
+      },
+      "targets": {
+        "amber_capsule": [
+          0.42,
+          0.0,
+          0.058
+        ],
+        "red_cube": [
+          0.42,
+          -0.23,
+          0.058
+        ],
+        "blue_cylinder": [
+          0.42,
+          0.23,
+          0.058
+        ],
+        "green_sphere": [
+          0.16,
+          -0.31,
+          0.058
+        ]
+      }
+    },
+    {
+      "seed": 42,
+      "profile": "rotated_bin_map",
+      "layout_complexity_score": 0.82,
+      "virtual_decoy_count": 4,
+      "randomized_distractor_count": 10,
+      "relay_mass_kg": 2.5,
+      "route_narrowing_m": 0.024,
+      "min_clearance_m": 0.036,
+      "starts": {
+        "amber_capsule": [
+          -0.1025,
+          -0.0279,
+          0.052
+        ],
+        "red_cube": [
+          -0.337,
+          -0.1434,
+          0.052
+        ],
+        "blue_cylinder": [
+          -0.386,
+          0.1864,
+          0.052
+        ],
+        "green_sphere": [
+          -0.1033,
+          -0.2677,
           0.052
         ]
       },
