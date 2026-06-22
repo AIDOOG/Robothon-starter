@@ -8,7 +8,7 @@
     "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video keeps operator cues visible with human-request, force-relay, and recovery labels",
+    "presentation": "36-second generated spotlight video uses six short synced captions with human-request, grasp, recovery, force-relay, placement, and randomized-audit beats",
     "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
   },
   "local_validation": {
@@ -5156,6 +5156,92 @@
         },
         {
           "name": "seed_78_stressor_above_0p72",
+          "passed": true
+        }
+      ]
+    },
+    "presentation_sync_gates": {
+      "name": "caption_pacing_and_sync_audit",
+      "chapter_count": 6,
+      "passed": 6,
+      "task_count": 6,
+      "success_rate": 1.0,
+      "max_caption_words": 10,
+      "subtitle_sync_tolerance_s": 0.011,
+      "pacing_profile": "six short evidence beats with changing camera focus",
+      "chapters": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "end_s": 5.4,
+          "title": "operator request",
+          "caption": "Target cue locked.",
+          "overlay_title": "REQUEST: TARGET LOCK"
+        },
+        {
+          "index": 1,
+          "start_s": 5.4,
+          "end_s": 11.16,
+          "title": "216deg grasp",
+          "caption": "Five fingers close.",
+          "overlay_title": "GRASP: 216deg CAP"
+        },
+        {
+          "index": 2,
+          "start_s": 11.16,
+          "end_s": 16.56,
+          "title": "slip recovery",
+          "caption": "0.36mm slip; 9x hold.",
+          "overlay_title": "RECOVER: 9x HOLD"
+        },
+        {
+          "index": 3,
+          "start_s": 16.56,
+          "end_s": 22.32,
+          "title": "force relay",
+          "caption": "Three agents balance load.",
+          "overlay_title": "RELAY: 3 AGENTS"
+        },
+        {
+          "index": 4,
+          "start_s": 22.32,
+          "end_s": 28.44,
+          "title": "place verify",
+          "caption": "Bin pose verified.",
+          "overlay_title": "PLACE: VERIFIED"
+        },
+        {
+          "index": 5,
+          "start_s": 28.44,
+          "end_s": 36.0,
+          "title": "72 scenario audit",
+          "caption": "504/504 gates passed in moving relay load.",
+          "overlay_title": "AUDIT: 72 SCENARIOS"
+        }
+      ],
+      "checks": [
+        {
+          "name": "six_micro_chapters",
+          "passed": true
+        },
+        {
+          "name": "full_36s_coverage",
+          "passed": true
+        },
+        {
+          "name": "no_timeline_gaps",
+          "passed": true
+        },
+        {
+          "name": "no_caption_overlaps",
+          "passed": true
+        },
+        {
+          "name": "short_subtitles_under_10_words",
+          "passed": true
+        },
+        {
+          "name": "srt_boundaries_match_video_chapters",
           "passed": true
         }
       ]

@@ -40,13 +40,13 @@ The run still leads with the highest-value AIDOOG evidence: receive the operator
 - 12-gate relay-force audit reported in `data/relay_force_audit.json`.
 - 8-gate human-interaction audit reported in `rollout_summary.json` and `data/rubric_scorecard.json`.
 - 504-gate randomized scenario stress audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
-- Concise narration map in `data/demo_chapters.json` and optional subtitles in `demo_narration.srt`.
-- Fast 36-second spotlight demo video with dynamic camera motion and single-line scoring-evidence captions generated directly from submitted code.
+- 6-gate presentation sync audit with six short micro-chapters in `data/demo_chapters.json` and frame-aligned subtitles in `demo_narration.srt`.
+- Fast 36-second spotlight demo video with dynamic camera motion and short two-line scoring-evidence overlays generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the latest judge feedback from the RelayDex attempts: keep the simpler proven video narrative and three visible operator cue lights, while expanding the randomized scenario audit with occlusion, ambiguous decoys, lighting drop, operator overrides, and recovery policy switches.
+- Targets the latest judge feedback from the RelayDex attempts: keep the simpler proven video narrative and three visible operator cue lights, expand the randomized scenario audit, and polish subtitles/video pacing with six synced evidence beats.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 

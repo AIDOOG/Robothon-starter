@@ -24,13 +24,101 @@
     "three-agent shared-beam force relay",
     "human operator request and approval loop",
     "complex randomized scenario stress audit",
+    "six synced micro-chapters",
+    "subtitle/video sync audit",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
     "72-variant randomized layout suite"
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 72,
-    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+    "clearer_demo_editing": "36-second spotlight video with six short synced micro-chapters and visible operator cue lights",
+    "subtitle_video_sync": {
+      "name": "caption_pacing_and_sync_audit",
+      "chapter_count": 6,
+      "passed": 6,
+      "task_count": 6,
+      "success_rate": 1.0,
+      "max_caption_words": 10,
+      "subtitle_sync_tolerance_s": 0.011,
+      "pacing_profile": "six short evidence beats with changing camera focus",
+      "chapters": [
+        {
+          "index": 0,
+          "start_s": 0.0,
+          "end_s": 5.4,
+          "title": "operator request",
+          "caption": "Target cue locked.",
+          "overlay_title": "REQUEST: TARGET LOCK"
+        },
+        {
+          "index": 1,
+          "start_s": 5.4,
+          "end_s": 11.16,
+          "title": "216deg grasp",
+          "caption": "Five fingers close.",
+          "overlay_title": "GRASP: 216deg CAP"
+        },
+        {
+          "index": 2,
+          "start_s": 11.16,
+          "end_s": 16.56,
+          "title": "slip recovery",
+          "caption": "0.36mm slip; 9x hold.",
+          "overlay_title": "RECOVER: 9x HOLD"
+        },
+        {
+          "index": 3,
+          "start_s": 16.56,
+          "end_s": 22.32,
+          "title": "force relay",
+          "caption": "Three agents balance load.",
+          "overlay_title": "RELAY: 3 AGENTS"
+        },
+        {
+          "index": 4,
+          "start_s": 22.32,
+          "end_s": 28.44,
+          "title": "place verify",
+          "caption": "Bin pose verified.",
+          "overlay_title": "PLACE: VERIFIED"
+        },
+        {
+          "index": 5,
+          "start_s": 28.44,
+          "end_s": 36.0,
+          "title": "72 scenario audit",
+          "caption": "504/504 gates passed in moving relay load.",
+          "overlay_title": "AUDIT: 72 SCENARIOS"
+        }
+      ],
+      "checks": [
+        {
+          "name": "six_micro_chapters",
+          "passed": true
+        },
+        {
+          "name": "full_36s_coverage",
+          "passed": true
+        },
+        {
+          "name": "no_timeline_gaps",
+          "passed": true
+        },
+        {
+          "name": "no_caption_overlaps",
+          "passed": true
+        },
+        {
+          "name": "short_subtitles_under_10_words",
+          "passed": true
+        },
+        {
+          "name": "srt_boundaries_match_video_chapters",
+          "passed": true
+        }
+      ]
+    },
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,

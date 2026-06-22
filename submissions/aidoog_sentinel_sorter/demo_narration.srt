@@ -1,11 +1,23 @@
 1
-00:00:00,000 --> 00:00:12,000
-human request to 216deg grasp: A visible operator request starts the amber capsule grasp and 216-degree cap rotation.
+00:00:00,000 --> 00:00:05,400
+operator request: Target cue locked.
 
 2
-00:00:12,000 --> 00:00:24,000
-human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay.
+00:00:05,400 --> 00:00:11,160
+216deg grasp: Five fingers close.
 
 3
-00:00:24,000 --> 00:00:36,000
-operator-approved randomized recovery: The same policy covers 72 randomized layouts after operator approval, including moving_relay_load.
+00:00:11,160 --> 00:00:16,560
+slip recovery: 0.36mm slip; 9x hold.
+
+4
+00:00:16,560 --> 00:00:22,320
+force relay: Three agents balance load.
+
+5
+00:00:22,320 --> 00:00:28,440
+place verify: Bin pose verified.
+
+6
+00:00:28,440 --> 00:00:36,000
+72 scenario audit: 504/504 gates passed in moving relay load.
