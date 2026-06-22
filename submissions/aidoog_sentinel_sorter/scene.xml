@@ -64,6 +64,9 @@
     <geom name="operator_relay_ack_button" type="cylinder" pos="-0.460 -0.425 0.043" size="0.018 0.006" rgba="0.92 0.88 0.24 1"/>
     <geom name="operator_recovery_approve_button" type="cylinder" pos="-0.395 -0.425 0.043" size="0.018 0.006" rgba="0.18 0.92 0.48 1"/>
     <geom name="operator_status_light" type="sphere" pos="-0.385 -0.472 0.087" size="0.014" rgba="0.18 0.92 0.48 1" contype="0" conaffinity="0"/>
+    <geom name="operator_request_cue" type="box" pos="-0.535 -0.475 0.105" size="0.012 0.008 0.042" rgba="0.20 0.82 1.00 1" contype="0" conaffinity="0"/>
+    <geom name="operator_ack_cue" type="box" pos="-0.460 -0.475 0.105" size="0.012 0.008 0.042" rgba="1.00 0.92 0.18 1" contype="0" conaffinity="0"/>
+    <geom name="operator_approve_cue" type="box" pos="-0.385 -0.475 0.105" size="0.012 0.008 0.042" rgba="0.18 1.00 0.48 1" contype="0" conaffinity="0"/>
 
     <geom name="red_pick_pad" type="box" pos="-0.36 -0.18 0.012" size="0.085 0.085 0.006" rgba="0.50 0.10 0.08 0.8"/>
     <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>
