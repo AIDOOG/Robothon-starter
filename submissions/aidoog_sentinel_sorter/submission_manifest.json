@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex DistractorCue Cell",
+  "project": "AIDOOG RelayDex ScenarioCue Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -25,13 +25,14 @@
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "48-variant randomized layout suite",
+    "72-variant randomized layout suite",
     "18 visible physical distractors plus randomized virtual decoys"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 48,
+    "more_complex_randomized_layouts": 72,
     "visible_physical_distractors": 18,
-    "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+    "scene_distractor_geoms_verified": 18,
+    "clearer_demo_editing": "36-second spotlight video with three short overlays: GRASP + TWIST, FORCE RELAY, SCENE RECOVERY",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,
@@ -90,7 +91,10 @@
       "slip_recovery_disturbance",
       "rotated_bin_map",
       "moving_relay_load",
-      "low_light_classifier"
+      "low_light_classifier",
+      "operator_cue_shift",
+      "eighteen_decoy_maze",
+      "relay_occlusion_sweep"
     ]
   }
 }

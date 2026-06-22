@@ -5,6 +5,7 @@ import csv
 import json
 import math
 import sys
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, replace
 from pathlib import Path
 
@@ -36,7 +37,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex DistractorCue Cell"
+PROJECT_NAME = "AIDOOG RelayDex ScenarioCue Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -45,7 +46,7 @@ OPERATOR_VISUAL_CUE_COUNT = 3
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
 DISTRACTOR_COUNT = 18
-RANDOMIZED_SCENARIO_COUNT = 48
+RANDOMIZED_SCENARIO_COUNT = 72
 SCENARIO_PROFILES = (
     "occluded_cross_aisle",
     "dual_decoy_capsule",
@@ -56,6 +57,9 @@ SCENARIO_PROFILES = (
     "rotated_bin_map",
     "moving_relay_load",
     "low_light_classifier",
+    "operator_cue_shift",
+    "eighteen_decoy_maze",
+    "relay_occlusion_sweep",
 )
 
 
@@ -157,6 +161,11 @@ def vec_lerp(a: tuple[float, float, float], b: tuple[float, float, float], amoun
     return tuple(lerp(a[i], b[i], amount) for i in range(3))
 
 
+def count_scene_distractors(scene_path: Path) -> int:
+    root = ET.parse(scene_path).getroot()
+    return sum(1 for geom in root.findall(".//geom") if geom.get("name", "").startswith("distractor_"))
+
+
 def scenario_profile_for_seed(layout_seed: int) -> dict:
     profile = SCENARIO_PROFILES[layout_seed % len(SCENARIO_PROFILES)]
     mass_sweep = (0.25, 1.0, 2.5, 5.0)
@@ -164,11 +173,11 @@ def scenario_profile_for_seed(layout_seed: int) -> dict:
         "name": profile,
         "scenario_id": int(layout_seed),
         "jitter_range_m": 0.032,
-        "virtual_decoy_count": 4 + int(layout_seed % 3),
+        "virtual_decoy_count": 6 + int(layout_seed % 4),
         "physical_distractor_count": DISTRACTOR_COUNT,
         "relay_mass_kg": mass_sweep[layout_seed % len(mass_sweep)],
         "route_narrowing_m": round(0.018 + 0.003 * (layout_seed % 5), 4),
-        "layout_complexity_score": round(0.82 + 0.015 * (layout_seed % 7), 3),
+        "layout_complexity_score": round(0.86 + 0.012 * (layout_seed % 8), 3),
         "camera_chapter": ("dexterity", "relay", "recovery")[layout_seed % 3],
     }
 
@@ -866,20 +875,20 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "human request to 216deg grasp",
-            "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation.",
+            "title": "grasp plus twist",
+            "caption": "Operator request, five-finger grasp, 216-degree cap rotation.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "human ack plus force relay",
-            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
+            "title": "force relay",
+            "caption": "Three relay agents hand off the 5kg shared beam.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "operator-approved randomized recovery",
-            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts after operator approval, including {scenario['name']}.",
+            "title": "scene recovery",
+            "caption": f"{RANDOMIZED_SCENARIO_COUNT} randomized layouts, 18 visible distractors, profile {scenario['name']}.",
         },
     ]
 
@@ -933,7 +942,8 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
             "visible_physical_distractors": DISTRACTOR_COUNT,
-            "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
+            "scene_distractor_geoms_verified": summary["scene_distractor_geom_count"],
+            "clearer_demo_editing": "36-second spotlight video with three short overlays: GRASP + TWIST, FORCE RELAY, SCENE RECOVERY",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
@@ -973,7 +983,7 @@ visible physical distractors backed by randomized virtual decoys.
 - Expanded visible physical distractors from 12 to {DISTRACTOR_COUNT} while preserving the proven grasp path.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
-- Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
+- Rebuilt the default demo as a 36-second spotlight reel with shorter single-line overlays.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.
@@ -1005,16 +1015,16 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "HUMAN REQUEST -> 216deg GRASP",
+            "title": "GRASP + TWIST",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "HUMAN ACK + FORCE RELAY",
+            "title": "FORCE RELAY",
         }
     return {
         "index": 2,
-        "title": "OPERATOR APPROVES RECOVERY",
+        "title": "SCENE RECOVERY",
     }
 
 
@@ -1183,6 +1193,7 @@ def run_demo(
         "scenario_profile": scenario,
         "object_types": {task.name: task.object_type for task in tasks},
         "distractor_count": DISTRACTOR_COUNT,
+        "scene_distractor_geom_count": count_scene_distractors(scene_path),
         "relay_agent_count": RELAY_AGENT_COUNT,
         "operator_agent_count": OPERATOR_AGENT_COUNT,
         "collaboration_agent_count": COLLABORATION_AGENT_COUNT,
