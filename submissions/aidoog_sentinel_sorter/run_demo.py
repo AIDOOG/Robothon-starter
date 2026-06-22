@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex HumanCue Force Cell"
+PROJECT_NAME = "AIDOOG TriadRelay HumanCue Inspection Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -948,10 +948,10 @@ Registration UUID: `{summary["registration_uuid"]}`
 
 ## Judge-facing summary
 
-This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+This is a compact inspection cell: a human operator requests a five-finger capsule twist while
+three relay agents hand off a shared beam with closed-loop force balance. It keeps AIDOOG's strongest
+verified dexterity signal: 216-degree cap rotation, 0.36mm slip recovery, 9x load-hold evidence,
+three large operator cue lights, cooperative relay recovery, and coordinated-vs-uncoordinated ablation evidence.
 
 ## Local validation
 

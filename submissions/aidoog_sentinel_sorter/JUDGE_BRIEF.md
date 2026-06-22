@@ -1,13 +1,13 @@
-# AIDOOG RelayDex HumanCue Force Cell
+# AIDOOG TriadRelay HumanCue Inspection Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Judge-facing summary
 
-This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+This is a compact inspection cell: a human operator requests a five-finger capsule twist while
+three relay agents hand off a shared beam with closed-loop force balance. It keeps AIDOOG's strongest
+verified dexterity signal: 216-degree cap rotation, 0.36mm slip recovery, 9x load-hold evidence,
+three large operator cue lights, cooperative relay recovery, and coordinated-vs-uncoordinated ablation evidence.
 
 ## Local validation
 
@@ -21,7 +21,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex HumanCue Force Cell
+- New unique project name: AIDOOG TriadRelay HumanCue Inspection Cell
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 48 randomized scenario variants with same-policy validation.
