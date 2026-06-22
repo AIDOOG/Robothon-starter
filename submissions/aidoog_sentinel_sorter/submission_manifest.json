@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Compact Neural Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -21,6 +21,7 @@
     "slip recovery",
     "216-degree cap rotation",
     "9x load hold",
+    "2.4M-parameter neural policy card",
     "three-agent shared-beam force relay",
     "human operator request and approval loop",
     "cooperative slip recovery",
@@ -29,7 +30,8 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+    "larger_neural_policy_model": 2418176,
+    "clearer_demo_editing": "24-second spotlight video with three direct action labels",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,

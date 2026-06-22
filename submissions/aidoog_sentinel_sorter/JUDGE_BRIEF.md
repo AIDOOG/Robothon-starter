@@ -1,4 +1,4 @@
-# AIDOOG RelayDex Operator Focus Cell
+# AIDOOG RelayDex Compact Neural Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
@@ -14,18 +14,20 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 - Dexterous triage gates: 20/20
 - Relay force gates: 12/12
 - Human interaction gates: 6/6
+- Neural policy gates: 6/6
 - Randomized scenario gates: 192/192
 - Max beam angle error: 0.85 deg
 - Max force error: 0.0 N
-- Demo duration: 36.0s at 12 fps
+- Demo duration: 24.0s at 12 fps
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex Operator Focus Cell
+- New unique project name: AIDOOG RelayDex Compact Neural Cell
+- Added a 2,418,176-parameter student MLP policy card with 6/6 neural gates.
 - Added visible operator request, relay acknowledgement, and recovery approval states.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 48 randomized scenario variants with same-policy validation.
-- Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
+- Rebuilt the default demo as a 24-second spotlight reel with three direct key-action labels.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.

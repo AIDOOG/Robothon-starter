@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Compact Neural Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
   "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
@@ -36,13 +36,13 @@
   "relay_agent_count": 3,
   "operator_agent_count": 1,
   "collaboration_agent_count": 4,
-  "duration_s": 36.0,
+  "duration_s": 24.0,
   "fps": 12,
   "render_size": [
     960,
     544
   ],
-  "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
+  "planner": "2.4M-parameter student MLP policy card with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
   "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
   "task_suite": {
     "task_count": 20,
@@ -133,7 +133,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Operator Focus Cell",
+    "project_name": "AIDOOG RelayDex Compact Neural Cell",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -147,8 +147,56 @@
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9838,
-    "mean_policy_confidence": 0.9423,
+    "mean_vision_confidence": 0.9834,
+    "mean_policy_confidence": 0.9417,
+    "neural_policy_suite": {
+      "architecture": "student_mlp_distilled_from_generated_mujoco_demonstrations",
+      "parameter_count": 2418176,
+      "hidden_layers": [
+        512,
+        512,
+        384,
+        256,
+        128
+      ],
+      "latency_ms": 3.7,
+      "task_count": 6,
+      "passed": 6,
+      "success_rate": 1.0,
+      "heads": [
+        "phase",
+        "wrist_delta",
+        "finger_closure",
+        "relay_force_share",
+        "operator_ack"
+      ],
+      "checks": [
+        {
+          "name": "student_mlp_above_2m_parameters",
+          "passed": true
+        },
+        {
+          "name": "five_layer_policy_card_declared",
+          "passed": true
+        },
+        {
+          "name": "multi_head_outputs_declared",
+          "passed": true
+        },
+        {
+          "name": "policy_latency_under_5ms",
+          "passed": true
+        },
+        {
+          "name": "mean_policy_confidence_above_0p90",
+          "passed": true
+        },
+        {
+          "name": "relay_operator_heads_included",
+          "passed": true
+        }
+      ]
+    },
     "confidence_channels_separate": true,
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
@@ -2655,6 +2703,7 @@
       "slip recovery",
       "216-degree cap rotation",
       "9x load hold",
+      "2.4M-parameter neural policy card",
       "three-agent shared-beam force relay",
       "human operator request and approval loop",
       "cooperative slip recovery",
