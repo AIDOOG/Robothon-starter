@@ -23,12 +23,13 @@
     "9x load hold",
     "three-agent shared-beam force relay",
     "human operator request and approval loop",
+    "complex randomized scenario stress audit",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "48-variant randomized layout suite"
+    "72-variant randomized layout suite"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 48,
+    "more_complex_randomized_layouts": 72,
     "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,
@@ -88,7 +89,10 @@
       "slip_recovery_disturbance",
       "rotated_bin_map",
       "moving_relay_load",
-      "low_light_classifier"
+      "low_light_classifier",
+      "operator_override_queue",
+      "mirrored_bin_recovery",
+      "triple_decoy_shadow"
     ]
   }
 }

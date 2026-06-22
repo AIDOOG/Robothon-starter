@@ -8,4 +8,4 @@ human ack plus force relay: The operator acknowledgement hands off to the three-
 
 3
 00:00:24,000 --> 00:00:36,000
-operator-approved randomized recovery: The same policy covers 48 randomized layouts after operator approval, including moving_relay_load.
+operator-approved randomized recovery: The same policy covers 72 randomized layouts after operator approval, including moving_relay_load.
