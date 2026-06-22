@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Force Bench",
+  "project": "AIDOOG RelayDex KeyScene Force Lab",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
   "task_goal": "Autonomously triage four object types while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
@@ -131,7 +131,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Force Bench",
+    "project_name": "AIDOOG RelayDex KeyScene Force Lab",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",

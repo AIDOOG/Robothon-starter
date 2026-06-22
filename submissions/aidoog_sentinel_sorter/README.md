@@ -1,10 +1,10 @@
-# AIDOOG RelayDex Force Bench
+# AIDOOG RelayDex KeyScene Force Lab
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG RelayDex Force Bench
+AIDOOG RelayDex KeyScene Force Lab
 
 ## Robot platform
 
@@ -44,7 +44,7 @@ The run still leads with the highest-value AIDOOG evidence: classify the amber c
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the latest judge feedback from the RelayDex attempt: more complex randomized layouts, more complex randomized scenarios, and clearer demo editing. The generated video now labels task, relay event, and scenario profile with shorter captions.
+- Targets the latest judge feedback from the RelayDex attempts: simpler narrative, highlighted key scenes, more complex randomized layouts, and more complex randomized scenarios. The generated video is organized into three explicit chapters: 216-degree grasp, force relay, and randomized recovery.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 

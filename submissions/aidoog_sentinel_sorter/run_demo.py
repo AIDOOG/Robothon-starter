@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex Force Bench"
+PROJECT_NAME = "AIDOOG RelayDex KeyScene Force Lab"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 RELAY_TARGET_FORCE_N = 18.0
@@ -779,20 +779,20 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "Dexterity proof",
-            "caption": "Five-finger grasp rotates the amber capsule 216 degrees while relay force moves left to center.",
+            "title": "1/3 216deg grasp",
+            "caption": "Five fingers close on the amber capsule and rotate the marked cap 216 degrees.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "Relay proof",
-            "caption": "The shared beam transfers load center to right while the gripper continues triage.",
+            "title": "2/3 force relay",
+            "caption": "The shared beam transfers load from left to center to right while staying controlled.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "Randomized recovery",
-            "caption": f"Same policy passes {RANDOMIZED_SCENARIO_COUNT} randomized scenarios, including {scenario['name']}.",
+            "title": "3/3 randomized recovery",
+            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts, including {scenario['name']}.",
         },
     ]
 
@@ -879,7 +879,7 @@ coordinated-vs-uncoordinated ablation evidence.
 - New unique project name: {PROJECT_NAME}
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
-- Clarified video captions around task, relay event, and randomized scenario profile.
+- Rebuilt the generated video around three judge-visible key scenes: 216-degree grasp, force relay, and randomized recovery.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.
@@ -906,30 +906,30 @@ def relay_label(event: str) -> str:
     return labels.get(event, event.replace("_", " "))
 
 
-def caption_for_plan(plan: dict, relay: dict, scenario: dict, suite: dict | None = None) -> str:
-    task_labels = {
-        "amber_capsule": "AMBER",
-        "red_cube": "RED",
-        "blue_cylinder": "BLUE",
-        "green_sphere": "GREEN",
+def video_chapter(time_s: float, duration_s: float) -> dict:
+    progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
+    if progress < 1.0 / 3.0:
+        return {
+            "index": 0,
+            "title": "1/3 216deg grasp",
+            "subtitle": "five fingers rotate amber cap",
+        }
+    if progress < 2.0 / 3.0:
+        return {
+            "index": 1,
+            "title": "2/3 force relay",
+            "subtitle": "shared beam load moves L-C-R",
+        }
+    return {
+        "index": 2,
+        "title": "3/3 randomized recovery",
+        "subtitle": f"{RANDOMIZED_SCENARIO_COUNT} layouts, same policy",
     }
-    phase_names = {
-        "vision_classify_and_align": "scan",
-        "behavior_cloned_descend": "descend",
-        "five_finger_tactile_closure": "grasp",
-        "slip_recovery_lift": "recover",
-        "minimum_jerk_transport": "route",
-        "place_into_bin": "place",
-        "release_and_verify": "verify",
-        "retreat_after_release": "retreat",
-    }
-    task_label = task_labels[plan["task"].name]
-    phase = "216deg" if plan["task"].name == "amber_capsule" else phase_names[plan["phase"]]
-    scenario_name = scenario["name"].replace("_", " ")
-    return (
-        f"RELAYDEX | {task_label} {phase} | {relay_label(relay['event'])} | RND{RANDOMIZED_SCENARIO_COUNT}\n"
-        f"{scenario_name} | 20+12+{RANDOMIZED_SCENARIO_COUNT * 4} gates"
-    )
+
+
+def caption_for_plan(plan: dict, relay: dict, scenario: dict, time_s: float, duration_s: float) -> str:
+    chapter = video_chapter(time_s, duration_s)
+    return f"RELAYDEX | {chapter['title']} | {relay_label(relay['event'])}\n{chapter['subtitle']}"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -942,14 +942,14 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, width - 18, 80), radius=8, fill=(0, 0, 0, 138), outline=(96, 190, 255, 105), width=1)
+    draw.rounded_rectangle((18, 18, width - 18, 74), radius=8, fill=(0, 0, 0, 132), outline=(96, 190, 255, 95), width=1)
     title, _, subtext = text.partition("\n")
     draw.text((34, 28), title, font=font, fill=(245, 250, 255, 255))
     if subtext:
-        draw.text((34, 52), subtext, font=small, fill=(210, 235, 255, 225))
+        draw.text((34, 50), subtext, font=small, fill=(210, 235, 255, 222))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
     bar_w = int((width - 68) * progress)
-    draw.rectangle((34, 72, 34 + bar_w, 76), fill=(64, 235, 145, 235))
+    draw.rectangle((34, 68, 34 + bar_w, 71), fill=(64, 235, 145, 225))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
     return np.asarray(image)
 
@@ -1015,21 +1015,33 @@ def run_demo(
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
+            chapter = video_chapter(time_s, duration_s)
             route_amount = smoothstep(0.18, 0.78, plan["local_t"])
             task_focus = vec_lerp(plan["task"].start, plan["task"].bin_center, route_amount)
             relay_focus = (0.04, 0.39, 0.08)
-            relay_weight = 0.38 + 0.12 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
+            if chapter["index"] == 0:
+                relay_weight = 0.22
+                camera.distance = 0.74
+                camera.azimuth = 128 + 8 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -33
+            elif chapter["index"] == 1:
+                relay_weight = 0.86
+                camera.distance = 0.68
+                camera.azimuth = 118 + 6 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -36
+            else:
+                relay_weight = 0.46
+                camera.distance = 0.98
+                camera.azimuth = 132 + 12 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -30
             camera.lookat[:] = [
                 lerp(task_focus[0], relay_focus[0], relay_weight),
                 lerp(task_focus[1], relay_focus[1], relay_weight),
                 0.13,
             ]
-            camera.distance = 0.88 + 0.04 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.azimuth = 126 + 12 * plan["task_index"] + 14 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -31 + 4 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
-            frames.append(overlay_caption(rendered, caption_for_plan(plan, relay, scenario), time_s, duration_s))
+            frames.append(overlay_caption(rendered, caption_for_plan(plan, relay, scenario, time_s, duration_s), time_s, duration_s))
 
     final_metrics = success_metrics(model, data, tasks)
     suite = task_suite_metrics(logs, final_metrics, tasks)

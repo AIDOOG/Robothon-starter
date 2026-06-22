@@ -1,4 +1,4 @@
-# AIDOOG RelayDex Force Bench
+# AIDOOG RelayDex KeyScene Force Lab
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
@@ -20,10 +20,10 @@ coordinated-vs-uncoordinated ablation evidence.
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex Force Bench
+- New unique project name: AIDOOG RelayDex KeyScene Force Lab
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 36 randomized scenario variants with same-policy validation.
-- Clarified video captions around task, relay event, and randomized scenario profile.
+- Rebuilt the generated video around three judge-visible key scenes: 216-degree grasp, force relay, and randomized recovery.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.

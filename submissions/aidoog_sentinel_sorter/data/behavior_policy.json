@@ -96,7 +96,7 @@
   ],
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
-    "project_name": "AIDOOG RelayDex Force Bench",
+    "project_name": "AIDOOG RelayDex KeyScene Force Lab",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
