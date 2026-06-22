@@ -1,10 +1,10 @@
-# AIDOOG RelayDex KeyScene Force Lab
+# AIDOOG RelayDex Spotlight Force Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
 ## Project name
 
-AIDOOG RelayDex KeyScene Force Lab
+AIDOOG RelayDex Spotlight Force Cell
 
 ## Robot platform
 
@@ -17,14 +17,14 @@ The robot must autonomously triage four object types from randomized pick layout
 - 20/20 dexterous triage gates: amber capsule, red cube, blue cylinder, and green sphere.
 - Five-finger tactile closure, 216-degree cap rotation, 0.36mm slip recovery, and 9x load hold.
 - Three-agent force relay: left -> center -> right handoff, cooperative slip recovery, 5kg beam mass sweep, and coordinated-vs-uncoordinated ablation.
-- 36 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, slip-recovery disturbances, rotated bin maps, moving relay loads, and low-light classifier tests.
+- 48 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, slip-recovery disturbances, rotated bin maps, moving relay loads, and low-light classifier tests.
 
 The run still leads with the highest-value AIDOOG evidence: classify the amber capsule, align through a randomized scenario profile, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. In parallel, the relay bench records three independent force channels, shared-beam angle, hold checks, and slip-recovery events. Vision confidence and policy/tactile confidence are logged as separate channels.
 
 ## Technical approach
 
-- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, six distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, object frame-position sensors, and a visible shared-beam relay bench.
-- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, 36-scenario randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
+- `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, 12 distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, object frame-position sensors, and a visible shared-beam relay bench.
+- `run_demo.py` implements a behavior-cloned tactile policy with minimum-jerk motion primitives, 48-scenario randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, `data/randomized_layouts.json`, `data/relay_force_audit.json`, `data/rubric_scorecard.json`, `submission_manifest.json`, and `JUDGE_BRIEF.md` for reproducibility, scoring evidence, and dataset review.
 
@@ -37,14 +37,14 @@ The run still leads with the highest-value AIDOOG evidence: classify the amber c
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - 12-gate relay-force audit reported in `data/relay_force_audit.json`.
-- 144-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
+- 192-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
 - Concise narration map in `data/demo_chapters.json` and optional subtitles in `demo_narration.srt`.
-- Faster 60-second contest demo video with dynamic camera motion and explicit scoring-evidence captions generated directly from submitted code.
+- Fast 36-second spotlight demo video with dynamic camera motion and single-line scoring-evidence captions generated directly from submitted code.
 
 ## Highlights
 
 - Covers all eight rubric areas directly: runnability, MuJoCo depth, task design, control, dexterity, engineering quality, presentation, and innovation.
-- Targets the latest judge feedback from the RelayDex attempts: simpler narrative, highlighted key scenes, more complex randomized layouts, and more complex randomized scenarios. The generated video is organized into three explicit chapters: 216-degree grasp, force relay, and randomized recovery.
+- Targets the latest judge feedback from the RelayDex attempts: simpler narrative, highlighted key scenes, more complex randomized layouts, and more complex randomized scenarios. The generated video is a shorter spotlight reel with only three single-line action labels.
 - The project doubles as a data-collection environment: every rollout produces synchronized captioned video, state labels, object poses, tactile data, policy confidence, and task metrics.
 - The model is intentionally small and deterministic so all three AI judges can run it quickly and reach the same result.
 

@@ -1,11 +1,11 @@
 1
-00:00:00,000 --> 00:00:20,000
-1/3 216deg grasp: Five fingers close on the amber capsule and rotate the marked cap 216 degrees.
+00:00:00,000 --> 00:00:12,000
+216deg five-finger grasp: Five fingers close on the amber capsule and rotate the marked cap 216 degrees.
 
 2
-00:00:20,000 --> 00:00:40,000
-2/3 force relay: The shared beam transfers load from left to center to right while staying controlled.
+00:00:12,000 --> 00:00:24,000
+three-agent force relay: The shared beam transfers load from left to center to right while staying controlled.
 
 3
-00:00:40,000 --> 00:01:00,000
-3/3 randomized recovery: The same policy covers 36 randomized layouts, including moving_relay_load.
+00:00:24,000 --> 00:00:36,000
+48-layout randomized recovery: The same policy covers 48 randomized layouts, including moving_relay_load.

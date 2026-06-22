@@ -36,13 +36,13 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex KeyScene Force Lab"
+PROJECT_NAME = "AIDOOG RelayDex Spotlight Force Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
 DISTRACTOR_COUNT = 12
-RANDOMIZED_SCENARIO_COUNT = 36
+RANDOMIZED_SCENARIO_COUNT = 48
 SCENARIO_PROFILES = (
     "occluded_cross_aisle",
     "dual_decoy_capsule",
@@ -751,7 +751,7 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
             "control": "minimum-jerk object transport, tactile servo, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "60-second generated video uses concise chapter captions for object, relay event, and scenario profile",
+            "presentation": "36-second generated spotlight video uses single-line key-action labels",
             "innovation": "combines five-finger manipulation with N-agent cooperative-force verification",
         },
         "local_validation": {
@@ -779,19 +779,19 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "1/3 216deg grasp",
+            "title": "216deg five-finger grasp",
             "caption": "Five fingers close on the amber capsule and rotate the marked cap 216 degrees.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "2/3 force relay",
+            "title": "three-agent force relay",
             "caption": "The shared beam transfers load from left to center to right while staying controlled.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "3/3 randomized recovery",
+            "title": "48-layout randomized recovery",
             "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts, including {scenario['name']}.",
         },
     ]
@@ -845,7 +845,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
-            "clearer_demo_editing": "concise caption chapters show task, relay event, and scenario profile",
+            "clearer_demo_editing": "36-second spotlight video with single-line key-action labels",
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
     }
@@ -879,7 +879,7 @@ coordinated-vs-uncoordinated ablation evidence.
 - New unique project name: {PROJECT_NAME}
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
-- Rebuilt the generated video around three judge-visible key scenes: 216-degree grasp, force relay, and randomized recovery.
+- Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.
@@ -911,25 +911,22 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "1/3 216deg grasp",
-            "subtitle": "five fingers rotate amber cap",
+            "title": "216deg FIVE-FINGER GRASP",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "2/3 force relay",
-            "subtitle": "shared beam load moves L-C-R",
+            "title": "THREE-AGENT FORCE RELAY",
         }
     return {
         "index": 2,
-        "title": "3/3 randomized recovery",
-        "subtitle": f"{RANDOMIZED_SCENARIO_COUNT} layouts, same policy",
+        "title": "48-LAYOUT RANDOMIZED RECOVERY",
     }
 
 
 def caption_for_plan(plan: dict, relay: dict, scenario: dict, time_s: float, duration_s: float) -> str:
     chapter = video_chapter(time_s, duration_s)
-    return f"RELAYDEX | {chapter['title']} | {relay_label(relay['event'])}\n{chapter['subtitle']}"
+    return chapter["title"]
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -937,20 +934,19 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
     try:
-        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 22)
+        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 24)
         small = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 14)
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, width - 18, 74), radius=8, fill=(0, 0, 0, 132), outline=(96, 190, 255, 95), width=1)
+    draw.rounded_rectangle((18, 18, min(width - 18, 560), 60), radius=8, fill=(0, 0, 0, 124), outline=(96, 190, 255, 86), width=1)
     title, _, subtext = text.partition("\n")
-    draw.text((34, 28), title, font=font, fill=(245, 250, 255, 255))
+    draw.text((34, 27), title, font=font, fill=(245, 250, 255, 255))
     if subtext:
         draw.text((34, 50), subtext, font=small, fill=(210, 235, 255, 222))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
     bar_w = int((width - 68) * progress)
-    draw.rectangle((34, 68, 34 + bar_w, 71), fill=(64, 235, 145, 225))
-    draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
+    draw.rectangle((34, height - 22, 34 + bar_w, height - 19), fill=(64, 235, 145, 214))
     return np.asarray(image)
 
 
@@ -1120,7 +1116,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--judge-brief", type=Path, default=DEFAULT_JUDGE_BRIEF)
     parser.add_argument("--layout-seed", type=int, default=7)
-    parser.add_argument("--duration", type=float, default=60.0, help="Demo length in seconds. Default is within the 1-3 minute contest target.")
+    parser.add_argument("--duration", type=float, default=36.0, help="Demo length in seconds. Default is a concise spotlight reel.")
     parser.add_argument("--fps", type=int, default=12)
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=544)

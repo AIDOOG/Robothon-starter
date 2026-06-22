@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex KeyScene Force Lab",
+  "project": "AIDOOG RelayDex Spotlight Force Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -27,8 +27,8 @@
     "18-variant randomized layout suite"
   ],
   "feedback_response": {
-    "more_complex_randomized_layouts": 36,
-    "clearer_demo_editing": "concise caption chapters show task, relay event, and scenario profile",
+    "more_complex_randomized_layouts": 48,
+    "clearer_demo_editing": "36-second spotlight video with single-line key-action labels",
     "more_complex_randomized_scenarios": [
       "occluded_cross_aisle",
       "dual_decoy_capsule",
