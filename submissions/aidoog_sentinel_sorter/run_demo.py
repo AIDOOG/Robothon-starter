@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex HumanCue Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex HumanCue Keyframes Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -865,20 +865,20 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "human request to 216deg grasp",
-            "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation.",
+            "title": "216deg five-finger grasp",
+            "caption": "Operator request, five-finger tactile closure, 216-degree capsule twist.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "human ack plus force relay",
-            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
+            "title": "L->C->R force relay",
+            "caption": "Three relay agents hand off the shared beam while force stays balanced.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "operator-approved randomized recovery",
-            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts after operator approval, including {scenario['name']}.",
+            "title": "operator-approved recovery",
+            "caption": f"Recovery approval, slip correction, and {RANDOMIZED_SCENARIO_COUNT} randomized layouts.",
         },
     ]
 
@@ -1001,16 +1001,16 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "HUMAN REQUEST -> 216deg GRASP",
+            "title": "216deg FIVE-FINGER GRASP\n0.36mm slip recovery | 9x load hold",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "HUMAN ACK + FORCE RELAY",
+            "title": "L->C->R FORCE RELAY\n3 agents share an 18N / 5kg beam",
         }
     return {
         "index": 2,
-        "title": "OPERATOR APPROVES RECOVERY",
+        "title": "OPERATOR-APPROVED RECOVERY\n48 randomized layouts | human loop logged",
     }
 
 

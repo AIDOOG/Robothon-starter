@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex HumanCue Keyframes Cell",
   "target_score_band": "93-ish aspirational; measured leaderboard may vary",
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
