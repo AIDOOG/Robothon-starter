@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex HumanCue Force Cell",
+  "project": "AIDOOG RelayDex DistractorCue Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -25,10 +25,12 @@
     "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "48-variant randomized layout suite"
+    "48-variant randomized layout suite",
+    "18 visible physical distractors plus randomized virtual decoys"
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
+    "visible_physical_distractors": 18,
     "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
     "human_interaction_elements": {
       "agent_count": 4,

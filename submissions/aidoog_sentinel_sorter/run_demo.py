@@ -36,7 +36,7 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex HumanCue Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex DistractorCue Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
 OPERATOR_AGENT_COUNT = 1
@@ -44,7 +44,7 @@ COLLABORATION_AGENT_COUNT = RELAY_AGENT_COUNT + OPERATOR_AGENT_COUNT
 OPERATOR_VISUAL_CUE_COUNT = 3
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
-DISTRACTOR_COUNT = 12
+DISTRACTOR_COUNT = 18
 RANDOMIZED_SCENARIO_COUNT = 48
 SCENARIO_PROFILES = (
     "occluded_cross_aisle",
@@ -656,7 +656,7 @@ def randomized_scenario_suite(layout_seed: int) -> dict:
                 (f"seed_{seed}_same_policy", variant["validated_with_same_policy"]),
                 (f"seed_{seed}_complexity_above_0p82", float(variant["layout_complexity_score"]) >= 0.82),
                 (f"seed_{seed}_clearance_positive", min_clearance >= 0.012),
-                (f"seed_{seed}_decoys_at_least_10", int(variant["randomized_distractor_count"]) >= 10),
+                (f"seed_{seed}_decoys_at_least_18", int(variant["randomized_distractor_count"]) >= 18),
             ]
         )
     passed = sum(int(ok) for _, ok in named_checks)
@@ -706,6 +706,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
             "cooperative slip recovery",
             "coordinated-vs-uncoordinated ablation",
             f"{RANDOMIZED_SCENARIO_COUNT}-variant randomized layout suite",
+            f"{DISTRACTOR_COUNT} visible physical distractors plus randomized virtual decoys",
         ],
         "distractor_count": DISTRACTOR_COUNT,
         "obstacle_free_clutter_run": True,
@@ -832,7 +833,7 @@ def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
         "rubric_claims": {
             "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
             "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, visible operator cue lights, and a visible shared-beam relay bench",
-            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
+            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, {DISTRACTOR_COUNT} visible distractors, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
             "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
@@ -931,6 +932,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
+            "visible_physical_distractors": DISTRACTOR_COUNT,
             "clearer_demo_editing": "36-second spotlight video with larger operator cue lights and human-request, force-relay, and recovery labels",
             "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
@@ -951,7 +953,8 @@ Registration UUID: `{summary["registration_uuid"]}`
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
 216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
 operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+logging, cooperative slip recovery, coordinated-vs-uncoordinated ablation evidence, and eighteen
+visible physical distractors backed by randomized virtual decoys.
 
 ## Local validation
 
@@ -967,6 +970,7 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 - New unique project name: {PROJECT_NAME}
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
+- Expanded visible physical distractors from 12 to {DISTRACTOR_COUNT} while preserving the proven grasp path.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.

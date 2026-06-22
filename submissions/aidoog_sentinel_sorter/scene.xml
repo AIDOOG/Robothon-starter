@@ -57,6 +57,12 @@
     <geom name="distractor_block_b" type="box" pos="0.04 -0.36 0.024" size="0.032 0.024 0.018" rgba="0.46 0.48 0.53 1"/>
     <geom name="distractor_hazard_a" type="box" pos="0.16 0.05 0.014" euler="0 0 0.45" size="0.090 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
     <geom name="distractor_hazard_b" type="box" pos="-0.20 0.05 0.014" euler="0 0 -0.38" size="0.080 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="distractor_decoy_a" type="box" pos="-0.48 -0.06 0.020" euler="0 0 0.24" size="0.030 0.018 0.014" rgba="0.62 0.64 0.70 0.95"/>
+    <geom name="distractor_decoy_b" type="box" pos="-0.50 0.08 0.021" euler="0 0 -0.32" size="0.026 0.020 0.015" rgba="0.60 0.62 0.68 0.95"/>
+    <geom name="distractor_decoy_c" type="cylinder" pos="-0.05 -0.39 0.025" size="0.018 0.022" rgba="0.58 0.62 0.70 0.95"/>
+    <geom name="distractor_decoy_d" type="cylinder" pos="0.21 -0.36 0.022" size="0.016 0.020" rgba="0.58 0.62 0.70 0.95"/>
+    <geom name="distractor_decoy_e" type="box" pos="0.27 0.08 0.018" euler="0 0 0.65" size="0.044 0.008 0.006" rgba="0.95 0.82 0.16 0.70"/>
+    <geom name="distractor_decoy_f" type="box" pos="-0.31 0.34 0.018" euler="0 0 -0.52" size="0.040 0.008 0.006" rgba="0.95 0.82 0.16 0.70"/>
 
     <geom name="operator_console_base" type="box" pos="-0.46 -0.43 0.024" size="0.130 0.055 0.012" rgba="0.10 0.13 0.16 1"/>
     <geom name="operator_console_screen" type="box" pos="-0.46 -0.475 0.060" euler="0.70 0 0" size="0.105 0.006 0.040" rgba="0.08 0.20 0.26 1" contype="0" conaffinity="0"/>

@@ -1,4 +1,4 @@
-# AIDOOG RelayDex HumanCue Force Cell
+# AIDOOG RelayDex DistractorCue Cell
 
 Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 
@@ -7,7 +7,8 @@ Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
 216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
 operator request/approval console with three large cue lights plus a three-agent shared-beam relay bench with force-share
-logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
+logging, cooperative slip recovery, coordinated-vs-uncoordinated ablation evidence, and eighteen
+visible physical distractors backed by randomized virtual decoys.
 
 ## Local validation
 
@@ -21,8 +22,9 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex HumanCue Force Cell
+- New unique project name: AIDOOG RelayDex DistractorCue Cell
 - Added larger visible operator request, relay acknowledgement, and recovery approval cue lights.
+- Expanded visible physical distractors from 12 to 18 while preserving the proven grasp path.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 48 randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
