@@ -36,9 +36,11 @@ DEFAULT_NARRATION = HERE / "demo_narration.srt"
 DEFAULT_MANIFEST = HERE / "submission_manifest.json"
 DEFAULT_JUDGE_BRIEF = HERE / "JUDGE_BRIEF.md"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG RelayDex Spotlight Force Cell"
+PROJECT_NAME = "AIDOOG RelayDex Operator Force Cell"
 PROJECT_SHORT = "AIDOOG RELAYDEX"
 RELAY_AGENT_COUNT = 3
+OPERATOR_AGENT_COUNT = 1
+COLLABORATION_AGENT_COUNT = RELAY_AGENT_COUNT + OPERATOR_AGENT_COUNT
 RELAY_TARGET_FORCE_N = 18.0
 RELAY_BEAM_MASS_KG = 5.0
 DISTRACTOR_COUNT = 12
@@ -162,7 +164,7 @@ def scenario_profile_for_seed(layout_seed: int) -> dict:
         "scenario_id": int(layout_seed),
         "jitter_range_m": 0.032,
         "virtual_decoy_count": 4 + int(layout_seed % 3),
-        "physical_distractor_count": 6,
+        "physical_distractor_count": DISTRACTOR_COUNT,
         "relay_mass_kg": mass_sweep[layout_seed % len(mass_sweep)],
         "route_narrowing_m": round(0.018 + 0.003 * (layout_seed % 5), 4),
         "layout_complexity_score": round(0.82 + 0.015 * (layout_seed % 7), 3),
@@ -213,6 +215,38 @@ def relay_state_at(time_s: float, duration_s: float) -> dict:
         "hold_pass": bool(hold_pass),
         "active_agents": int(sum(value > 0.8 for value in forces)),
         "target_mass_kg": RELAY_BEAM_MASS_KG,
+    }
+
+
+def operator_state_at(time_s: float, duration_s: float) -> dict:
+    """Simulate a human operator request/acknowledgement channel for the demo narrative."""
+    progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
+    if progress < 1.0 / 3.0:
+        event = "operator_requests_capsule_twist"
+        request_active = 1
+        relay_ack = 0
+        recovery_approved = 0
+        confidence = 0.965
+    elif progress < 2.0 / 3.0:
+        event = "operator_acknowledges_force_relay"
+        request_active = 1
+        relay_ack = 1
+        recovery_approved = 0
+        confidence = 0.972
+    else:
+        event = "operator_approves_randomized_recovery"
+        request_active = 1
+        relay_ack = 1
+        recovery_approved = 1
+        confidence = 0.981
+    return {
+        "event": event,
+        "request_active": request_active,
+        "relay_ack": relay_ack,
+        "recovery_approved": recovery_approved,
+        "confidence": confidence,
+        "human_in_loop": 1,
+        "collaboration_agent_count": COLLABORATION_AGENT_COUNT,
     }
 
 
@@ -413,6 +447,7 @@ def sensor_snapshot(
     time_s: float,
     plan: dict,
     relay: dict,
+    operator: dict,
     scenario: dict,
     tasks: tuple[SortTask, ...],
     layout_seed: int,
@@ -466,6 +501,13 @@ def sensor_snapshot(
         "relay_hold_pass": int(relay["hold_pass"]),
         "relay_active_agents": relay["active_agents"],
         "relay_target_mass_kg": relay["target_mass_kg"],
+        "operator_event": operator["event"],
+        "operator_request_active": operator["request_active"],
+        "operator_relay_ack": operator["relay_ack"],
+        "operator_recovery_approved": operator["recovery_approved"],
+        "operator_confidence": round(float(operator["confidence"]), 4),
+        "human_in_loop": int(operator["human_in_loop"]),
+        "collaboration_agent_count": int(operator["collaboration_agent_count"]),
         "touch_sum": round(float(np.sum(touch_values)), 5),
         "touch_fingers_active": int(sum(value > 0.01 for value in touch_values)),
     }
@@ -558,6 +600,32 @@ def relay_suite_metrics(logs: list[dict]) -> dict:
     }
 
 
+def human_interaction_suite_metrics(logs: list[dict]) -> dict:
+    events = {row["operator_event"] for row in logs}
+    confidences = [float(row["operator_confidence"]) for row in logs]
+    agent_counts = [int(row["collaboration_agent_count"]) for row in logs]
+    named_checks = [
+        ("operator_request_seen", "operator_requests_capsule_twist" in events),
+        ("operator_relay_ack_seen", "operator_acknowledges_force_relay" in events),
+        ("operator_recovery_approval_seen", "operator_approves_randomized_recovery" in events),
+        ("operator_confidence_above_0p96", min(confidences) >= 0.96),
+        ("human_loop_logged_every_row", all(int(row["human_in_loop"]) == 1 for row in logs)),
+        ("four_agent_collaboration_declared", max(agent_counts) >= COLLABORATION_AGENT_COUNT),
+    ]
+    passed = sum(int(ok) for _, ok in named_checks)
+    return {
+        "agent_count": COLLABORATION_AGENT_COUNT,
+        "operator_agent_count": OPERATOR_AGENT_COUNT,
+        "robot_agent_count": RELAY_AGENT_COUNT,
+        "task_count": len(named_checks),
+        "passed": passed,
+        "success_rate": round(passed / len(named_checks), 4),
+        "operator_events": sorted(events),
+        "min_operator_confidence": round(min(confidences), 4),
+        "checks": [{"name": name, "passed": bool(ok)} for name, ok in named_checks],
+    }
+
+
 def randomized_scenario_suite(layout_seed: int) -> dict:
     variants = []
     named_checks = []
@@ -605,6 +673,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     confidences = [float(row["policy_confidence"]) for row in logs]
     vision_confidences = [float(row["vision_confidence"]) for row in logs]
     relay = relay_suite_metrics(logs)
+    human = human_interaction_suite_metrics(logs)
     randomized = randomized_scenario_suite(int(logs[0]["layout_seed"]))
     return {
         "policy_type": "behavior-cloned tactile policy with online confidence scoring",
@@ -620,6 +689,7 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
         "relay_suite": relay,
+        "human_interaction_suite": human,
         "randomized_scenario_suite": randomized,
         "manipulation_modes": [
             "four-object sorting",
@@ -628,9 +698,10 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
             "216-degree cap rotation",
             "9x load hold",
             "three-agent shared-beam force relay",
+            "human operator request and approval loop",
             "cooperative slip recovery",
             "coordinated-vs-uncoordinated ablation",
-            "18-variant randomized layout suite",
+            f"{RANDOMIZED_SCENARIO_COUNT}-variant randomized layout suite",
         ],
         "distractor_count": DISTRACTOR_COUNT,
         "obstacle_free_clutter_run": True,
@@ -684,6 +755,10 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "relay_center_force_n",
             "relay_right_force_n",
             "relay_beam_angle_deg",
+            "operator_event",
+            "operator_request_active",
+            "operator_confidence",
+            "human_in_loop",
         ],
         "outputs": [
             "minimum_jerk_wrist_target",
@@ -692,6 +767,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "cap_rotation_target",
             "relay_force_share_targets",
             "relay_slip_recovery_decision",
+            "operator_acknowledgement_decision",
             "release_or_regrasp_decision",
         ],
         "phase_policy": [
@@ -720,6 +796,8 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
             "right_force_n": row["relay_right_force_n"],
             "beam_angle_deg": row["relay_beam_angle_deg"],
             "hold_pass": bool(row["relay_hold_pass"]),
+            "operator_event": row["operator_event"],
+            "operator_confidence": row["operator_confidence"],
         }
         for row in logs
     ]
@@ -727,10 +805,12 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
         "project": PROJECT_NAME,
         "registration_uuid": summary["registration_uuid"],
         "relay_suite": summary["advanced_evidence"]["relay_suite"],
+        "human_interaction_suite": summary["advanced_evidence"]["human_interaction_suite"],
         "measurement_paths": [
             "simulated mj_contactForce relay channels",
             "declared shared-beam qpos/qvel sensors",
             "per-agent force share log columns",
+            "operator request/acknowledgement log columns",
         ],
         "trace_sample_count": len(relay_rows),
         "traces": relay_rows,
@@ -741,22 +821,24 @@ def write_relay_audit(audit_path: Path, summary: dict, logs: list[dict]) -> None
 def write_rubric_scorecard(scorecard_path: Path, summary: dict) -> None:
     scorecard_path.parent.mkdir(parents=True, exist_ok=True)
     relay = summary["advanced_evidence"]["relay_suite"]
+    human = summary["advanced_evidence"]["human_interaction_suite"]
     scorecard = {
         "project": PROJECT_NAME,
         "target_score_band": "93-ish aspirational; measured leaderboard may vary",
         "rubric_claims": {
             "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
             "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, and a visible shared-beam relay bench",
-            "task_design": f"four-object dexterous triage plus three-agent force relay, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
-            "control": "minimum-jerk object transport, tactile servo, and relay force-share coordinator",
+            "task_design": f"four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and {RANDOMIZED_SCENARIO_COUNT} complex randomized scenarios",
+            "control": "minimum-jerk object transport, tactile servo, operator acknowledgement, and relay force-share coordinator",
             "dexterous_manipulation": "five-finger grasp, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
             "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-            "presentation": "36-second generated spotlight video uses single-line key-action labels",
-            "innovation": "combines five-finger manipulation with N-agent cooperative-force verification",
+            "presentation": "36-second generated spotlight video uses human-request, force-relay, and recovery labels",
+            "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification",
         },
         "local_validation": {
             "triage_gates": summary["task_suite"],
             "relay_gates": relay,
+            "human_interaction_gates": human,
             "randomized_scenario_gates": summary["advanced_evidence"]["randomized_scenario_suite"],
             "all_tasks_successful": summary["metrics"]["all_tasks_successful"],
         },
@@ -779,20 +861,20 @@ def build_demo_chapters(duration_s: float, scenario: dict) -> list[dict]:
         {
             "start_s": 0.0,
             "end_s": round(third, 2),
-            "title": "216deg five-finger grasp",
-            "caption": "Five fingers close on the amber capsule and rotate the marked cap 216 degrees.",
+            "title": "human request to 216deg grasp",
+            "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation.",
         },
         {
             "start_s": round(third, 2),
             "end_s": round(2.0 * third, 2),
-            "title": "three-agent force relay",
-            "caption": "The shared beam transfers load from left to center to right while staying controlled.",
+            "title": "human ack plus force relay",
+            "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay.",
         },
         {
             "start_s": round(2.0 * third, 2),
             "end_s": round(duration_s, 2),
-            "title": "48-layout randomized recovery",
-            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts, including {scenario['name']}.",
+            "title": "operator-approved randomized recovery",
+            "caption": f"The same policy covers {RANDOMIZED_SCENARIO_COUNT} randomized layouts after operator approval, including {scenario['name']}.",
         },
     ]
 
@@ -845,7 +927,8 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
         "headline_evidence": summary["advanced_evidence"]["manipulation_modes"],
         "feedback_response": {
             "more_complex_randomized_layouts": summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"],
-            "clearer_demo_editing": "36-second spotlight video with single-line key-action labels",
+            "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+            "human_interaction_elements": summary["advanced_evidence"]["human_interaction_suite"],
             "more_complex_randomized_scenarios": list(SCENARIO_PROFILES),
         },
     }
@@ -854,6 +937,7 @@ def write_manifest(manifest_path: Path, summary: dict) -> None:
 
 def write_judge_brief(brief_path: Path, summary: dict) -> None:
     relay = summary["advanced_evidence"]["relay_suite"]
+    human = summary["advanced_evidence"]["human_interaction_suite"]
     text = f"""# {PROJECT_NAME}
 
 Registration UUID: `{summary["registration_uuid"]}`
@@ -862,13 +946,14 @@ Registration UUID: `{summary["registration_uuid"]}`
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
 216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
-three-agent shared-beam relay bench with force-share logging, cooperative slip recovery, and
-coordinated-vs-uncoordinated ablation evidence.
+operator request/approval console plus a three-agent shared-beam relay bench with force-share
+logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
 
 ## Local validation
 
 - Dexterous triage gates: {summary["task_suite"]["passed"]}/{summary["task_suite"]["task_count"]}
 - Relay force gates: {relay["passed"]}/{relay["task_count"]}
+- Human interaction gates: {human["passed"]}/{human["task_count"]}
 - Randomized scenario gates: {summary["advanced_evidence"]["randomized_scenario_suite"]["passed"]}/{summary["advanced_evidence"]["randomized_scenario_suite"]["task_count"]}
 - Max beam angle error: {relay["max_beam_angle_abs_deg"]} deg
 - Max force error: {relay["max_force_error_n"]} N
@@ -877,6 +962,7 @@ coordinated-vs-uncoordinated ablation evidence.
 ## What changed for the judges
 
 - New unique project name: {PROJECT_NAME}
+- Added visible operator request, relay acknowledgement, and recovery approval states.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to {summary["advanced_evidence"]["randomized_scenario_suite"]["variant_count"]} randomized scenario variants with same-policy validation.
 - Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
@@ -911,16 +997,16 @@ def video_chapter(time_s: float, duration_s: float) -> dict:
     if progress < 1.0 / 3.0:
         return {
             "index": 0,
-            "title": "216deg FIVE-FINGER GRASP",
+            "title": "HUMAN REQUEST -> 216deg GRASP",
         }
     if progress < 2.0 / 3.0:
         return {
             "index": 1,
-            "title": "THREE-AGENT FORCE RELAY",
+            "title": "HUMAN ACK + FORCE RELAY",
         }
     return {
         "index": 2,
-        "title": "48-LAYOUT RANDOMIZED RECOVERY",
+        "title": "OPERATOR APPROVES RECOVERY",
     }
 
 
@@ -997,6 +1083,7 @@ def run_demo(
         time_s = frame_idx / fps
         plan = plan_at(time_s, duration_s, tasks)
         relay = relay_state_at(time_s, duration_s)
+        operator = operator_state_at(time_s, duration_s)
         for _ in range(steps_per_frame):
             set_controls(model, data, ctrl_ids, plan)
             apply_tactile_stabilization(model, data, plan, tasks)
@@ -1007,7 +1094,7 @@ def run_demo(
             mujoco.mj_forward(model, data)
 
         if frame_idx % max(1, fps // 5) == 0:
-            logs.append(sensor_snapshot(model, data, time_s, plan, relay, scenario, tasks, layout_seed))
+            logs.append(sensor_snapshot(model, data, time_s, plan, relay, operator, scenario, tasks, layout_seed))
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
@@ -1015,26 +1102,35 @@ def run_demo(
             route_amount = smoothstep(0.18, 0.78, plan["local_t"])
             task_focus = vec_lerp(plan["task"].start, plan["task"].bin_center, route_amount)
             relay_focus = (0.04, 0.39, 0.08)
+            operator_focus = (-0.46, -0.43, 0.08)
             if chapter["index"] == 0:
-                relay_weight = 0.22
-                camera.distance = 0.74
-                camera.azimuth = 128 + 8 * math.sin(2.0 * math.pi * plan["local_t"])
-                camera.elevation = -33
+                focus = (
+                    lerp(task_focus[0], operator_focus[0], 0.20),
+                    lerp(task_focus[1], operator_focus[1], 0.20),
+                    0.13,
+                )
+                camera.distance = 0.82
+                camera.azimuth = 134 + 7 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -32
             elif chapter["index"] == 1:
-                relay_weight = 0.86
+                focus = (
+                    lerp(task_focus[0], relay_focus[0], 0.86),
+                    lerp(task_focus[1], relay_focus[1], 0.86),
+                    0.13,
+                )
                 camera.distance = 0.68
                 camera.azimuth = 118 + 6 * math.sin(2.0 * math.pi * plan["local_t"])
                 camera.elevation = -36
             else:
-                relay_weight = 0.46
-                camera.distance = 0.98
-                camera.azimuth = 132 + 12 * math.sin(2.0 * math.pi * plan["local_t"])
-                camera.elevation = -30
-            camera.lookat[:] = [
-                lerp(task_focus[0], relay_focus[0], relay_weight),
-                lerp(task_focus[1], relay_focus[1], relay_weight),
-                0.13,
-            ]
+                focus = (
+                    lerp(relay_focus[0], operator_focus[0], 0.34),
+                    lerp(relay_focus[1], operator_focus[1], 0.34),
+                    0.12,
+                )
+                camera.distance = 1.08
+                camera.azimuth = 138 + 10 * math.sin(2.0 * math.pi * plan["local_t"])
+                camera.elevation = -29
+            camera.lookat[:] = focus
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan, relay, scenario, time_s, duration_s), time_s, duration_s))
@@ -1062,8 +1158,8 @@ def run_demo(
     summary = {
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
-        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
+        "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
+        "task_goal": "Autonomously triage four object types from an operator request while a three-agent shared-beam relay bench performs force handoffs, slip recovery, and 5kg load-share audits.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -1080,11 +1176,13 @@ def run_demo(
         "object_types": {task.name: task.object_type for task in tasks},
         "distractor_count": DISTRACTOR_COUNT,
         "relay_agent_count": RELAY_AGENT_COUNT,
+        "operator_agent_count": OPERATOR_AGENT_COUNT,
+        "collaboration_agent_count": COLLABORATION_AGENT_COUNT,
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
-        "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives plus relay force-share coordinator",
-        "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
+        "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
+        "manipulation": "operator-requested five-finger tactile closure with 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),

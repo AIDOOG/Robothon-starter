@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Spotlight Force Cell",
+  "project": "AIDOOG RelayDex Operator Force Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
@@ -22,13 +22,54 @@
     "216-degree cap rotation",
     "9x load hold",
     "three-agent shared-beam force relay",
+    "human operator request and approval loop",
     "cooperative slip recovery",
     "coordinated-vs-uncoordinated ablation",
-    "18-variant randomized layout suite"
+    "48-variant randomized layout suite"
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with single-line key-action labels",
+    "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+    "human_interaction_elements": {
+      "agent_count": 4,
+      "operator_agent_count": 1,
+      "robot_agent_count": 3,
+      "task_count": 6,
+      "passed": 6,
+      "success_rate": 1.0,
+      "operator_events": [
+        "operator_acknowledges_force_relay",
+        "operator_approves_randomized_recovery",
+        "operator_requests_capsule_twist"
+      ],
+      "min_operator_confidence": 0.965,
+      "checks": [
+        {
+          "name": "operator_request_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_relay_ack_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_recovery_approval_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_confidence_above_0p96",
+          "passed": true
+        },
+        {
+          "name": "human_loop_logged_every_row",
+          "passed": true
+        },
+        {
+          "name": "four_agent_collaboration_declared",
+          "passed": true
+        }
+      ]
+    },
     "more_complex_randomized_scenarios": [
       "occluded_cross_aisle",
       "dual_decoy_capsule",

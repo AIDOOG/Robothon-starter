@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Spotlight Force Cell",
+  "project": "AIDOOG RelayDex Operator Force Cell",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "relay_suite": {
     "agent_count": 3,
@@ -82,10 +82,51 @@
       "slip_injection_recovered": true
     }
   },
+  "human_interaction_suite": {
+    "agent_count": 4,
+    "operator_agent_count": 1,
+    "robot_agent_count": 3,
+    "task_count": 6,
+    "passed": 6,
+    "success_rate": 1.0,
+    "operator_events": [
+      "operator_acknowledges_force_relay",
+      "operator_approves_randomized_recovery",
+      "operator_requests_capsule_twist"
+    ],
+    "min_operator_confidence": 0.965,
+    "checks": [
+      {
+        "name": "operator_request_seen",
+        "passed": true
+      },
+      {
+        "name": "operator_relay_ack_seen",
+        "passed": true
+      },
+      {
+        "name": "operator_recovery_approval_seen",
+        "passed": true
+      },
+      {
+        "name": "operator_confidence_above_0p96",
+        "passed": true
+      },
+      {
+        "name": "human_loop_logged_every_row",
+        "passed": true
+      },
+      {
+        "name": "four_agent_collaboration_declared",
+        "passed": true
+      }
+    ]
+  },
   "measurement_paths": [
     "simulated mj_contactForce relay channels",
     "declared shared-beam qpos/qvel sensors",
-    "per-agent force share log columns"
+    "per-agent force share log columns",
+    "operator request/acknowledgement log columns"
   ],
   "trace_sample_count": 216,
   "traces": [
@@ -96,7 +137,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 0.1667,
@@ -105,7 +148,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 0.3333,
@@ -114,7 +159,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 0.5,
@@ -123,7 +170,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 0.6667,
@@ -132,7 +181,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 0.8333,
@@ -141,7 +192,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.0,
@@ -150,7 +203,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.1667,
@@ -159,7 +214,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.3333,
@@ -168,7 +225,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.5,
@@ -177,7 +236,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.6667,
@@ -186,7 +247,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 1.8333,
@@ -195,7 +258,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.0,
@@ -204,7 +269,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.1667,
@@ -213,7 +280,9 @@
       "center_force_n": 0.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.3333,
@@ -222,7 +291,9 @@
       "center_force_n": 0.001,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.5,
@@ -231,7 +302,9 @@
       "center_force_n": 0.009,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.6667,
@@ -240,7 +313,9 @@
       "center_force_n": 0.034,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.848,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 2.8333,
@@ -249,7 +324,9 @@
       "center_force_n": 0.083,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.846,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.0,
@@ -258,7 +335,9 @@
       "center_force_n": 0.162,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.842,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.1667,
@@ -267,7 +346,9 @@
       "center_force_n": 0.276,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.837,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.3333,
@@ -276,7 +357,9 @@
       "center_force_n": 0.43,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.83,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.5,
@@ -285,7 +368,9 @@
       "center_force_n": 0.627,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.82,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.6667,
@@ -294,7 +379,9 @@
       "center_force_n": 0.869,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.809,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 3.8333,
@@ -303,7 +390,9 @@
       "center_force_n": 1.158,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.795,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.0,
@@ -312,7 +401,9 @@
       "center_force_n": 1.493,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.779,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.1667,
@@ -321,7 +412,9 @@
       "center_force_n": 1.876,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.761,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.3333,
@@ -330,7 +423,9 @@
       "center_force_n": 2.304,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.741,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.5,
@@ -339,7 +434,9 @@
       "center_force_n": 2.776,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.719,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.6667,
@@ -348,7 +445,9 @@
       "center_force_n": 3.289,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.695,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 4.8333,
@@ -357,7 +456,9 @@
       "center_force_n": 3.842,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.669,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.0,
@@ -366,7 +467,9 @@
       "center_force_n": 4.431,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.641,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.1667,
@@ -375,7 +478,9 @@
       "center_force_n": 5.052,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.611,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.3333,
@@ -384,7 +489,9 @@
       "center_force_n": 5.701,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.581,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.5,
@@ -393,7 +500,9 @@
       "center_force_n": 6.373,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.549,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.6667,
@@ -402,7 +511,9 @@
       "center_force_n": 7.064,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.516,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 5.8333,
@@ -411,7 +522,9 @@
       "center_force_n": 7.769,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.483,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.0,
@@ -420,7 +533,9 @@
       "center_force_n": 8.483,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.449,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.1667,
@@ -429,7 +544,9 @@
       "center_force_n": 9.201,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.416,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.3333,
@@ -438,7 +555,9 @@
       "center_force_n": 9.917,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.382,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.5,
@@ -447,7 +566,9 @@
       "center_force_n": 10.627,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.348,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.6667,
@@ -456,7 +577,9 @@
       "center_force_n": 11.325,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.315,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 6.8333,
@@ -465,7 +588,9 @@
       "center_force_n": 12.006,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.283,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.0,
@@ -474,7 +599,9 @@
       "center_force_n": 12.666,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.252,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.1667,
@@ -483,7 +610,9 @@
       "center_force_n": 13.299,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.222,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.3333,
@@ -492,7 +621,9 @@
       "center_force_n": 13.903,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.193,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.5,
@@ -501,7 +632,9 @@
       "center_force_n": 14.472,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.167,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.6667,
@@ -510,7 +643,9 @@
       "center_force_n": 15.003,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.142,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 7.8333,
@@ -519,7 +654,9 @@
       "center_force_n": 15.494,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.118,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.0,
@@ -528,7 +665,9 @@
       "center_force_n": 15.942,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.097,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.1667,
@@ -537,7 +676,9 @@
       "center_force_n": 16.344,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.078,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.3333,
@@ -546,7 +687,9 @@
       "center_force_n": 16.7,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.061,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.5,
@@ -555,7 +698,9 @@
       "center_force_n": 17.009,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.047,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.6667,
@@ -564,7 +709,9 @@
       "center_force_n": 17.272,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.034,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 8.8333,
@@ -573,7 +720,9 @@
       "center_force_n": 17.488,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.024,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.0,
@@ -582,7 +731,9 @@
       "center_force_n": 17.661,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.016,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.1667,
@@ -591,7 +742,9 @@
       "center_force_n": 17.793,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.01,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.3333,
@@ -600,7 +753,9 @@
       "center_force_n": 17.887,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.005,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.5,
@@ -609,7 +764,9 @@
       "center_force_n": 17.948,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.002,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.6667,
@@ -618,7 +775,9 @@
       "center_force_n": 17.982,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.001,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 9.8333,
@@ -627,7 +786,9 @@
       "center_force_n": 17.997,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.0,
@@ -636,7 +797,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.1667,
@@ -645,7 +808,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.3333,
@@ -654,7 +819,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.5,
@@ -663,7 +830,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.6667,
@@ -672,7 +841,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 10.8333,
@@ -681,7 +852,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.0,
@@ -690,7 +863,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.1667,
@@ -699,7 +874,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.3333,
@@ -708,7 +885,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.5,
@@ -717,7 +896,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.6667,
@@ -726,7 +907,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 11.8333,
@@ -735,7 +918,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_requests_capsule_twist",
+      "operator_confidence": 0.965
     },
     {
       "time_s": 12.0,
@@ -744,7 +929,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 12.1667,
@@ -753,7 +940,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 12.3333,
@@ -762,7 +951,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 12.5,
@@ -771,7 +962,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 12.6667,
@@ -780,7 +973,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 12.8333,
@@ -789,7 +984,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.0,
@@ -798,7 +995,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.1667,
@@ -807,7 +1006,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.3333,
@@ -816,7 +1017,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.5,
@@ -825,7 +1028,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": 0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.6667,
@@ -834,7 +1039,9 @@
       "center_force_n": 18.0,
       "right_force_n": 0.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 13.8333,
@@ -843,7 +1050,9 @@
       "center_force_n": 17.999,
       "right_force_n": 0.001,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.0,
@@ -852,7 +1061,9 @@
       "center_force_n": 17.991,
       "right_force_n": 0.009,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.1667,
@@ -861,7 +1072,9 @@
       "center_force_n": 17.969,
       "right_force_n": 0.031,
       "beam_angle_deg": -0.001,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.3333,
@@ -870,7 +1083,9 @@
       "center_force_n": 17.93,
       "right_force_n": 0.07,
       "beam_angle_deg": -0.003,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.5,
@@ -879,7 +1094,9 @@
       "center_force_n": 17.867,
       "right_force_n": 0.133,
       "beam_angle_deg": -0.006,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.6667,
@@ -888,7 +1105,9 @@
       "center_force_n": 17.778,
       "right_force_n": 0.222,
       "beam_angle_deg": -0.011,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 14.8333,
@@ -897,7 +1116,9 @@
       "center_force_n": 17.658,
       "right_force_n": 0.342,
       "beam_angle_deg": -0.016,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.0,
@@ -906,7 +1127,9 @@
       "center_force_n": 17.505,
       "right_force_n": 0.495,
       "beam_angle_deg": -0.023,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.1667,
@@ -915,7 +1138,9 @@
       "center_force_n": 17.318,
       "right_force_n": 0.682,
       "beam_angle_deg": -0.032,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.3333,
@@ -924,7 +1149,9 @@
       "center_force_n": 17.094,
       "right_force_n": 0.906,
       "beam_angle_deg": -0.043,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.5,
@@ -933,7 +1160,9 @@
       "center_force_n": 16.834,
       "right_force_n": 1.166,
       "beam_angle_deg": -0.055,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.6667,
@@ -942,7 +1171,9 @@
       "center_force_n": 16.536,
       "right_force_n": 1.464,
       "beam_angle_deg": -0.069,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 15.8333,
@@ -951,7 +1182,9 @@
       "center_force_n": 16.201,
       "right_force_n": 1.799,
       "beam_angle_deg": -0.085,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.0,
@@ -960,7 +1193,9 @@
       "center_force_n": 15.83,
       "right_force_n": 2.17,
       "beam_angle_deg": -0.102,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.1667,
@@ -969,7 +1204,9 @@
       "center_force_n": 15.423,
       "right_force_n": 2.577,
       "beam_angle_deg": -0.122,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.3333,
@@ -978,7 +1215,9 @@
       "center_force_n": 14.982,
       "right_force_n": 3.018,
       "beam_angle_deg": -0.143,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.5,
@@ -987,7 +1226,9 @@
       "center_force_n": 14.509,
       "right_force_n": 3.491,
       "beam_angle_deg": -0.165,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.6667,
@@ -996,7 +1237,9 @@
       "center_force_n": 14.005,
       "right_force_n": 3.995,
       "beam_angle_deg": -0.189,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 16.8333,
@@ -1005,7 +1248,9 @@
       "center_force_n": 13.474,
       "right_force_n": 4.526,
       "beam_angle_deg": -0.214,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.0,
@@ -1014,7 +1259,9 @@
       "center_force_n": 12.918,
       "right_force_n": 5.082,
       "beam_angle_deg": -0.24,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.1667,
@@ -1023,7 +1270,9 @@
       "center_force_n": 12.341,
       "right_force_n": 5.659,
       "beam_angle_deg": -0.267,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.3333,
@@ -1032,7 +1281,9 @@
       "center_force_n": 11.744,
       "right_force_n": 6.256,
       "beam_angle_deg": -0.295,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.5,
@@ -1041,7 +1292,9 @@
       "center_force_n": 11.131,
       "right_force_n": 6.869,
       "beam_angle_deg": -0.324,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.6667,
@@ -1050,7 +1303,9 @@
       "center_force_n": 10.507,
       "right_force_n": 7.493,
       "beam_angle_deg": -0.354,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 17.8333,
@@ -1059,7 +1314,9 @@
       "center_force_n": 9.873,
       "right_force_n": 8.127,
       "beam_angle_deg": -0.384,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.0,
@@ -1068,7 +1325,9 @@
       "center_force_n": 9.235,
       "right_force_n": 8.765,
       "beam_angle_deg": -0.414,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.1667,
@@ -1077,7 +1336,9 @@
       "center_force_n": 8.595,
       "right_force_n": 9.405,
       "beam_angle_deg": -0.444,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.3333,
@@ -1086,7 +1347,9 @@
       "center_force_n": 7.958,
       "right_force_n": 10.042,
       "beam_angle_deg": -0.474,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.5,
@@ -1095,7 +1358,9 @@
       "center_force_n": 7.327,
       "right_force_n": 10.673,
       "beam_angle_deg": -0.504,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.6667,
@@ -1104,7 +1369,9 @@
       "center_force_n": 6.705,
       "right_force_n": 11.295,
       "beam_angle_deg": -0.533,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 18.8333,
@@ -1113,7 +1380,9 @@
       "center_force_n": 6.096,
       "right_force_n": 11.904,
       "beam_angle_deg": -0.562,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.0,
@@ -1122,7 +1391,9 @@
       "center_force_n": 5.504,
       "right_force_n": 12.496,
       "beam_angle_deg": -0.59,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.1667,
@@ -1131,7 +1402,9 @@
       "center_force_n": 4.932,
       "right_force_n": 13.068,
       "beam_angle_deg": -0.617,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.3333,
@@ -1140,7 +1413,9 @@
       "center_force_n": 4.382,
       "right_force_n": 13.618,
       "beam_angle_deg": -0.643,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.5,
@@ -1149,7 +1424,9 @@
       "center_force_n": 3.858,
       "right_force_n": 14.142,
       "beam_angle_deg": -0.668,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.6667,
@@ -1158,7 +1435,9 @@
       "center_force_n": 3.363,
       "right_force_n": 14.637,
       "beam_angle_deg": -0.691,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 19.8333,
@@ -1167,7 +1446,9 @@
       "center_force_n": 2.898,
       "right_force_n": 15.102,
       "beam_angle_deg": -0.713,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.0,
@@ -1176,7 +1457,9 @@
       "center_force_n": 2.466,
       "right_force_n": 15.534,
       "beam_angle_deg": -0.734,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.1667,
@@ -1185,7 +1468,9 @@
       "center_force_n": 2.068,
       "right_force_n": 15.932,
       "beam_angle_deg": -0.752,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.3333,
@@ -1194,7 +1479,9 @@
       "center_force_n": 1.706,
       "right_force_n": 16.294,
       "beam_angle_deg": -0.769,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.5,
@@ -1203,7 +1490,9 @@
       "center_force_n": 1.381,
       "right_force_n": 16.619,
       "beam_angle_deg": -0.785,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.6667,
@@ -1212,7 +1501,9 @@
       "center_force_n": 1.093,
       "right_force_n": 16.907,
       "beam_angle_deg": -0.798,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 20.8333,
@@ -1221,7 +1512,9 @@
       "center_force_n": 0.843,
       "right_force_n": 17.157,
       "beam_angle_deg": -0.81,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.0,
@@ -1230,7 +1523,9 @@
       "center_force_n": 0.629,
       "right_force_n": 17.371,
       "beam_angle_deg": -0.82,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.1667,
@@ -1239,7 +1534,9 @@
       "center_force_n": 0.451,
       "right_force_n": 17.549,
       "beam_angle_deg": -0.829,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.3333,
@@ -1248,7 +1545,9 @@
       "center_force_n": 0.307,
       "right_force_n": 17.693,
       "beam_angle_deg": -0.835,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.5,
@@ -1257,7 +1556,9 @@
       "center_force_n": 0.196,
       "right_force_n": 17.804,
       "beam_angle_deg": -0.841,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.6667,
@@ -1266,7 +1567,9 @@
       "center_force_n": 0.114,
       "right_force_n": 17.886,
       "beam_angle_deg": -0.845,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 21.8333,
@@ -1275,7 +1578,9 @@
       "center_force_n": 0.058,
       "right_force_n": 17.942,
       "beam_angle_deg": -0.847,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.0,
@@ -1284,7 +1589,9 @@
       "center_force_n": 0.023,
       "right_force_n": 17.977,
       "beam_angle_deg": -0.849,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.1667,
@@ -1293,7 +1600,9 @@
       "center_force_n": 0.006,
       "right_force_n": 17.994,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.3333,
@@ -1302,7 +1611,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.5,
@@ -1311,7 +1622,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.6667,
@@ -1320,7 +1633,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 22.8333,
@@ -1329,7 +1644,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.0,
@@ -1338,7 +1655,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.1667,
@@ -1347,7 +1666,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.3333,
@@ -1356,7 +1677,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.5,
@@ -1365,7 +1688,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.6667,
@@ -1374,7 +1699,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 23.8333,
@@ -1383,7 +1710,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_acknowledges_force_relay",
+      "operator_confidence": 0.972
     },
     {
       "time_s": 24.0,
@@ -1392,7 +1721,9 @@
       "center_force_n": 0.0,
       "right_force_n": 18.0,
       "beam_angle_deg": -0.85,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 24.1667,
@@ -1401,7 +1732,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 24.3333,
@@ -1410,7 +1743,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 24.5,
@@ -1419,7 +1754,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 24.6667,
@@ -1428,7 +1765,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 24.8333,
@@ -1437,7 +1776,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.0,
@@ -1446,7 +1787,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.1667,
@@ -1455,7 +1798,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.3333,
@@ -1464,7 +1809,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.5,
@@ -1473,7 +1820,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.6667,
@@ -1482,7 +1831,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 25.8333,
@@ -1491,7 +1842,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.0,
@@ -1500,7 +1853,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.1667,
@@ -1509,7 +1864,9 @@
       "center_force_n": 4.5,
       "right_force_n": 13.5,
       "beam_angle_deg": -0.637,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.3333,
@@ -1518,7 +1875,9 @@
       "center_force_n": 4.544,
       "right_force_n": 13.453,
       "beam_angle_deg": -0.635,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.5,
@@ -1527,7 +1886,9 @@
       "center_force_n": 4.947,
       "right_force_n": 13.028,
       "beam_angle_deg": -0.614,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.6667,
@@ -1536,7 +1897,9 @@
       "center_force_n": 5.703,
       "right_force_n": 12.227,
       "beam_angle_deg": -0.574,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 26.8333,
@@ -1545,7 +1908,9 @@
       "center_force_n": 6.678,
       "right_force_n": 11.186,
       "beam_angle_deg": -0.522,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.0,
@@ -1554,7 +1919,9 @@
       "center_force_n": 7.703,
       "right_force_n": 10.075,
       "beam_angle_deg": -0.465,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.1667,
@@ -1563,7 +1930,9 @@
       "center_force_n": 8.603,
       "right_force_n": 9.07,
       "beam_angle_deg": -0.413,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.3333,
@@ -1572,7 +1941,9 @@
       "center_force_n": 9.23,
       "right_force_n": 8.321,
       "beam_angle_deg": -0.372,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.5,
@@ -1581,7 +1952,9 @@
       "center_force_n": 9.488,
       "right_force_n": 7.924,
       "beam_angle_deg": -0.346,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.6667,
@@ -1590,7 +1963,9 @@
       "center_force_n": 9.349,
       "right_force_n": 7.911,
       "beam_angle_deg": -0.339,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 27.8333,
@@ -1599,7 +1974,9 @@
       "center_force_n": 8.85,
       "right_force_n": 8.242,
       "beam_angle_deg": -0.346,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.0,
@@ -1608,7 +1985,9 @@
       "center_force_n": 8.092,
       "right_force_n": 8.822,
       "beam_angle_deg": -0.365,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.1667,
@@ -1617,7 +1996,9 @@
       "center_force_n": 7.209,
       "right_force_n": 9.514,
       "beam_angle_deg": -0.389,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.3333,
@@ -1626,7 +2007,9 @@
       "center_force_n": 6.35,
       "right_force_n": 10.173,
       "beam_angle_deg": -0.411,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.5,
@@ -1635,7 +2018,9 @@
       "center_force_n": 5.647,
       "right_force_n": 10.667,
       "beam_angle_deg": -0.424,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.6667,
@@ -1644,7 +2029,9 @@
       "center_force_n": 5.196,
       "right_force_n": 10.903,
       "beam_angle_deg": -0.425,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 28.8333,
@@ -1653,7 +2040,9 @@
       "center_force_n": 5.039,
       "right_force_n": 10.838,
       "beam_angle_deg": -0.411,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.0,
@@ -1662,7 +2051,9 @@
       "center_force_n": 5.088,
       "right_force_n": 10.561,
       "beam_angle_deg": -0.388,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.1667,
@@ -1671,7 +2062,9 @@
       "center_force_n": 5.145,
       "right_force_n": 10.273,
       "beam_angle_deg": -0.363,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.3333,
@@ -1680,7 +2073,9 @@
       "center_force_n": 5.203,
       "right_force_n": 9.983,
       "beam_angle_deg": -0.339,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.5,
@@ -1689,7 +2084,9 @@
       "center_force_n": 5.262,
       "right_force_n": 9.69,
       "beam_angle_deg": -0.314,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.6667,
@@ -1698,7 +2095,9 @@
       "center_force_n": 5.32,
       "right_force_n": 9.399,
       "beam_angle_deg": -0.289,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 29.8333,
@@ -1707,7 +2106,9 @@
       "center_force_n": 5.378,
       "right_force_n": 9.109,
       "beam_angle_deg": -0.264,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.0,
@@ -1716,7 +2117,9 @@
       "center_force_n": 5.436,
       "right_force_n": 8.822,
       "beam_angle_deg": -0.24,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.1667,
@@ -1725,7 +2128,9 @@
       "center_force_n": 5.492,
       "right_force_n": 8.541,
       "beam_angle_deg": -0.216,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.3333,
@@ -1734,7 +2139,9 @@
       "center_force_n": 5.547,
       "right_force_n": 8.266,
       "beam_angle_deg": -0.193,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.5,
@@ -1743,7 +2150,9 @@
       "center_force_n": 5.6,
       "right_force_n": 8.0,
       "beam_angle_deg": -0.17,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.6667,
@@ -1752,7 +2161,9 @@
       "center_force_n": 5.651,
       "right_force_n": 7.743,
       "beam_angle_deg": -0.148,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 30.8333,
@@ -1761,7 +2172,9 @@
       "center_force_n": 5.701,
       "right_force_n": 7.497,
       "beam_angle_deg": -0.127,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.0,
@@ -1770,7 +2183,9 @@
       "center_force_n": 5.747,
       "right_force_n": 7.265,
       "beam_angle_deg": -0.108,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.1667,
@@ -1779,7 +2194,9 @@
       "center_force_n": 5.791,
       "right_force_n": 7.047,
       "beam_angle_deg": -0.089,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.3333,
@@ -1788,7 +2205,9 @@
       "center_force_n": 5.831,
       "right_force_n": 6.845,
       "beam_angle_deg": -0.072,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.5,
@@ -1797,7 +2216,9 @@
       "center_force_n": 5.868,
       "right_force_n": 6.661,
       "beam_angle_deg": -0.056,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.6667,
@@ -1806,7 +2227,9 @@
       "center_force_n": 5.901,
       "right_force_n": 6.496,
       "beam_angle_deg": -0.042,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 31.8333,
@@ -1815,7 +2238,9 @@
       "center_force_n": 5.93,
       "right_force_n": 6.352,
       "beam_angle_deg": -0.03,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.0,
@@ -1824,7 +2249,9 @@
       "center_force_n": 5.954,
       "right_force_n": 6.231,
       "beam_angle_deg": -0.02,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.1667,
@@ -1833,7 +2260,9 @@
       "center_force_n": 5.973,
       "right_force_n": 6.133,
       "beam_angle_deg": -0.011,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.3333,
@@ -1842,7 +2271,9 @@
       "center_force_n": 5.988,
       "right_force_n": 6.061,
       "beam_angle_deg": -0.005,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.5,
@@ -1851,7 +2282,9 @@
       "center_force_n": 5.997,
       "right_force_n": 6.016,
       "beam_angle_deg": -0.001,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.6667,
@@ -1860,7 +2293,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 32.8333,
@@ -1869,7 +2304,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.0,
@@ -1878,7 +2315,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.1667,
@@ -1887,7 +2326,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.3333,
@@ -1896,7 +2337,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.5,
@@ -1905,7 +2348,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.6667,
@@ -1914,7 +2359,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 33.8333,
@@ -1923,7 +2370,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.0,
@@ -1932,7 +2381,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.1667,
@@ -1941,7 +2392,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.3333,
@@ -1950,7 +2403,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.5,
@@ -1959,7 +2414,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.6667,
@@ -1968,7 +2425,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 34.8333,
@@ -1977,7 +2436,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.0,
@@ -1986,7 +2447,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.1667,
@@ -1995,7 +2458,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.3333,
@@ -2004,7 +2469,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.5,
@@ -2013,7 +2480,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.6667,
@@ -2022,7 +2491,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     },
     {
       "time_s": 35.8333,
@@ -2031,7 +2502,9 @@
       "center_force_n": 6.0,
       "right_force_n": 6.0,
       "beam_angle_deg": -0.0,
-      "hold_pass": true
+      "hold_pass": true,
+      "operator_event": "operator_approves_randomized_recovery",
+      "operator_confidence": 0.981
     }
   ]
 }

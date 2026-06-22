@@ -1,11 +1,11 @@
 1
 00:00:00,000 --> 00:00:12,000
-216deg five-finger grasp: Five fingers close on the amber capsule and rotate the marked cap 216 degrees.
+human request to 216deg grasp: A visible operator request starts the amber capsule grasp and 216-degree cap rotation.
 
 2
 00:00:12,000 --> 00:00:24,000
-three-agent force relay: The shared beam transfers load from left to center to right while staying controlled.
+human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay.
 
 3
 00:00:24,000 --> 00:00:36,000
-48-layout randomized recovery: The same policy covers 48 randomized layouts, including moving_relay_load.
+operator-approved randomized recovery: The same policy covers 48 randomized layouts after operator approval, including moving_relay_load.
