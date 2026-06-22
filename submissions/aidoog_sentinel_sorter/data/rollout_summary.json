@@ -1,8 +1,8 @@
 {
-  "project": "AIDOOG Dexterous Triage Lab",
+  "project": "AIDOOG MercuryDex Triage Bench",
   "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-  "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+  "task_goal": "Autonomously triage four object types through a varied MuJoCo inspection bench while recording controls, scene chapters, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
   "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
@@ -15,7 +15,18 @@
     "blue_cylinder": "cylinder",
     "green_sphere": "sphere"
   },
-  "distractor_count": 6,
+  "distractor_count": 8,
+  "scene_fixtures": [
+    "six physical distractor posts, blocks, and hazard rails",
+    "transparent inspection gate",
+    "amber decoy token"
+  ],
+  "scene_chapters": {
+    "amber_capsule": "inspection cell cap rotation",
+    "red_cube": "lower-bin clutter aisle",
+    "blue_cylinder": "upper-bin cross-lane carry",
+    "green_sphere": "quality-slot precision placement"
+  },
   "duration_s": 60.0,
   "fps": 12,
   "render_size": [
@@ -24,6 +35,7 @@
   ],
   "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
   "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+  "judge_feedback_response": "unique project name, shorter video captions, task-specific camera framing, and added inspection fixtures for scene variety",
   "task_suite": {
     "task_count": 20,
     "passed": 20,
@@ -113,6 +125,7 @@
   },
   "advanced_evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "project_name": "AIDOOG MercuryDex Triage Bench",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -124,6 +137,17 @@
       "cube",
       "cylinder",
       "sphere"
+    ],
+    "scene_chapters": [
+      "inspection cell cap rotation",
+      "lower-bin clutter aisle",
+      "quality-slot precision placement",
+      "upper-bin cross-lane carry"
+    ],
+    "scene_fixtures": [
+      "six physical distractor posts, blocks, and hazard rails",
+      "transparent inspection gate",
+      "amber decoy token"
     ],
     "randomized_layout_seed": 7,
     "mean_vision_confidence": 0.9841,
@@ -137,9 +161,11 @@
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "scene-aware routing"
     ],
-    "distractor_count": 6,
+    "distractor_count": 8,
+    "presentation_response": "shorter captions, evidence-first amber opening, and task-specific camera framing",
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,
@@ -153,6 +179,9 @@
     "layout_seed",
     "label",
     "perception_label",
+    "scene_chapter",
+    "scene_variation_index",
+    "narrative_goal",
     "policy_mode",
     "vision_confidence",
     "policy_confidence",

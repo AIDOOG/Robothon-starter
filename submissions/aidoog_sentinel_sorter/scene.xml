@@ -31,6 +31,8 @@
     <material name="blue_part" rgba="0.10 0.44 0.95 1"/>
     <material name="amber" rgba="1.00 0.58 0.12 1"/>
     <material name="cap_mark" rgba="0.10 0.07 0.03 1"/>
+    <material name="inspection_glass" rgba="0.18 0.62 0.92 0.32"/>
+    <material name="decoy_amber" rgba="0.95 0.48 0.08 0.62"/>
     <material name="green_goal" rgba="0.10 0.80 0.34 0.82"/>
     <material name="green_part" rgba="0.12 0.86 0.32 1"/>
     <material name="robot_shell" rgba="0.74 0.78 0.84 1"/>
@@ -53,6 +55,8 @@
     <geom name="distractor_block_b" type="box" pos="0.04 -0.36 0.024" size="0.032 0.024 0.018" rgba="0.46 0.48 0.53 1"/>
     <geom name="distractor_hazard_a" type="box" pos="0.16 0.05 0.014" euler="0 0 0.45" size="0.090 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
     <geom name="distractor_hazard_b" type="box" pos="-0.20 0.05 0.014" euler="0 0 -0.38" size="0.080 0.010 0.006" rgba="0.95 0.82 0.16 0.82"/>
+    <geom name="inspection_gate" type="box" pos="0.20 0.00 0.064" size="0.008 0.140 0.052" material="inspection_glass" contype="0" conaffinity="0"/>
+    <geom name="amber_decoy_token" type="cylinder" pos="-0.05 0.105 0.026" size="0.024 0.012" material="decoy_amber" contype="0" conaffinity="0"/>
 
     <geom name="red_pick_pad" type="box" pos="-0.36 -0.18 0.012" size="0.085 0.085 0.006" rgba="0.50 0.10 0.08 0.8"/>
     <geom name="blue_pick_pad" type="box" pos="-0.36 0.18 0.012" size="0.085 0.085 0.006" rgba="0.06 0.17 0.44 0.8"/>

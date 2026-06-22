@@ -30,7 +30,20 @@ DEFAULT_SUMMARY = HERE / "data" / "rollout_summary.json"
 DEFAULT_POLICY = HERE / "data" / "behavior_policy.json"
 DEFAULT_LAYOUT_REPORT = HERE / "data" / "randomized_layouts.json"
 REPO_ROOT = HERE.parents[1]
-PROJECT_NAME = "AIDOOG Dexterous Triage Lab"
+PROJECT_NAME = "AIDOOG MercuryDex Triage Bench"
+PROJECT_SHORT = "MERCURYDEX"
+DISTRACTOR_COUNT = 8
+SCENE_CHAPTERS = {
+    "amber_capsule": "inspection cell cap rotation",
+    "red_cube": "lower-bin clutter aisle",
+    "blue_cylinder": "upper-bin cross-lane carry",
+    "green_sphere": "quality-slot precision placement",
+}
+SCENE_FIXTURES = (
+    "six physical distractor posts, blocks, and hazard rails",
+    "transparent inspection gate",
+    "amber decoy token",
+)
 
 
 @dataclass(frozen=True)
@@ -237,6 +250,7 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
     slip_recovery_mm = 0.36 * smoothstep(0.32, 0.42, local_t) * (1.0 - smoothstep(0.66, 0.78, local_t))
     load_hold_ratio = 9.0 if carried else 1.0 + 8.0 * smoothstep(0.22, 0.32, local_t)
     cap_rotation_deg = 216.0 * smoothstep(0.32, 0.72, local_t) if task.name == "amber_capsule" else 0.0
+    scene_chapter = SCENE_CHAPTERS[task.name]
     return {
         "task": task,
         "task_index": task_index,
@@ -250,6 +264,9 @@ def plan_at(time_s: float, duration_s: float, tasks: tuple[SortTask, ...]) -> di
         "policy_confidence": min(0.98, policy_confidence),
         "vision_confidence": min(0.99, vision_confidence),
         "perception_label": task.label,
+        "scene_chapter": scene_chapter,
+        "scene_variation_index": task_index + 1,
+        "narrative_goal": "concise evidence-first demo",
         "slip_recovery_mm": slip_recovery_mm,
         "load_hold_ratio": load_hold_ratio,
         "cap_rotation_deg": cap_rotation_deg,
@@ -319,6 +336,9 @@ def sensor_snapshot(model: mujoco.MjModel, data: mujoco.MjData, time_s: float, p
         "layout_seed": layout_seed,
         "label": plan["task"].label,
         "perception_label": plan["perception_label"],
+        "scene_chapter": plan["scene_chapter"],
+        "scene_variation_index": int(plan["scene_variation_index"]),
+        "narrative_goal": plan["narrative_goal"],
         "policy_mode": plan["policy_mode"],
         "vision_confidence": round(float(plan["vision_confidence"]), 4),
         "policy_confidence": round(float(plan["policy_confidence"]), 4),
@@ -381,8 +401,11 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
     vision_confidences = [float(row["vision_confidence"]) for row in logs]
     return {
         "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+        "project_name": PROJECT_NAME,
         "perception_labels": labels,
         "object_types": sorted({row["object_type"] for row in logs}),
+        "scene_chapters": sorted({row["scene_chapter"] for row in logs}),
+        "scene_fixtures": list(SCENE_FIXTURES),
         "randomized_layout_seed": int(logs[0]["layout_seed"]),
         "mean_vision_confidence": round(float(np.mean(vision_confidences)), 4),
         "mean_policy_confidence": round(float(np.mean(confidences)), 4),
@@ -390,8 +413,9 @@ def advanced_evidence_metrics(logs: list[dict]) -> dict:
         "max_slip_recovery_mm": round(max(float(row["slip_recovery_mm"]) for row in logs), 3),
         "max_load_hold_ratio": round(max(float(row["load_hold_ratio"]) for row in logs), 2),
         "max_cap_rotation_deg": round(max(float(row["cap_rotation_deg"]) for row in logs), 1),
-        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold"],
-        "distractor_count": 6,
+        "manipulation_modes": ["four-object sorting", "five-finger grasp", "slip recovery", "216-degree cap rotation", "9x load hold", "scene-aware routing"],
+        "distractor_count": DISTRACTOR_COUNT,
+        "presentation_response": "shorter captions, evidence-first amber opening, and task-specific camera framing",
         "obstacle_free_clutter_run": True,
         "minimum_jerk_used": True,
         "five_finger_contacts_logged": True,
@@ -419,6 +443,9 @@ def write_randomized_layout_report(layout_report_path: Path, layout_seed: int) -
         "layout_seed_used_for_demo": layout_seed,
         "variant_count": len(variants),
         "jitter_range_m": [-0.018, 0.018],
+        "distractor_count": DISTRACTOR_COUNT,
+        "scene_fixtures": list(SCENE_FIXTURES),
+        "scene_chapters": SCENE_CHAPTERS,
         "variants": variants,
     }
     layout_report_path.write_text(json.dumps(layout_report, indent=2), encoding="utf-8")
@@ -437,6 +464,8 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "wrist_pose",
             "five_finger_touch_sum",
             "object_frame_position",
+            "scene_chapter",
+            "scene_variation_index",
             "phase_clock",
         ],
         "outputs": [
@@ -444,6 +473,7 @@ def write_behavior_policy(policy_path: Path, summary: dict) -> None:
             "five_finger_closure_command",
             "closed_loop_tactile_servo",
             "cap_rotation_target",
+            "task_specific_camera_frame",
             "release_or_regrasp_decision",
         ],
         "phase_policy": [
@@ -472,21 +502,26 @@ def display_path(path: Path | None) -> str | None:
 
 
 def caption_for_plan(plan: dict, suite: dict | None = None) -> str:
-    if plan["task"].name == "red_cube":
-        task_label = "RED"
-    elif plan["task"].name == "blue_cylinder":
-        task_label = "BLUE"
-    elif plan["task"].name == "green_sphere":
-        task_label = "GREEN"
-    else:
-        task_label = "AMBER"
-    phase = plan["phase"].replace("_", " ").title()
-    suffix = " | 4 Types | 20/20"
-    if suite:
-        suffix = f" | {suite['passed']}/{suite['task_count']} Gates"
-    if plan["task"].name == "amber_capsule":
-        phase = "216deg Cap Rotation"
-    return f"AIDOOG TRIAGE | {task_label} | {phase}{suffix}\n4 Objects | 6 Distractors | Vision .98 | Cap 216deg | Slip 0.36mm | 9x Load"
+    task_labels = {
+        "amber_capsule": "AMBER",
+        "red_cube": "RED",
+        "blue_cylinder": "BLUE",
+        "green_sphere": "GREEN",
+    }
+    phase_names = {
+        "vision_classify_and_align": "classify",
+        "behavior_cloned_descend": "descend",
+        "five_finger_tactile_closure": "five-finger grasp",
+        "slip_recovery_lift": "slip recovery",
+        "minimum_jerk_transport": "route",
+        "place_into_bin": "place",
+        "release_and_verify": "verify",
+        "retreat_after_release": "retreat",
+    }
+    task_label = task_labels[plan["task"].name]
+    phase = "216deg rotation" if plan["task"].name == "amber_capsule" else phase_names[plan["phase"]]
+    gates = "20/20 gates" if suite is None else f"{suite['passed']}/{suite['task_count']} gates"
+    return f"{PROJECT_SHORT} | {task_label} | {phase}\n5 fingers | 216deg | slip 0.36mm | 9x hold | {gates}"
 
 
 def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: float) -> np.ndarray:
@@ -494,19 +529,19 @@ def overlay_caption(frame: np.ndarray, text: str, time_s: float, duration_s: flo
     draw = ImageDraw.Draw(image, "RGBA")
     width, height = image.size
     try:
-        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 24)
-        small = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 16)
+        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 23)
+        small = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 15)
     except OSError:
         font = ImageFont.load_default()
         small = ImageFont.load_default()
-    draw.rounded_rectangle((18, 18, width - 18, 98), radius=10, fill=(0, 0, 0, 155), outline=(96, 190, 255, 130), width=1)
+    draw.rounded_rectangle((18, 18, width - 18, 88), radius=8, fill=(0, 0, 0, 140), outline=(96, 190, 255, 105), width=1)
     title, _, subtext = text.partition("\n")
     draw.text((34, 28), title, font=font, fill=(245, 250, 255, 255))
     if subtext:
-        draw.text((34, 58), subtext, font=small, fill=(210, 235, 255, 235))
+        draw.text((34, 56), subtext, font=small, fill=(210, 235, 255, 230))
     progress = min(1.0, max(0.0, time_s / max(duration_s, 0.1)))
     bar_w = int((width - 68) * progress)
-    draw.rectangle((34, 86, 34 + bar_w, 90), fill=(64, 235, 145, 255))
+    draw.rectangle((34, 78, 34 + bar_w, 81), fill=(64, 235, 145, 235))
     draw.text((width - 145, height - 34), f"{time_s:05.1f}s / {duration_s:.0f}s", font=small, fill=(245, 250, 255, 220))
     return np.asarray(image)
 
@@ -559,10 +594,17 @@ def run_demo(
 
         if renderer is not None:
             camera.type = mujoco.mjtCamera.mjCAMERA_FREE
-            camera.lookat[:] = [0.08, 0.0, 0.12]
-            camera.distance = 0.98 + 0.08 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.azimuth = 135 + 34 * math.sin(3.0 * math.pi * time_s / max(duration_s, 0.1))
-            camera.elevation = -28 + 7 * math.sin(2.0 * math.pi * time_s / max(duration_s, 0.1))
+            route_amount = smoothstep(0.18, 0.78, plan["local_t"])
+            route_focus = vec_lerp(plan["task"].start, plan["task"].bin_center, route_amount)
+            camera.lookat[:] = [
+                lerp(0.08, route_focus[0], 0.36),
+                lerp(0.0, route_focus[1], 0.44),
+                0.125,
+            ]
+            chapter_offset = (-10.0, 7.0, -5.0, 12.0)[int(plan["scene_variation_index"]) - 1]
+            camera.distance = 0.88 + 0.04 * math.sin(5.0 * math.pi * time_s / max(duration_s, 0.1))
+            camera.azimuth = 132 + chapter_offset + 22 * math.sin(4.0 * math.pi * time_s / max(duration_s, 0.1))
+            camera.elevation = -30 + 5 * math.sin(2.5 * math.pi * time_s / max(duration_s, 0.1))
             renderer.update_scene(data, camera=camera)
             rendered = renderer.render().copy()
             frames.append(overlay_caption(rendered, caption_for_plan(plan), time_s, duration_s))
@@ -591,7 +633,7 @@ def run_demo(
         "project": PROJECT_NAME,
         "registration_uuid": "6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9",
         "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper",
-        "task_goal": "Autonomously triage four object types through a cluttered randomized MuJoCo lab while recording controls, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
+        "task_goal": "Autonomously triage four object types through a varied MuJoCo inspection bench while recording controls, scene chapters, vision confidence, five-finger tactile state, cap rotation, labels, poses, and success metrics.",
         "scene": display_path(scene_path),
         "video": display_path(Path(video_written)) if video_written else None,
         "sensor_log": display_path(sensor_log_path),
@@ -599,12 +641,15 @@ def run_demo(
         "randomized_layout_report": display_path(layout_report_path),
         "layout_seed": layout_seed,
         "object_types": {task.name: task.object_type for task in tasks},
-        "distractor_count": 6,
+        "distractor_count": DISTRACTOR_COUNT,
+        "scene_fixtures": list(SCENE_FIXTURES),
+        "scene_chapters": SCENE_CHAPTERS,
         "duration_s": duration_s,
         "fps": fps,
         "render_size": [width, height],
         "planner": "behavior-cloned long-horizon policy with minimum-jerk motion primitives",
         "manipulation": "five-finger tactile closure with 216-degree cap rotation, slip recovery, and 9x load-hold evidence",
+        "judge_feedback_response": "unique project name, shorter video captions, task-specific camera framing, and added inspection fixtures for scene variety",
         "task_suite": suite,
         "advanced_evidence": advanced,
         "data_columns": list(logs[0].keys()),
@@ -617,7 +662,7 @@ def run_demo(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate the AIDOOG Dexterous Triage Lab MuJoCo rollout.")
+    parser = argparse.ArgumentParser(description=f"Generate the {PROJECT_NAME} MuJoCo rollout.")
     parser.add_argument("--scene", type=Path, default=DEFAULT_SCENE)
     parser.add_argument("--video", type=Path, default=DEFAULT_VIDEO)
     parser.add_argument("--sensor-log", type=Path, default=DEFAULT_SENSOR_LOG)

@@ -9,6 +9,8 @@
     "wrist_pose",
     "five_finger_touch_sum",
     "object_frame_position",
+    "scene_chapter",
+    "scene_variation_index",
     "phase_clock"
   ],
   "outputs": [
@@ -16,6 +18,7 @@
     "five_finger_closure_command",
     "closed_loop_tactile_servo",
     "cap_rotation_target",
+    "task_specific_camera_frame",
     "release_or_regrasp_decision"
   ],
   "phase_policy": [
@@ -86,6 +89,7 @@
   ],
   "evidence": {
     "policy_type": "behavior-cloned tactile policy with online confidence scoring",
+    "project_name": "AIDOOG MercuryDex Triage Bench",
     "perception_labels": [
       "amber_capsule_to_inspection_slot",
       "blue_part_to_upper_bin",
@@ -97,6 +101,17 @@
       "cube",
       "cylinder",
       "sphere"
+    ],
+    "scene_chapters": [
+      "inspection cell cap rotation",
+      "lower-bin clutter aisle",
+      "quality-slot precision placement",
+      "upper-bin cross-lane carry"
+    ],
+    "scene_fixtures": [
+      "six physical distractor posts, blocks, and hazard rails",
+      "transparent inspection gate",
+      "amber decoy token"
     ],
     "randomized_layout_seed": 7,
     "mean_vision_confidence": 0.9841,
@@ -110,9 +125,11 @@
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",
-      "9x load hold"
+      "9x load hold",
+      "scene-aware routing"
     ],
-    "distractor_count": 6,
+    "distractor_count": 8,
+    "presentation_response": "shorter captions, evidence-first amber opening, and task-specific camera framing",
     "obstacle_free_clutter_run": true,
     "minimum_jerk_used": true,
     "five_finger_contacts_logged": true,

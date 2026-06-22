@@ -6,6 +6,18 @@
     -0.018,
     0.018
   ],
+  "distractor_count": 8,
+  "scene_fixtures": [
+    "six physical distractor posts, blocks, and hazard rails",
+    "transparent inspection gate",
+    "amber decoy token"
+  ],
+  "scene_chapters": {
+    "amber_capsule": "inspection cell cap rotation",
+    "red_cube": "lower-bin clutter aisle",
+    "blue_cylinder": "upper-bin cross-lane carry",
+    "green_sphere": "quality-slot precision placement"
+  },
   "variants": [
     {
       "seed": 7,
