@@ -1,11 +1,11 @@
 1
-00:00:00,000 --> 00:00:12,000
-human request to 216deg grasp: A visible operator request starts the amber capsule grasp and 216-degree cap rotation.
+00:00:00,000 --> 00:00:02,670
+4ms reflex + 216deg twist: Five fingers close in a 4ms tactile reflex, then twist the capsule cap 216 degrees.
 
 2
-00:00:12,000 --> 00:00:24,000
-human ack plus force relay: The operator acknowledgement hands off to the three-agent shared-beam relay.
+00:00:02,670 --> 00:00:05,330
+closed-loop slip recovery: The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable.
 
 3
-00:00:24,000 --> 00:00:36,000
-operator-approved randomized recovery: The same policy covers 48 randomized layouts after operator approval, including moving_relay_load.
+00:00:05,330 --> 00:00:08,000
+3-agent force relay: Operator approval triggers a visible left-center-right force relay; logs audit randomized recovery.

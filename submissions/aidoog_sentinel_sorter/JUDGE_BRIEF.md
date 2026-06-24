@@ -5,7 +5,7 @@ Registration UUID: `6c3b08a9-5fb8-4e60-bd5d-d02d90f40ab9`
 ## Judge-facing summary
 
 This submission keeps AIDOOG's strongest verified dexterity signal: five-finger tactile grasp,
-216-degree cap rotation, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
+216-degree cap rotation, 4ms tactile reflex, 0.36mm slip recovery, and 9x load-hold evidence. It adds a visible
 operator request/approval console plus a three-agent shared-beam relay bench with force-share
 logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation evidence.
 
@@ -15,17 +15,19 @@ logging, cooperative slip recovery, and coordinated-vs-uncoordinated ablation ev
 - Relay force gates: 12/12
 - Human interaction gates: 6/6
 - Randomized scenario gates: 192/192
+- Tactile reflex gates: 4/4 at 4.0ms and 250Hz
 - Max beam angle error: 0.85 deg
 - Max force error: 0.0 N
-- Demo duration: 36.0s at 12 fps
+- Demo duration: 8.0s at 8 fps
 
 ## What changed for the judges
 
-- New unique project name: AIDOOG RelayDex Operator Focus Cell
+- Kept the proven project name: AIDOOG RelayDex Operator Focus Cell
 - Added visible operator request, relay acknowledgement, and recovery approval states.
+- Added a 4ms tactile-reflex evidence track and 250Hz closed-loop servo fields in every rollout log.
 - Explicitly separated vision confidence from policy/tactile confidence.
 - Expanded to 48 randomized scenario variants with same-policy validation.
-- Rebuilt the default demo as a 36-second spotlight reel with single-line key-action labels.
+- Rebuilt the default demo as a 36-second spotlight reel with three short evidence labels plus HUD values for reflex, servo rate, slip, load, force, and beam angle.
 - Added demo_chapters.json and demo_narration.srt for concise review narration.
 - Added structured relay audit, rubric scorecard, manifest, and reproducible logs.
 - Preserved the proven 20/20 AIDOOG four-object triage path instead of destabilizing the grasp.

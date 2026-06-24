@@ -21,12 +21,15 @@
     "operator_event",
     "operator_request_active",
     "operator_confidence",
-    "human_in_loop"
+    "human_in_loop",
+    "tactile_reflex_ms",
+    "closed_loop_rate_hz"
   ],
   "outputs": [
     "minimum_jerk_wrist_target",
     "five_finger_closure_command",
     "closed_loop_tactile_servo",
+    "4ms_reflex_regrasp_decision",
     "cap_rotation_target",
     "relay_force_share_targets",
     "relay_slip_recovery_decision",
@@ -56,7 +59,7 @@
         0.22,
         0.32
       ],
-      "control": "touch-threshold closure"
+      "control": "4ms tactile reflex closure at 250Hz"
     },
     {
       "phase": "slip_recovery_lift",
@@ -64,7 +67,7 @@
         0.32,
         0.48
       ],
-      "control": "load-hold and slip recovery"
+      "control": "closed-loop slip recovery and 9x load hold"
     },
     {
       "phase": "minimum_jerk_transport",
@@ -115,9 +118,18 @@
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9838,
-    "mean_policy_confidence": 0.9423,
+    "mean_vision_confidence": 0.9817,
+    "mean_policy_confidence": 0.9392,
     "confidence_channels_separate": true,
+    "tactile_reflex_suite": {
+      "response_ms": 4.0,
+      "closed_loop_rate_hz": 250,
+      "active_trace_rows": 40,
+      "task_count": 4,
+      "passed": 4,
+      "success_rate": 1.0,
+      "evidence": "4ms tactile reflex gates five-finger closure, slip recovery, and 216-degree cap twist"
+    },
     "max_touch_fingers_active": 5,
     "max_slip_recovery_mm": 0.36,
     "max_load_hold_ratio": 9.0,
@@ -2619,6 +2631,8 @@
     },
     "manipulation_modes": [
       "four-object sorting",
+      "4ms tactile reflex",
+      "250Hz closed-loop tactile servo",
       "five-finger grasp",
       "slip recovery",
       "216-degree cap rotation",

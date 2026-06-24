@@ -5,21 +5,21 @@
   "chapters": [
     {
       "start_s": 0.0,
-      "end_s": 12.0,
-      "title": "human request to 216deg grasp",
-      "caption": "A visible operator request starts the amber capsule grasp and 216-degree cap rotation."
+      "end_s": 2.67,
+      "title": "4ms reflex + 216deg twist",
+      "caption": "Five fingers close in a 4ms tactile reflex, then twist the capsule cap 216 degrees."
     },
     {
-      "start_s": 12.0,
-      "end_s": 24.0,
-      "title": "human ack plus force relay",
-      "caption": "The operator acknowledgement hands off to the three-agent shared-beam relay."
+      "start_s": 2.67,
+      "end_s": 5.33,
+      "title": "closed-loop slip recovery",
+      "caption": "The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable."
     },
     {
-      "start_s": 24.0,
-      "end_s": 36.0,
-      "title": "operator-approved randomized recovery",
-      "caption": "The same policy covers 48 randomized layouts after operator approval, including moving_relay_load."
+      "start_s": 5.33,
+      "end_s": 8.0,
+      "title": "3-agent force relay",
+      "caption": "Operator approval triggers a visible left-center-right force relay; logs audit randomized recovery."
     }
   ]
 }

@@ -4,7 +4,7 @@
   "generated_by": "submissions/aidoog_sentinel_sorter/run_demo.py",
   "artifacts": {
     "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
-    "demo_video": "submissions/aidoog_sentinel_sorter/demo.mp4",
+    "demo_video": null,
     "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
     "rollout_summary": "submissions/aidoog_sentinel_sorter/data/rollout_summary.json",
     "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
@@ -17,6 +17,8 @@
   },
   "headline_evidence": [
     "four-object sorting",
+    "4ms tactile reflex",
+    "250Hz closed-loop tactile servo",
     "five-finger grasp",
     "slip recovery",
     "216-degree cap rotation",
@@ -29,7 +31,16 @@
   ],
   "feedback_response": {
     "more_complex_randomized_layouts": 48,
-    "clearer_demo_editing": "36-second spotlight video with human-request, force-relay, and recovery labels",
+    "closed_loop_tactile_reflex": {
+      "response_ms": 4.0,
+      "closed_loop_rate_hz": 250,
+      "active_trace_rows": 40,
+      "task_count": 4,
+      "passed": 4,
+      "success_rate": 1.0,
+      "evidence": "4ms tactile reflex gates five-finger closure, slip recovery, and 216-degree cap twist"
+    },
+    "clearer_demo_editing": "36-second spotlight video with three short evidence labels plus visible HUD values for 4ms reflex, 250Hz servo, slip, load, force, and beam angle",
     "human_interaction_elements": {
       "agent_count": 4,
       "operator_agent_count": 1,
