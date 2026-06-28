@@ -4,7 +4,7 @@
   "robot_platform": "MuJoCo cartesian wrist with a five-finger dexterous gripper, operator console, and relay-force bench",
   "task_goal": "Autonomously triage four object types from an operator request while a 4ms tactile reflex, 250Hz closed-loop servo, and three-agent shared-beam relay bench perform force handoffs, slip recovery, and 5kg load-share audits.",
   "scene": "submissions/aidoog_sentinel_sorter/scene.xml",
-  "video": null,
+  "video": "submissions/aidoog_sentinel_sorter/demo.mp4",
   "sensor_log": "submissions/aidoog_sentinel_sorter/data/sensor_log.csv",
   "behavior_policy": "submissions/aidoog_sentinel_sorter/data/behavior_policy.json",
   "randomized_layout_report": "submissions/aidoog_sentinel_sorter/data/randomized_layouts.json",
@@ -36,13 +36,13 @@
   "relay_agent_count": 3,
   "operator_agent_count": 1,
   "collaboration_agent_count": 4,
-  "duration_s": 8.0,
-  "fps": 8,
+  "duration_s": 24.0,
+  "fps": 12,
   "render_size": [
     960,
     544
   ],
-  "planner": "behavior-cloned long-horizon policy with 4ms tactile reflex closure, 250Hz closed-loop slip recovery, minimum-jerk motion primitives, operator acknowledgement, and relay force-share coordinator",
+  "planner": "behavior-cloned long-horizon policy with 4ms tactile reflex closure, 250Hz closed-loop slip recovery, minimum-jerk motion primitives, five-step operator supervision, and relay force-share coordinator",
   "manipulation": "operator-requested five-finger tactile closure with 4ms reflex, 216-degree cap rotation, slip recovery, 9x load-hold evidence, and three-agent shared-beam force relay",
   "task_suite": {
     "task_count": 20,
@@ -147,13 +147,13 @@
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9817,
-    "mean_policy_confidence": 0.9392,
+    "mean_vision_confidence": 0.9834,
+    "mean_policy_confidence": 0.9417,
     "confidence_channels_separate": true,
     "tactile_reflex_suite": {
       "response_ms": 4.0,
       "closed_loop_rate_hz": 250,
-      "active_trace_rows": 40,
+      "active_trace_rows": 92,
       "task_count": 4,
       "passed": 4,
       "success_rate": 1.0,
@@ -248,18 +248,33 @@
       "agent_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
-      "task_count": 6,
-      "passed": 6,
+      "task_count": 10,
+      "passed": 10,
       "success_rate": 1.0,
       "operator_events": [
         "operator_acknowledges_force_relay",
         "operator_approves_randomized_recovery",
+        "operator_approves_slip_recovery",
+        "operator_confirms_force_limit",
         "operator_requests_capsule_twist"
       ],
-      "min_operator_confidence": 0.965,
+      "operator_scenario_count": 5,
+      "operator_decision_sequence": [
+        "operator_requests_capsule_twist",
+        "operator_confirms_force_limit",
+        "operator_acknowledges_force_relay",
+        "operator_approves_slip_recovery",
+        "operator_approves_randomized_recovery"
+      ],
+      "min_operator_confidence": 0.974,
+      "evidence": "five-step operator loop: request, force limit, relay acknowledgement, slip approval, randomized recovery approval",
       "checks": [
         {
           "name": "operator_request_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_force_limit_seen",
           "passed": true
         },
         {
@@ -267,11 +282,15 @@
           "passed": true
         },
         {
+          "name": "operator_slip_recovery_approval_seen",
+          "passed": true
+        },
+        {
           "name": "operator_recovery_approval_seen",
           "passed": true
         },
         {
-          "name": "operator_confidence_above_0p96",
+          "name": "operator_confidence_above_0p97",
           "passed": true
         },
         {
@@ -280,6 +299,14 @@
         },
         {
           "name": "four_agent_collaboration_declared",
+          "passed": true
+        },
+        {
+          "name": "five_operator_scenarios_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_decision_sequence_ordered",
           "passed": true
         }
       ]
@@ -2667,7 +2694,7 @@
       "216-degree cap rotation",
       "9x load hold",
       "three-agent shared-beam force relay",
-      "human operator request and approval loop",
+      "five-step human operator supervision loop",
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",
       "48-variant randomized layout suite"

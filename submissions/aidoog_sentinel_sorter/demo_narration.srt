@@ -1,11 +1,15 @@
 1
-00:00:00,000 --> 00:00:02,670
-4ms reflex + 216deg twist: Five fingers close in a 4ms tactile reflex, then twist the capsule cap 216 degrees.
+00:00:00,000 --> 00:00:06,000
+operator task + force limit: The operator requests the capsule twist and confirms the force limit before autonomy moves.
 
 2
-00:00:02,670 --> 00:00:05,330
-closed-loop slip recovery: The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable.
+00:00:06,000 --> 00:00:12,000
+4ms reflex + 216deg twist: Five fingers close in a 4ms tactile reflex, then twist the capsule cap 216 degrees.
 
 3
-00:00:05,330 --> 00:00:08,000
-3-agent force relay: Operator approval triggers a visible left-center-right force relay; logs audit randomized recovery.
+00:00:12,000 --> 00:00:18,000
+closed-loop slip recovery: The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable.
+
+4
+00:00:18,000 --> 00:00:24,000
+3-agent force relay: Operator approval triggers a visible left-center-right relay and randomized recovery audit.

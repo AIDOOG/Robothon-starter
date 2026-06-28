@@ -118,13 +118,13 @@
       "sphere"
     ],
     "randomized_layout_seed": 7,
-    "mean_vision_confidence": 0.9817,
-    "mean_policy_confidence": 0.9392,
+    "mean_vision_confidence": 0.9834,
+    "mean_policy_confidence": 0.9417,
     "confidence_channels_separate": true,
     "tactile_reflex_suite": {
       "response_ms": 4.0,
       "closed_loop_rate_hz": 250,
-      "active_trace_rows": 40,
+      "active_trace_rows": 92,
       "task_count": 4,
       "passed": 4,
       "success_rate": 1.0,
@@ -219,18 +219,33 @@
       "agent_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
-      "task_count": 6,
-      "passed": 6,
+      "task_count": 10,
+      "passed": 10,
       "success_rate": 1.0,
       "operator_events": [
         "operator_acknowledges_force_relay",
         "operator_approves_randomized_recovery",
+        "operator_approves_slip_recovery",
+        "operator_confirms_force_limit",
         "operator_requests_capsule_twist"
       ],
-      "min_operator_confidence": 0.965,
+      "operator_scenario_count": 5,
+      "operator_decision_sequence": [
+        "operator_requests_capsule_twist",
+        "operator_confirms_force_limit",
+        "operator_acknowledges_force_relay",
+        "operator_approves_slip_recovery",
+        "operator_approves_randomized_recovery"
+      ],
+      "min_operator_confidence": 0.974,
+      "evidence": "five-step operator loop: request, force limit, relay acknowledgement, slip approval, randomized recovery approval",
       "checks": [
         {
           "name": "operator_request_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_force_limit_seen",
           "passed": true
         },
         {
@@ -238,11 +253,15 @@
           "passed": true
         },
         {
+          "name": "operator_slip_recovery_approval_seen",
+          "passed": true
+        },
+        {
           "name": "operator_recovery_approval_seen",
           "passed": true
         },
         {
-          "name": "operator_confidence_above_0p96",
+          "name": "operator_confidence_above_0p97",
           "passed": true
         },
         {
@@ -251,6 +270,14 @@
         },
         {
           "name": "four_agent_collaboration_declared",
+          "passed": true
+        },
+        {
+          "name": "five_operator_scenarios_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_decision_sequence_ordered",
           "passed": true
         }
       ]
@@ -2638,7 +2665,7 @@
       "216-degree cap rotation",
       "9x load hold",
       "three-agent shared-beam force relay",
-      "human operator request and approval loop",
+      "five-step human operator supervision loop",
       "cooperative slip recovery",
       "coordinated-vs-uncoordinated ablation",
       "48-variant randomized layout suite"

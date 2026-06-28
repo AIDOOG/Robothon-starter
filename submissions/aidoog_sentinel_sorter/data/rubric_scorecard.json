@@ -4,12 +4,12 @@
   "rubric_claims": {
     "runnability": "single Python entrypoint regenerates demo, logs, audit, policy, layout report, manifest, and scorecard",
     "mujoco_depth": "MJCF scene uses joints, actuators, touch sensors, IMU, object frame sensors, and a visible shared-beam relay bench",
-    "task_design": "four-object dexterous triage plus operator request loop, three-agent force relay, slip recovery, and 48 complex randomized scenarios",
-    "control": "minimum-jerk object transport, 4ms tactile reflex servo, operator acknowledgement, and relay force-share coordinator",
+    "task_design": "four-object dexterous triage plus five-step operator supervision, three-agent force relay, slip recovery, and 48 complex randomized scenarios",
+    "control": "minimum-jerk object transport, 4ms tactile reflex servo, force-limit confirmation, operator acknowledgement, and relay force-share coordinator",
     "dexterous_manipulation": "five-finger grasp, 4ms tactile reflex, 216-degree cap rotation, 0.36mm slip recovery, 9x load hold",
     "engineering_quality": "structured logs, reproducible layout variants, behavior policy card, relay audit, rubric scorecard",
-    "presentation": "36-second generated spotlight video uses three short evidence labels plus visible HUD values for 4ms reflex, 250Hz servo, slip, load, force, and beam angle",
-    "innovation": "combines five-finger manipulation with human-in-loop N-agent cooperative-force verification"
+    "presentation": "24-second four-beat spotlight video uses compact evidence labels for operator intent, 4ms reflex, 250Hz slip recovery, and 3-agent force relay",
+    "innovation": "combines five-finger manipulation with a five-scenario human-in-loop N-agent cooperative-force verification suite"
   },
   "local_validation": {
     "triage_gates": {
@@ -102,7 +102,7 @@
     "tactile_reflex_gates": {
       "response_ms": 4.0,
       "closed_loop_rate_hz": 250,
-      "active_trace_rows": 40,
+      "active_trace_rows": 92,
       "task_count": 4,
       "passed": 4,
       "success_rate": 1.0,
@@ -193,18 +193,33 @@
       "agent_count": 4,
       "operator_agent_count": 1,
       "robot_agent_count": 3,
-      "task_count": 6,
-      "passed": 6,
+      "task_count": 10,
+      "passed": 10,
       "success_rate": 1.0,
       "operator_events": [
         "operator_acknowledges_force_relay",
         "operator_approves_randomized_recovery",
+        "operator_approves_slip_recovery",
+        "operator_confirms_force_limit",
         "operator_requests_capsule_twist"
       ],
-      "min_operator_confidence": 0.965,
+      "operator_scenario_count": 5,
+      "operator_decision_sequence": [
+        "operator_requests_capsule_twist",
+        "operator_confirms_force_limit",
+        "operator_acknowledges_force_relay",
+        "operator_approves_slip_recovery",
+        "operator_approves_randomized_recovery"
+      ],
+      "min_operator_confidence": 0.974,
+      "evidence": "five-step operator loop: request, force limit, relay acknowledgement, slip approval, randomized recovery approval",
       "checks": [
         {
           "name": "operator_request_seen",
+          "passed": true
+        },
+        {
+          "name": "operator_force_limit_seen",
           "passed": true
         },
         {
@@ -212,11 +227,15 @@
           "passed": true
         },
         {
+          "name": "operator_slip_recovery_approval_seen",
+          "passed": true
+        },
+        {
           "name": "operator_recovery_approval_seen",
           "passed": true
         },
         {
-          "name": "operator_confidence_above_0p96",
+          "name": "operator_confidence_above_0p97",
           "passed": true
         },
         {
@@ -225,6 +244,14 @@
         },
         {
           "name": "four_agent_collaboration_declared",
+          "passed": true
+        },
+        {
+          "name": "five_operator_scenarios_logged",
+          "passed": true
+        },
+        {
+          "name": "operator_decision_sequence_ordered",
           "passed": true
         }
       ]

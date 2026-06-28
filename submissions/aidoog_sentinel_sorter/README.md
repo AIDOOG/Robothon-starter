@@ -17,7 +17,7 @@ The robot must autonomously triage four object types from an operator request th
 - 20/20 dexterous triage gates: amber capsule, red cube, blue cylinder, and green sphere.
 - Five-finger tactile closure, 4ms tactile reflex, 250Hz closed-loop servo, 216-degree cap rotation, 0.36mm slip recovery, and 9x load hold.
 - Three-agent force relay: left -> center -> right handoff, cooperative slip recovery, 5kg beam mass sweep, and coordinated-vs-uncoordinated ablation.
-- Human-in-loop collaboration: operator request, relay acknowledgement, randomized-recovery approval, and 4-agent collaboration logging.
+- Human-in-loop collaboration: operator request, force-limit confirmation, relay acknowledgement, slip-recovery approval, randomized-recovery approval, and 4-agent collaboration logging.
 - 48 complex randomized scenarios spanning occluded aisles, decoy capsules, tight bin clearances, relay mass sweeps, staggered pick fields, slip-recovery disturbances, rotated bin maps, moving relay loads, and low-light classifier tests.
 
 The run still leads with the highest-value AIDOOG evidence: receive the operator request, classify the amber capsule, align through a randomized scenario profile, descend, close a five-finger tactile grasp, recover slip, rotate the marked cap by 216 degrees, lift with a 9x load-hold target, transport, place, release, and verify. In parallel, the relay bench records three independent force channels, shared-beam angle, hold checks, slip-recovery events, and operator acknowledgement states. Vision confidence and policy/tactile confidence are logged as separate channels.
@@ -25,7 +25,7 @@ The run still leads with the highest-value AIDOOG evidence: receive the operator
 ## Technical approach
 
 - `scene.xml` defines a MuJoCo workcell with collision geometry, dynamic objects, 12 distractor obstacles, target slots, lights, cameras, actuated gantry joints, five finger hinges, touch sensors, IMU sensors, object frame-position sensors, a visible operator console, and a visible shared-beam relay bench.
-- `run_demo.py` implements a behavior-cloned tactile policy with 4ms reflex closure, 250Hz closed-loop tactile servo updates, minimum-jerk motion primitives, operator request/acknowledgement state, 48-scenario randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
+- `run_demo.py` implements a behavior-cloned tactile policy with 4ms reflex closure, 250Hz closed-loop tactile servo updates, minimum-jerk motion primitives, five-step operator supervision, 48-scenario randomized layout validation, separated vision/policy confidence scoring, and a three-agent force-share coordinator.
 - The closed-loop tactile servo activates only after five-finger contact is detected, then logs 4ms reflex response, 250Hz servo rate, slip recovery, 216-degree cap rotation, and 9x load-hold evidence during transport.
 - The script writes `data/sensor_log.csv`, `data/rollout_summary.json`, `data/behavior_policy.json`, `data/randomized_layouts.json`, `data/relay_force_audit.json`, `data/rubric_scorecard.json`, `submission_manifest.json`, and `JUDGE_BRIEF.md` for reproducibility, scoring evidence, and dataset review.
 
@@ -38,10 +38,10 @@ The run still leads with the highest-value AIDOOG evidence: receive the operator
 - Sensor logging for joints, five touch contacts, wrist IMU, object poses, layout seed, vision confidence, policy confidence, 4ms tactile reflex, 250Hz closed-loop servo rate, perception labels, cap rotation, slip recovery, load hold, phase labels, and success metrics.
 - 20-gate task suite reported in `rollout_summary.json`.
 - 12-gate relay-force audit reported in `data/relay_force_audit.json`.
-- 6-gate human-interaction audit reported in `rollout_summary.json` and `data/rubric_scorecard.json`.
+- 10-gate human-interaction audit reported in `rollout_summary.json` and `data/rubric_scorecard.json`.
 - 192-gate randomized scenario audit reported in `data/randomized_layouts.json` and `data/rubric_scorecard.json`.
 - Concise narration map in `data/demo_chapters.json` and optional subtitles in `demo_narration.srt`.
-- Fast 36-second spotlight demo video with dynamic camera motion, three concise scoring-evidence captions, and visible HUD values for 4ms reflex, 250Hz servo, slip, load, force, and beam angle.
+- Fast 24-second spotlight demo video with dynamic camera motion, four concise scoring-evidence captions, and visible HUD values for operator intent, 4ms reflex, 250Hz servo, slip, load, force, and beam angle.
 
 ## Highlights
 

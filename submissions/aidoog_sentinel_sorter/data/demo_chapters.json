@@ -5,21 +5,27 @@
   "chapters": [
     {
       "start_s": 0.0,
-      "end_s": 2.67,
+      "end_s": 6.0,
+      "title": "operator task + force limit",
+      "caption": "The operator requests the capsule twist and confirms the force limit before autonomy moves."
+    },
+    {
+      "start_s": 6.0,
+      "end_s": 12.0,
       "title": "4ms reflex + 216deg twist",
       "caption": "Five fingers close in a 4ms tactile reflex, then twist the capsule cap 216 degrees."
     },
     {
-      "start_s": 2.67,
-      "end_s": 5.33,
+      "start_s": 12.0,
+      "end_s": 18.0,
       "title": "closed-loop slip recovery",
       "caption": "The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable."
     },
     {
-      "start_s": 5.33,
-      "end_s": 8.0,
+      "start_s": 18.0,
+      "end_s": 24.0,
       "title": "3-agent force relay",
-      "caption": "Operator approval triggers a visible left-center-right force relay; logs audit randomized recovery."
+      "caption": "Operator approval triggers a visible left-center-right relay and randomized recovery audit."
     }
   ]
 }
