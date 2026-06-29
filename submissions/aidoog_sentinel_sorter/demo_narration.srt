@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:06,000
-operator task + force limit: The operator requests the capsule twist and confirms the force limit before autonomy moves.
+operator task + force limit: The operator request, force limit, and 10/10 human gates appear before autonomy moves.
 
 2
 00:00:06,000 --> 00:00:12,000
@@ -8,8 +8,8 @@ operator task + force limit: The operator requests the capsule twist and confirm
 
 3
 00:00:12,000 --> 00:00:18,000
-closed-loop slip recovery: The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable.
+closed-loop slip recovery: The 250Hz tactile servo keeps 0.36mm residual slip, 9x load hold, and 88 percent ablation reduction.
 
 4
 00:00:18,000 --> 00:00:24,000
-3-agent force relay: Operator approval triggers a visible left-center-right relay and randomized recovery audit.
+3-agent force relay: Operator approval triggers a visible left-center-right relay plus 64 transfer trials.

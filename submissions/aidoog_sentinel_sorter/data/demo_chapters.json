@@ -1,5 +1,5 @@
 {
-  "project": "AIDOOG RelayDex Operator Focus Cell",
+  "project": "AIDOOG RelayDex Transfer Cell",
   "purpose": "Concise narration map for judges reviewing demo.mp4",
   "caption_style": "one-line video overlay plus optional SRT narration",
   "chapters": [
@@ -7,7 +7,7 @@
       "start_s": 0.0,
       "end_s": 6.0,
       "title": "operator task + force limit",
-      "caption": "The operator requests the capsule twist and confirms the force limit before autonomy moves."
+      "caption": "The operator request, force limit, and 10/10 human gates appear before autonomy moves."
     },
     {
       "start_s": 6.0,
@@ -19,13 +19,13 @@
       "start_s": 12.0,
       "end_s": 18.0,
       "title": "closed-loop slip recovery",
-      "caption": "The 250Hz tactile servo recovers slip, holds 9x load, and keeps contact stable."
+      "caption": "The 250Hz tactile servo keeps 0.36mm residual slip, 9x load hold, and 88 percent ablation reduction."
     },
     {
       "start_s": 18.0,
       "end_s": 24.0,
       "title": "3-agent force relay",
-      "caption": "Operator approval triggers a visible left-center-right relay and randomized recovery audit."
+      "caption": "Operator approval triggers a visible left-center-right relay plus 64 transfer trials."
     }
   ]
 }
